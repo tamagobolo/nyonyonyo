@@ -1,0 +1,4 @@
+interface:
+  display_name: "Consulting Slide Review"
+  short_description: "経営・提案資料のストーリーと図表を確認し、機械チェックで補助する"
+  default_prompt: "$consulting-slide-review で、この資料の主張、図表、用語、レイアウトをレビューしてください。"

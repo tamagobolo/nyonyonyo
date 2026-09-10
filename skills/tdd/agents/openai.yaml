@@ -1,0 +1,4 @@
+interface:
+  display_name: "TDD"
+  short_description: "公開された振る舞いの失敗テストから、必要最小限の実装へ進める"
+  default_prompt: "$tdd で、この機能を振る舞いのテストから実装してください。"

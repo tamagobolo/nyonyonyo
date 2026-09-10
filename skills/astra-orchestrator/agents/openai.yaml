@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Orchestrator"
+  short_description: "独立した作業を範囲と完了条件で分担し、複雑な実装の結果を統合する"
+  default_prompt: "$astra-orchestrator で、この作業を独立した担当範囲に分け、実装と検証を統合してください。"

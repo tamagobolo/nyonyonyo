@@ -1,0 +1,4 @@
+interface:
+  display_name: "コードベースの構造マップ"
+  short_description: "依存関係とエージェント・スキルのつながりを2Dと3Dで読む"
+  default_prompt: "$codebase-atlas で現在のコードベースの構造とエージェント・スキルとのつながりを説明してください。"

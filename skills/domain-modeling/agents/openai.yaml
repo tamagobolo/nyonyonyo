@@ -1,0 +1,4 @@
+interface:
+  display_name: "Domain Modeling"
+  short_description: "実コードと仕様から業務用語・責務・コンテキストの関係を整理する"
+  default_prompt: "$domain-modeling で、この領域の用語と不変条件を整理してください。"

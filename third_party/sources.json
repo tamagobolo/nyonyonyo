@@ -1,0 +1,118 @@
+{
+  "reviewed_on": "2026-09-10",
+  "sources": [
+    {
+      "repository": "donvito/codex-astra-luna-orchestrator",
+      "url": "https://github.com/donvito/codex-astra-luna-orchestrator",
+      "ref": "9c2a98435ca9ed2b85ac6b0e942b5ded75a4d194",
+      "commit": "9c2a98435ca9ed2b85ac6b0e942b5ded75a4d194",
+      "mode": "adapted",
+      "license": "Apache-2.0",
+      "targets": [
+        "skills/astra-orchestrator",
+        "examples/astra-luna.config.toml"
+      ],
+      "license_files": [
+        "third_party/astra-luna-orchestrator.LICENSE"
+      ],
+      "local_changes": "委譲契約を採用。常時委譲、上流installer、セッション履歴解析、既定モデル変更は取り込まない。"
+    },
+    {
+      "repository": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "ref": "3cca18b368ae95cdbdebbff572ccafa662551015",
+      "commit": "3cca18b368ae95cdbdebbff572ccafa662551015",
+      "mode": "adapted",
+      "license": "MIT",
+      "targets": [
+        "skills/codebase-design",
+        "skills/domain-modeling",
+        "skills/code-review",
+        "skills/diagnosing-bugs",
+        "skills/tdd",
+        "skills/improve-codebase-architecture"
+      ],
+      "license_files": [
+        "third_party/mattpocock-skills.LICENSE"
+      ],
+      "local_changes": "6スキルと必要参照を採用。Codex呼出、既存用語・仕様・承認、任意委譲、最小検証、オフライン図へ調整。improve-codebase-architectureの既存explicit-only policyを保持。"
+    },
+    {
+      "repository": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "ref": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+      "commit": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+      "mode": "adapted",
+      "license": "Apache-2.0",
+      "targets": [
+        "skills/frontend-design"
+      ],
+      "license_files": [
+        "skills/frontend-design/LICENSE.txt"
+      ],
+      "local_changes": "UI設計の判断を採用。架空の顧客背景と一律の新規ブランド設計を除き、既存UIと実内容を優先。文書系スキルは重複導入しない。"
+    },
+    {
+      "repository": "openai/plugins",
+      "url": "https://github.com/openai/plugins",
+      "ref": "d416fd5a43426019986b1e489506db3db66dee3d",
+      "commit": "d416fd5a43426019986b1e489506db3db66dee3d",
+      "mode": "reference-only",
+      "license": null,
+      "targets": [
+        "skills/codebase-atlas/references/diagram-design.md",
+        "skills/agent-fit-review/references/skill-quality.md",
+        "scripts/check_skills.py"
+      ],
+      "license_files": [],
+      "local_changes": "Three.js・構造図・スキル品質評価の観点を参考に独自手順/検査器を作成。上流のコードや資産は複製せず、プラグイン本体は導入しない。"
+    },
+    {
+      "repository": "carnot-tech/consulting-pptx-skill",
+      "url": "https://github.com/carnot-tech/consulting-pptx-skill",
+      "ref": "e77416c06d12940b79b90c05cec3c3f9a4a5168c",
+      "commit": "e77416c06d12940b79b90c05cec3c3f9a4a5168c",
+      "mode": "adapted-entrypoint; bundled-helpers",
+      "license": "MIT",
+      "targets": [
+        "skills/consulting-slide-review"
+      ],
+      "license_files": [
+        "skills/consulting-slide-review/LICENSE"
+      ],
+      "local_changes": "資料レビュー用へ入口を変更。上流規約は指定テンプレートに従属。HTML/PPTX検査器とHTML生成補助は同梱原本。PPTX自動生成は既存Presentationsを使う。"
+    },
+    {
+      "repository": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "ref": "356918eba965ee1eac64bd3a7f0dd02108350de5",
+      "commit": "356918eba965ee1eac64bd3a7f0dd02108350de5",
+      "mode": "adapted-policy",
+      "license": "MIT",
+      "targets": [
+        "skills/ponytail",
+        "skills/ponytail-review",
+        "skills/codebase-atlas/references/common-workflow.md"
+      ],
+      "license_files": [
+        "third_party/ponytail.LICENSE"
+      ],
+      "local_changes": "再利用の順序と過剰設計レビューを採用。常時Hook・状態管理・一律の行数削減は導入せず、仕様と安全性を保つ。"
+    },
+    {
+      "repository": "tt-a1i/archify",
+      "url": "https://github.com/tt-a1i/archify",
+      "ref": "v2.16.0",
+      "commit": "c826e6c3a7abad19c0f3cd1ca57207d54b1ad8de",
+      "mode": "pinned-runtime; local-adaptation",
+      "license": "MIT",
+      "targets": [
+        "skills/archify"
+      ],
+      "license_files": [
+        "skills/archify/LICENSE"
+      ],
+      "local_changes": "v2.16.0固定。Codex/日本語/ローカル根拠の手順を追加。template.htmlの外部フォントlinkを除去しシステム書体でオフライン閲覧。更新確認は環境変数で無効化。"
+    }
+  ]
+}

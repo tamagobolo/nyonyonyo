@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codebase Design"
+  short_description: "公開契約と隠す複雑さからモジュール設計の改善を考える共通手順"
+  default_prompt: "$codebase-design で、このコードの責務と公開インターフェースを検討してください。"

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Prefer the user's Python; use the bundled desktop runtime if system Python is older.
+OBSERVATORY_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+for OBSERVATORY_CANDIDATE in "${OBSERVATORY_PYTHON:-}" "$OBSERVATORY_DIR/.venv/bin/python" python3 python3.14 python3.13 python3.12 python3.11 "${HOME}/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"; do
+  if [ -n "$OBSERVATORY_CANDIDATE" ] && "$OBSERVATORY_CANDIDATE" -c 'import sys; sys.exit(sys.version_info < (3, 11))' >/dev/null 2>&1; then
+    exec "$OBSERVATORY_CANDIDATE" "$OBSERVATORY_DIR/observatory.py" "$@"
+  fi
+done
+echo 'Python 3.11以上が必要です。OBSERVATORY_PYTHONで実行ファイルを指定できます。' >&2
+exit 2

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ponytail Review"
+  short_description: "動作と安全性を保ちながら、差分の重複や不要な抽象化を根拠付きで点検する"
+  default_prompt: "$ponytail-review で、現在の差分から過剰設計や重複の候補をレビューしてください。"

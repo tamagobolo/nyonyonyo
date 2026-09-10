@@ -1,0 +1,4 @@
+interface:
+  display_name: "コードベースの監視"
+  short_description: "セキュリティ・hooks・設定と前回との差分を根拠付きで点検する"
+  default_prompt: "$codebase-watch で現在のコードベースを点検し、前回との差分と優先して確認すべき問題を報告してください。"

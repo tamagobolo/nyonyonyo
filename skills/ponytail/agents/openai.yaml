@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ponytail"
+  short_description: "既存コードと標準機能を先に選び、必要な振る舞いを小さな変更で実装する"
+  default_prompt: "$ponytail で、既存機能を活用し、必要最小限の変更で実装してください。"

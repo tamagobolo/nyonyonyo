@@ -1,0 +1,4 @@
+interface:
+  display_name: "Archify"
+  short_description: "実コードや要件をもとに、構造・処理・状態の説明図を単独HTMLで作る"
+  default_prompt: "$archify で、このコードの代表的な処理の流れを日本語のHTML図にしてください。"

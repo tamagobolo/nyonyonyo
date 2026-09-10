@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Codebase Observatory：手順から解析・成果物へ",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1380,
+      660
+    ]
+  },
+  "components": [
+    {
+      "id": "parent-plan",
+      "type": "external",
+      "label": "親エージェント",
+      "sublabel": "3スキルから手順を選ぶ",
+      "pos": [
+        40,
+        55
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "specialist-review",
+      "type": "external",
+      "label": "専門エージェント",
+      "sublabel": "独立した評価を親へ返す",
+      "pos": [
+        380,
+        55
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "cli-control",
+      "type": "backend",
+      "label": "① CLIで処理を制御",
+      "sublabel": "observatory.py",
+      "tag": "scan / watch / compare",
+      "pos": [
+        40,
+        292
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "static-scan",
+      "type": "backend",
+      "label": "② 静的解析を集約",
+      "sublabel": "src/scanner.py : scan()",
+      "tag": "依存・参照・兆候・適合性候補",
+      "pos": [
+        380,
+        292
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "report-write",
+      "type": "backend",
+      "label": "③ レポートを保存",
+      "sublabel": "src/reporting.py",
+      "tag": "render() → atomic_write()",
+      "pos": [
+        720,
+        292
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "offline-report",
+      "type": "frontend",
+      "label": "④ オフライン成果物",
+      "sublabel": "report.html / .json / .md",
+      "tag": "構造図・根拠・差分を読む",
+      "pos": [
+        1060,
+        292
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "inventory-input",
+      "type": "external",
+      "label": "指定した観測対象",
+      "sublabel": "コード・skills・agents・hooks・設定",
+      "tag": "--root / --context-root",
+      "pos": [
+        380,
+        540
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "ts-parser",
+      "type": "backend",
+      "label": "JS / TS専用の構文解析",
+      "sublabel": "scripts/js-analyze.mjs",
+      "tag": "依存・兆候・エラーを返す",
+      "pos": [
+        720,
+        540
+      ],
+      "size": [
+        250,
+        82
+      ]
+    },
+    {
+      "id": "viewer-assets",
+      "type": "external",
+      "label": "ビルド済みの描画資産",
+      "sublabel": "React + Three.js",
+      "tag": "assets/viewer.js / viewer.css",
+      "pos": [
+        720,
+        55
+      ],
+      "size": [
+        250,
+        82
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "parent-delegates",
+      "from": "parent-plan",
+      "to": "specialist-review",
+      "label": "必要時に委任",
+      "variant": "dashed"
+    },
+    {
+      "id": "parent-runs-cli",
+      "from": "parent-plan",
+      "to": "cli-control",
+      "label": "コマンドを実行",
+      "variant": "dashed",
+      "labelAt": [
+        165,
+        151
+      ]
+    },
+    {
+      "id": "cli-calls-scan",
+      "from": "cli-control",
+      "to": "static-scan",
+      "label": "scan()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "result-to-writer",
+      "from": "static-scan",
+      "to": "report-write",
+      "label": "CLI経由で結果",
+      "variant": "emphasis"
+    },
+    {
+      "id": "writer-saves",
+      "from": "report-write",
+      "to": "offline-report",
+      "label": "3形式を保存",
+      "variant": "emphasis"
+    },
+    {
+      "id": "scanner-reads",
+      "from": "static-scan",
+      "to": "inventory-input",
+      "label": "範囲内を読取",
+      "labelAt": [
+        505,
+        388
+      ]
+    },
+    {
+      "id": "scanner-calls-ts",
+      "from": "static-scan",
+      "to": "ts-parser",
+      "label": "JSONで解析要求"
+    },
+    {
+      "id": "assets-embedded",
+      "from": "viewer-assets",
+      "to": "report-write",
+      "label": "JS/CSSを埋込",
+      "labelAt": [
+        845,
+        151
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "手順と専門担当の対応",
+      "items": [
+        "codebase-atlas → codebase_cartographer",
+        "codebase-watch → codebase_sentinel",
+        "agent-fit-review → agent_fit_reviewer"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "代表的な1回の観測",
+      "items": [
+        "①→④がscanの流れ。CLIが解析結果を保存処理へ渡す。",
+        "watchは変更時に更新。CLIがhistory.jsonを最大100回分保存する。",
+        "Python AST・文書参照・設定点検はscanner内で処理する。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "関係の根拠と読み方",
+      "items": [
+        "実線はコードで確認した処理・データ関係。点線はREADMEに記載された運用。",
+        "静的解析と文書の確認に基づく。対象の実行時挙動や委任実績は未観測。",
+        "説明は日本語。Viewer UIとhtml langは英語へフォールバック。"
+      ]
+    }
+  ]
+}

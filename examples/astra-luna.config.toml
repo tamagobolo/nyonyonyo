@@ -1,0 +1,12 @@
+# 選択して使う設定例。既存のconfig.tomlへ自動で書き込まない。
+# CLIでの一時利用例:
+# codex --model gpt-6-astra -c 'agents.default_subagent_model="gpt-5.6-luna"' -c 'agents.default_subagent_reasoning_effort="medium"'
+# カスタムagentがmodelを固定している場合は、その定義も確認する。
+model = "gpt-6-astra"
+model_reasoning_effort = "medium"
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 3
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "medium"

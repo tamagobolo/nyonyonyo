@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review"
+  short_description: "コード差分を仕様への適合と具体的な不具合の両面からレビューする"
+  default_prompt: "$code-review で、現在の変更をレビューしてください。"

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Improve Codebase Architecture"
+  short_description: "責務の分散や薄い抽象化を実コードで確かめ、設計改善の候補を比べる"
+  default_prompt: "$improve-codebase-architecture で、このコードベースの設計改善候補を根拠付きで提案してください。"
+policy:
+  allow_implicit_invocation: false

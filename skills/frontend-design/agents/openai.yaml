@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design"
+  short_description: "既存のブランドと目的に合わせて、UIの見た目と操作状態を具体化する"
+  default_prompt: "$frontend-design で、この画面の目的に合うデザインと操作状態を整えてください。"

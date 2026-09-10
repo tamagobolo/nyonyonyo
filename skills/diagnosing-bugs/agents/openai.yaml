@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diagnosing Bugs"
+  short_description: "観測と仮説を分け、最小の再現から不具合や回帰の原因を絞り込む"
+  default_prompt: "$diagnosing-bugs で、この不具合の再現条件と原因を調べてください。"

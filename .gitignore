@@ -1,0 +1,18 @@
+# Local dependencies and generated data
+node_modules/
+.venv/
+__pycache__/
+.observatory/
+reports/
+*.pyc
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Local workspace observations and task history
+docs/initial-review.md
+docs/implementation-plan.md
+docs/integration-plan.md
+docs/verification.md
+docs/integration-verification.md

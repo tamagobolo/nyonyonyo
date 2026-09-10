@@ -1,0 +1,4 @@
+interface:
+  display_name: "スキル・エージェントの適合性"
+  short_description: "コードに合う担当を見直し追加・統合・廃止候補を根拠付きで提案"
+  default_prompt: "$agent-fit-review で現在のスキル・エージェント・hooks・設定を見直し、追加・統合・削除の候補を提案してください。"
