@@ -4,6 +4,24 @@
 
 特定のアプリへ組み込まず、任意の対象フォルダへ `--root` を向けて使う共通ツールとして提供します。案件固有の判断は対象リポジトリ側に置きます。対応する言語の解析範囲は後述のとおりで、すべての言語の実行関係を解析できるという意味ではありません。
 
+## 同梱プロジェクト
+
+| フォルダー | 内容 | 使い方 |
+| --- | --- | --- |
+| リポジトリ直下 | Codebase Observatory。コードベース・スキル・エージェントの構造を観測する共通ツール | このREADMEの「使い始める」以降 |
+| [`ponytail/`](ponytail/) | DietrichGebert/ponytail のソース一式。既存の仕組みの再利用と、小さな実装を促すツール・スキル | [ponytailのREADME](ponytail/README.md) |
+| [`design/`](design/) | design / System Atlas。リポジトリ・クラウド・データ・画面を共通モデルで探索するアプリ | [designのREADME](design/README.md) |
+
+`ponytail/` は [DietrichGebert/ponytail のコミット 356918e](https://github.com/DietrichGebert/ponytail/tree/356918eba965ee1eac64bd3a7f0dd02108350de5) から取り込み、[元のMITライセンス](ponytail/LICENSE)を保持しています。`design/` は作成済みアプリのコミット `0cc11b8c8df13c2141aaa055ce2c39e42919812c` のソースです。どちらもこのリポジトリ内の通常のフォルダーとして保存しているため、クローンすると一緒に取得できます。
+
+designを起動する場合は、Node.js 24以上でこのリポジトリのルートから次を実行します。
+
+```bash
+cd design
+npm ci
+npm run dev -- --host 127.0.0.1 --port 3100
+```
+
 ## 使い始める
 
 初回は下の「別環境への導入・再現」でセットアップします。導入後、Codexで対象フォルダを開いて、次のように依頼できます。

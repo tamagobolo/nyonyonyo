@@ -1,0 +1,256 @@
+import type { Atlas } from './model';
+export const sample: Atlas = {
+  version: 1,
+  id: 'order-studio',
+  name: 'Order Studio',
+  description: '注文の受付から保存までを辿る、学習用のサーバーレス構成。',
+  source: { kind: 'sample', label: '学習用サンプル · AWS' },
+  nodes: [
+    {
+      id: 'orders-screen',
+      name: '注文一覧',
+      kind: 'screen',
+      description:
+        '注文の状態と顧客を一覧で確認する画面。APIから取得した注文を表示します。',
+      technology: 'React',
+      path: 'src/app/orders/page.tsx',
+      route: '/orders',
+      entityIds: ['order', 'customer'],
+    },
+    {
+      id: 'create-screen',
+      name: '注文を作成',
+      kind: 'screen',
+      description: '顧客と商品を選択し、新しい注文を送信する画面です。',
+      technology: 'React',
+      path: 'src/app/orders/new/page.tsx',
+      route: '/orders/new',
+      entityIds: ['order', 'item'],
+    },
+    {
+      id: 'api',
+      name: 'Orders API',
+      kind: 'module',
+      description:
+        '画面から受け取った注文データを検証し、注文サービスに処理を渡します。',
+      technology: 'TypeScript',
+      path: 'src/api/orders.ts',
+      evidence: [
+        {
+          path: 'src/api/orders.ts',
+          line: 4,
+          excerpt: 'import { createOrder } from "../services/orders";',
+        },
+      ],
+    },
+    {
+      id: 'logic',
+      name: '注文サービス',
+      kind: 'module',
+      description: '商品の合計金額を計算し、注文を保存する業務ロジックです。',
+      technology: 'TypeScript',
+      path: 'src/services/orders.ts',
+    },
+    {
+      id: 'gateway',
+      name: 'API Gateway',
+      kind: 'service',
+      description:
+        'HTTPリクエストを受け付け、バックエンドに渡すAPIの入口です。この例では注文APIをLambdaに接続します。',
+      provider: 'AWS',
+      technology: 'HTTP API',
+      path: 'infra/main.tf',
+      docs: 'https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html',
+    },
+    {
+      id: 'lambda',
+      name: 'Lambda',
+      kind: 'service',
+      description:
+        'イベントやAPIの呼び出しに応じてコードを実行するサービスです。この例では注文APIと業務ロジックを実行します。',
+      provider: 'AWS',
+      technology: 'Functions',
+      path: 'infra/main.tf',
+      docs: 'https://docs.aws.amazon.com/lambda/latest/dg/welcome.html',
+    },
+    {
+      id: 'db',
+      name: 'DynamoDB',
+      kind: 'database',
+      description:
+        'キーを使ってデータを保存・取得する、マネージドのNoSQLデータベースです。この例では注文と顧客を保存します。',
+      provider: 'AWS',
+      technology: 'NoSQL',
+      path: 'infra/main.tf',
+      docs: 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html',
+    },
+    {
+      id: 'order',
+      name: 'Order',
+      kind: 'entity',
+      description: '顧客から受け付けた注文。状態と合計金額を持ちます。',
+      technology: '論理モデル',
+      fields: [
+        { name: 'id', type: 'string', key: 'PK' },
+        { name: 'customerId', type: 'string', key: 'REF' },
+        { name: 'status', type: 'pending | confirmed' },
+        { name: 'total', type: 'number' },
+        { name: 'createdAt', type: 'datetime' },
+      ],
+    },
+    {
+      id: 'customer',
+      name: 'Customer',
+      kind: 'entity',
+      description: '注文を行う顧客。ひとりの顧客に複数の注文が紐づきます。',
+      technology: '論理モデル',
+      fields: [
+        { name: 'id', type: 'string', key: 'PK' },
+        { name: 'name', type: 'string' },
+        { name: 'email', type: 'string' },
+      ],
+    },
+    {
+      id: 'item',
+      name: 'OrderItem',
+      kind: 'entity',
+      description: '注文に含まれる商品明細。数量と単価から金額を計算します。',
+      technology: '論理モデル',
+      fields: [
+        { name: 'id', type: 'string', key: 'PK' },
+        { name: 'orderId', type: 'string', key: 'REF' },
+        { name: 'productName', type: 'string' },
+        { name: 'quantity', type: 'number' },
+        { name: 'unitPrice', type: 'number' },
+      ],
+    },
+  ],
+  edges: [
+    {
+      id: 'e1',
+      source: 'orders-screen',
+      target: 'api',
+      label: '注文を取得',
+      kind: 'call',
+    },
+    {
+      id: 'e2',
+      source: 'create-screen',
+      target: 'api',
+      label: '注文を送信',
+      kind: 'call',
+    },
+    {
+      id: 'e3',
+      source: 'api',
+      target: 'logic',
+      label: 'import',
+      kind: 'import',
+    },
+    {
+      id: 'e4',
+      source: 'api',
+      target: 'gateway',
+      label: 'HTTPで公開',
+      kind: 'deploy',
+    },
+    {
+      id: 'e5',
+      source: 'gateway',
+      target: 'lambda',
+      label: '起動',
+      kind: 'call',
+    },
+    {
+      id: 'e6',
+      source: 'logic',
+      target: 'lambda',
+      label: '実行先',
+      kind: 'deploy',
+    },
+    {
+      id: 'e7',
+      source: 'lambda',
+      target: 'db',
+      label: '読み書き',
+      kind: 'call',
+    },
+    {
+      id: 'e8',
+      source: 'db',
+      target: 'order',
+      label: '保存',
+      kind: 'reference',
+    },
+    {
+      id: 'e9',
+      source: 'db',
+      target: 'customer',
+      label: '保存',
+      kind: 'reference',
+    },
+    {
+      id: 'e10',
+      source: 'customer',
+      target: 'order',
+      label: '1 : N · 注文する',
+      kind: 'relation',
+    },
+    {
+      id: 'e11',
+      source: 'order',
+      target: 'item',
+      label: '1 : N · 明細を持つ',
+      kind: 'relation',
+    },
+    {
+      id: 'e12',
+      source: 'create-screen',
+      target: 'orders-screen',
+      label: '作成後に戻る',
+      kind: 'call',
+    },
+  ],
+  journeys: [
+    {
+      id: 'create-order',
+      name: '注文はどこを通る？',
+      description:
+        '画面からクラウド、保存されるデータまで、ひとつずつ辿ります。',
+      steps: [
+        {
+          nodeId: 'create-screen',
+          title: '01 / 注文を送信',
+          description: '画面に入力した注文をHTTPリクエストとして送ります。',
+        },
+        {
+          nodeId: 'gateway',
+          title: '02 / APIの入口',
+          description:
+            'API Gatewayがリクエストを受け付け、Lambdaの実行へつなぎます。',
+        },
+        {
+          nodeId: 'lambda',
+          title: '03 / コードを実行',
+          description:
+            'Lambda上で注文APIと注文サービスが動き、入力の検証と金額計算を行います。',
+        },
+        {
+          nodeId: 'db',
+          title: '04 / 注文を保存',
+          description: 'DynamoDBに注文を書き込み、受付結果を返します。',
+        },
+        {
+          nodeId: 'order',
+          title: '05 / データを理解',
+          description:
+            '保存される注文の論理構造です。顧客・明細との関係もERビューで確認できます。',
+        },
+      ],
+    },
+  ],
+  warnings: [
+    'このプロジェクトのコード・構成・パスは学習用の例です。実環境への接続はありません。',
+    'ER図は論理的なデータの関係を示します。DynamoDBに外部キー制約があることを意味しません。',
+  ],
+};

@@ -1,0 +1,3111 @@
+{
+  "version": 1,
+  "id": "repo-ponytail",
+  "name": "ponytail",
+  "description": "71ファイルから70要素と158接続を抽出しました。",
+  "source": {
+    "kind": "repository",
+    "label": "DietrichGebert/ponytail · ローカル解析",
+    "revision": "356918eba965ee1eac64bd3a7f0dd02108350de5",
+    "url": "https://github.com/DietrichGebert/ponytail"
+  },
+  "nodes": [
+    {
+      "id": "file:.opencode/plugins/ponytail-frontmatter.cjs",
+      "name": "ponytail-frontmatter.cjs",
+      "kind": "module",
+      "description": ".opencode/plugins/ponytail-frontmatter.cjs にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": ".opencode/plugins/ponytail-frontmatter.cjs",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail-frontmatter.cjs",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:.opencode/plugins/ponytail.mjs",
+      "name": "ponytail.mjs",
+      "kind": "module",
+      "description": ".opencode/plugins/ponytail.mjs にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": ".opencode/plugins/ponytail.mjs",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:__init__.py",
+      "name": "__init__.py",
+      "kind": "module",
+      "description": "定義されている要素：_normalize_runtime_mode、_normalize_config_mode、_config_dir、_default_mode、_strip_frontmatter。",
+      "technology": "Python",
+      "path": "__init__.py",
+      "evidence": [
+        {
+          "path": "__init__.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/agentic/complete.py",
+      "name": "complete.py",
+      "kind": "module",
+      "description": "定義されている要素：parse_complete、_rank_ok、selftest、selftest_offline、run。",
+      "technology": "Python",
+      "path": "benchmarks/agentic/complete.py",
+      "evidence": [
+        {
+          "path": "benchmarks/agentic/complete.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/agentic/judge.py",
+      "name": "judge.py",
+      "kind": "module",
+      "description": "定義されている要素：load_key、_is_test、source_text、judge_call、parse_score。",
+      "technology": "Python",
+      "path": "benchmarks/agentic/judge.py",
+      "evidence": [
+        {
+          "path": "benchmarks/agentic/judge.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/agentic/run.py",
+      "name": "run.py",
+      "kind": "module",
+      "description": "定義されている要素：_skill、_plugin_dir、_is_test、_count、_selfcheck_split。",
+      "technology": "Python",
+      "path": "benchmarks/agentic/run.py",
+      "evidence": [
+        {
+          "path": "benchmarks/agentic/run.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/agentic/tasks.py",
+      "name": "tasks.py",
+      "kind": "module",
+      "description": "定義されている要素：_import、_find、_find_class、_contained、_fail。",
+      "technology": "Python",
+      "path": "benchmarks/agentic/tasks.py",
+      "evidence": [
+        {
+          "path": "benchmarks/agentic/tasks.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/arms/baseline.js",
+      "name": "baseline.js",
+      "kind": "module",
+      "description": "benchmarks/arms/baseline.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/arms/baseline.js",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/baseline.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/arms/caveman.js",
+      "name": "caveman.js",
+      "kind": "module",
+      "description": "benchmarks/arms/caveman.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/arms/caveman.js",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/caveman.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/arms/ponytail.js",
+      "name": "ponytail.js",
+      "kind": "module",
+      "description": "benchmarks/arms/ponytail.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/arms/ponytail.js",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/ponytail.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/behavior.js",
+      "name": "behavior.js",
+      "kind": "module",
+      "description": "benchmarks/behavior.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/behavior.js",
+      "evidence": [
+        {
+          "path": "benchmarks/behavior.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/benchmark-local.py",
+      "name": "benchmark-local.py",
+      "kind": "module",
+      "description": "定義されている要素：load_arms、count_loc、call_ollama、run、main。",
+      "technology": "Python",
+      "path": "benchmarks/benchmark-local.py",
+      "evidence": [
+        {
+          "path": "benchmarks/benchmark-local.py",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/claude-email.js",
+      "name": "claude-email.js",
+      "kind": "module",
+      "description": "benchmarks/claude-email.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/claude-email.js",
+      "evidence": [
+        {
+          "path": "benchmarks/claude-email.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/correctness.js",
+      "name": "correctness.js",
+      "kind": "module",
+      "description": "benchmarks/correctness.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/correctness.js",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/correctness.test.js",
+      "name": "correctness.test.js",
+      "kind": "module",
+      "description": "benchmarks/correctness.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/correctness.test.js",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/generate-examples.mjs",
+      "name": "generate-examples.mjs",
+      "kind": "module",
+      "description": "benchmarks/generate-examples.mjs にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/generate-examples.mjs",
+      "evidence": [
+        {
+          "path": "benchmarks/generate-examples.mjs",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/loc.js",
+      "name": "loc.js",
+      "kind": "module",
+      "description": "benchmarks/loc.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/loc.js",
+      "evidence": [
+        {
+          "path": "benchmarks/loc.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/loc.test.js",
+      "name": "loc.test.js",
+      "kind": "module",
+      "description": "benchmarks/loc.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/loc.test.js",
+      "evidence": [
+        {
+          "path": "benchmarks/loc.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/model-email.js",
+      "name": "model-email.js",
+      "kind": "module",
+      "description": "benchmarks/model-email.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/model-email.js",
+      "evidence": [
+        {
+          "path": "benchmarks/model-email.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:benchmarks/robustness-audit.js",
+      "name": "robustness-audit.js",
+      "kind": "module",
+      "description": "benchmarks/robustness-audit.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "benchmarks/robustness-audit.js",
+      "evidence": [
+        {
+          "path": "benchmarks/robustness-audit.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:hooks/ponytail-activate.js",
+      "name": "ponytail-activate.js",
+      "kind": "module",
+      "description": "hooks/ponytail-activate.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "hooks/ponytail-activate.js",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-activate.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:hooks/ponytail-config.js",
+      "name": "ponytail-config.js",
+      "kind": "module",
+      "description": "hooks/ponytail-config.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "hooks/ponytail-config.js",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-config.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:hooks/ponytail-instructions.js",
+      "name": "ponytail-instructions.js",
+      "kind": "module",
+      "description": "hooks/ponytail-instructions.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "hooks/ponytail-instructions.js",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-instructions.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:hooks/ponytail-mode-tracker.js",
+      "name": "ponytail-mode-tracker.js",
+      "kind": "module",
+      "description": "hooks/ponytail-mode-tracker.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "hooks/ponytail-mode-tracker.js",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-mode-tracker.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:hooks/ponytail-runtime.js",
+      "name": "ponytail-runtime.js",
+      "kind": "module",
+      "description": "hooks/ponytail-runtime.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "hooks/ponytail-runtime.js",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-runtime.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:hooks/ponytail-subagent.js",
+      "name": "ponytail-subagent.js",
+      "kind": "module",
+      "description": "hooks/ponytail-subagent.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "hooks/ponytail-subagent.js",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-subagent.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:package.json",
+      "name": "@dietrichgebert/ponytail",
+      "kind": "module",
+      "description": "Lazy senior dev mode for AI agents. The best code is the code you never wrote.",
+      "technology": "package.json",
+      "path": "package.json",
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:pi-extension/index.js",
+      "name": "index.js",
+      "kind": "module",
+      "description": "公開する要素：resolveSessionMode、parsePonytailCommand、ponytailExtension。ソースの参照関係を辿れます。",
+      "technology": "JavaScript",
+      "path": "pi-extension/index.js",
+      "evidence": [
+        {
+          "path": "pi-extension/index.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:pi-extension/package.json",
+      "name": "ponytail-pi-extension-dev",
+      "kind": "module",
+      "description": "パッケージの定義。実行コマンド：test。",
+      "technology": "package.json",
+      "path": "pi-extension/package.json",
+      "evidence": [
+        {
+          "path": "pi-extension/package.json",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:pi-extension/test/extension.test.js",
+      "name": "extension.test.js",
+      "kind": "module",
+      "description": "pi-extension/test/extension.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "pi-extension/test/extension.test.js",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:pi-extension/test/helpers.test.js",
+      "name": "helpers.test.js",
+      "kind": "module",
+      "description": "pi-extension/test/helpers.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "pi-extension/test/helpers.test.js",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:ponytail-mcp/index.js",
+      "name": "index.js",
+      "kind": "module",
+      "description": "ponytail-mcp/index.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "ponytail-mcp/index.js",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:ponytail-mcp/instructions.js",
+      "name": "instructions.js",
+      "kind": "module",
+      "description": "公開する要素：resolveMode、buildInstructions。ソースの参照関係を辿れます。",
+      "technology": "JavaScript",
+      "path": "ponytail-mcp/instructions.js",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/instructions.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:ponytail-mcp/package.json",
+      "name": "ponytail-mcp",
+      "kind": "module",
+      "description": "MCP server that serves Ponytail's lazy-senior-dev instructions as a prompt and a tool.",
+      "technology": "package.json",
+      "path": "ponytail-mcp/package.json",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/package.json",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:ponytail-mcp/test/instructions.test.js",
+      "name": "instructions.test.js",
+      "kind": "module",
+      "description": "ponytail-mcp/test/instructions.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "ponytail-mcp/test/instructions.test.js",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/test/instructions.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:scripts/build-openclaw-skills.js",
+      "name": "build-openclaw-skills.js",
+      "kind": "module",
+      "description": "scripts/build-openclaw-skills.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "scripts/build-openclaw-skills.js",
+      "evidence": [
+        {
+          "path": "scripts/build-openclaw-skills.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:scripts/check-rule-copies.js",
+      "name": "check-rule-copies.js",
+      "kind": "module",
+      "description": "scripts/check-rule-copies.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "scripts/check-rule-copies.js",
+      "evidence": [
+        {
+          "path": "scripts/check-rule-copies.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:scripts/check-versions.js",
+      "name": "check-versions.js",
+      "kind": "module",
+      "description": "scripts/check-versions.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "scripts/check-versions.js",
+      "evidence": [
+        {
+          "path": "scripts/check-versions.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:scripts/publish-openclaw-skills.js",
+      "name": "publish-openclaw-skills.js",
+      "kind": "module",
+      "description": "scripts/publish-openclaw-skills.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "scripts/publish-openclaw-skills.js",
+      "evidence": [
+        {
+          "path": "scripts/publish-openclaw-skills.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:scripts/uninstall.js",
+      "name": "uninstall.js",
+      "kind": "module",
+      "description": "scripts/uninstall.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "scripts/uninstall.js",
+      "evidence": [
+        {
+          "path": "scripts/uninstall.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/behavior.test.js",
+      "name": "behavior.test.js",
+      "kind": "module",
+      "description": "tests/behavior.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/behavior.test.js",
+      "evidence": [
+        {
+          "path": "tests/behavior.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/commands.test.js",
+      "name": "commands.test.js",
+      "kind": "module",
+      "description": "tests/commands.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/commands.test.js",
+      "evidence": [
+        {
+          "path": "tests/commands.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/copilot-plugin.test.js",
+      "name": "copilot-plugin.test.js",
+      "kind": "module",
+      "description": "tests/copilot-plugin.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/copilot-plugin.test.js",
+      "evidence": [
+        {
+          "path": "tests/copilot-plugin.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/correctness.test.js",
+      "name": "correctness.test.js",
+      "kind": "module",
+      "description": "tests/correctness.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/correctness.test.js",
+      "evidence": [
+        {
+          "path": "tests/correctness.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/gemini-extension.test.js",
+      "name": "gemini-extension.test.js",
+      "kind": "module",
+      "description": "tests/gemini-extension.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/gemini-extension.test.js",
+      "evidence": [
+        {
+          "path": "tests/gemini-extension.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/grok-plugin.test.js",
+      "name": "grok-plugin.test.js",
+      "kind": "module",
+      "description": "tests/grok-plugin.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/grok-plugin.test.js",
+      "evidence": [
+        {
+          "path": "tests/grok-plugin.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/hermes-plugin.test.js",
+      "name": "hermes-plugin.test.js",
+      "kind": "module",
+      "description": "tests/hermes-plugin.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/hermes-plugin.test.js",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/hooks-windows.test.js",
+      "name": "hooks-windows.test.js",
+      "kind": "module",
+      "description": "tests/hooks-windows.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/hooks-windows.test.js",
+      "evidence": [
+        {
+          "path": "tests/hooks-windows.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/hooks.test.js",
+      "name": "hooks.test.js",
+      "kind": "module",
+      "description": "tests/hooks.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/hooks.test.js",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/openclaw-skills.test.js",
+      "name": "openclaw-skills.test.js",
+      "kind": "module",
+      "description": "tests/openclaw-skills.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/openclaw-skills.test.js",
+      "evidence": [
+        {
+          "path": "tests/openclaw-skills.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/opencode-plugin.test.js",
+      "name": "opencode-plugin.test.js",
+      "kind": "module",
+      "description": "tests/opencode-plugin.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/opencode-plugin.test.js",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/package-scripts.test.js",
+      "name": "package-scripts.test.js",
+      "kind": "module",
+      "description": "tests/package-scripts.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/package-scripts.test.js",
+      "evidence": [
+        {
+          "path": "tests/package-scripts.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/package.test.js",
+      "name": "package.test.js",
+      "kind": "module",
+      "description": "tests/package.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/package.test.js",
+      "evidence": [
+        {
+          "path": "tests/package.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/qoder-plugin.test.js",
+      "name": "qoder-plugin.test.js",
+      "kind": "module",
+      "description": "tests/qoder-plugin.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/qoder-plugin.test.js",
+      "evidence": [
+        {
+          "path": "tests/qoder-plugin.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "file:tests/uninstall.test.js",
+      "name": "uninstall.test.js",
+      "kind": "module",
+      "description": "tests/uninstall.test.js にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。",
+      "technology": "JavaScript",
+      "path": "tests/uninstall.test.js",
+      "evidence": [
+        {
+          "path": "tests/uninstall.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "dependency:fs",
+      "name": "fs",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail-frontmatter.cjs",
+          "line": 14,
+          "excerpt": "import \"fs\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:module",
+      "name": "module",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 12,
+          "excerpt": "import \"module\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:os",
+      "name": "os",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 14,
+          "excerpt": "import \"os\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:path",
+      "name": "path",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 15,
+          "excerpt": "import \"path\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:url",
+      "name": "url",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 16,
+          "excerpt": "import \"url\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:child_process",
+      "name": "child_process",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.js",
+          "line": 9,
+          "excerpt": "import \"child_process\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:assert",
+      "name": "assert",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.test.js",
+          "line": 3,
+          "excerpt": "import \"assert\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:node:fs",
+      "name": "node:fs",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/generate-examples.mjs",
+          "line": 4,
+          "excerpt": "import \"node:fs\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:node:module",
+      "name": "node:module",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/index.js",
+          "line": 1,
+          "excerpt": "import \"node:module\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:node:assert",
+      "name": "node:assert",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 1,
+          "excerpt": "import \"node:assert/strict\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:node:os",
+      "name": "node:os",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 3,
+          "excerpt": "import \"node:os\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:node:path",
+      "name": "node:path",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 4,
+          "excerpt": "import \"node:path\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:node:test",
+      "name": "node:test",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 5,
+          "excerpt": "import \"node:test\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:@modelcontextprotocol/sdk",
+      "name": "@modelcontextprotocol/sdk",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 7,
+          "excerpt": "import \"@modelcontextprotocol/sdk/server/mcp.js\""
+        }
+      ]
+    },
+    {
+      "id": "dependency:zod",
+      "name": "zod",
+      "kind": "external",
+      "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。",
+      "technology": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 9,
+          "excerpt": "import \"zod\""
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1",
+      "source": "file:.opencode/plugins/ponytail-frontmatter.cjs",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail-frontmatter.cjs",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "edge-2",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "dependency:module",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "id": "edge-3",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "id": "edge-4",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "edge-5",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "id": "edge-6",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "dependency:url",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "id": "edge-7",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "file:hooks/ponytail-instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 22,
+          "excerpt": "import \"../../hooks/ponytail-instructions\""
+        }
+      ]
+    },
+    {
+      "id": "edge-8",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 23,
+          "excerpt": "import \"../../hooks/ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-9",
+      "source": "file:.opencode/plugins/ponytail.mjs",
+      "target": "file:.opencode/plugins/ponytail-frontmatter.cjs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": ".opencode/plugins/ponytail.mjs",
+          "line": 24,
+          "excerpt": "import \"./ponytail-frontmatter.cjs\""
+        }
+      ]
+    },
+    {
+      "id": "edge-10",
+      "source": "file:benchmarks/arms/caveman.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/caveman.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-11",
+      "source": "file:benchmarks/arms/caveman.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/caveman.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-12",
+      "source": "file:benchmarks/arms/ponytail.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/ponytail.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-13",
+      "source": "file:benchmarks/arms/ponytail.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/arms/ponytail.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-14",
+      "source": "file:benchmarks/claude-email.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/claude-email.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-15",
+      "source": "file:benchmarks/claude-email.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/claude-email.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-16",
+      "source": "file:benchmarks/claude-email.js",
+      "target": "file:benchmarks/robustness-audit.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/claude-email.js",
+          "line": 3,
+          "excerpt": "import \"./robustness-audit.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-17",
+      "source": "file:benchmarks/correctness.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-18",
+      "source": "file:benchmarks/correctness.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-19",
+      "source": "file:benchmarks/correctness.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.js",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "id": "edge-20",
+      "source": "file:benchmarks/correctness.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.js",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "id": "edge-21",
+      "source": "file:benchmarks/correctness.test.js",
+      "target": "dependency:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.test.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-22",
+      "source": "file:benchmarks/correctness.test.js",
+      "target": "file:benchmarks/correctness.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/correctness.test.js",
+          "line": 4,
+          "excerpt": "import \"./correctness.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-23",
+      "source": "file:benchmarks/generate-examples.mjs",
+      "target": "dependency:node:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/generate-examples.mjs",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-24",
+      "source": "file:benchmarks/generate-examples.mjs",
+      "target": "file:benchmarks/loc.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/generate-examples.mjs",
+          "line": 5,
+          "excerpt": "import \"./loc.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-25",
+      "source": "file:benchmarks/loc.test.js",
+      "target": "dependency:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/loc.test.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-26",
+      "source": "file:benchmarks/loc.test.js",
+      "target": "file:benchmarks/loc.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/loc.test.js",
+          "line": 3,
+          "excerpt": "import \"./loc.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-27",
+      "source": "file:benchmarks/model-email.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/model-email.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-28",
+      "source": "file:benchmarks/model-email.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/model-email.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-29",
+      "source": "file:benchmarks/model-email.js",
+      "target": "file:benchmarks/robustness-audit.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/model-email.js",
+          "line": 3,
+          "excerpt": "import \"./robustness-audit.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-30",
+      "source": "file:benchmarks/robustness-audit.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/robustness-audit.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-31",
+      "source": "file:benchmarks/robustness-audit.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/robustness-audit.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-32",
+      "source": "file:benchmarks/robustness-audit.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/robustness-audit.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-33",
+      "source": "file:benchmarks/robustness-audit.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "benchmarks/robustness-audit.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-34",
+      "source": "file:hooks/ponytail-activate.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-activate.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-35",
+      "source": "file:hooks/ponytail-activate.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-activate.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-36",
+      "source": "file:hooks/ponytail-activate.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-activate.js",
+          "line": 11,
+          "excerpt": "import \"./ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-37",
+      "source": "file:hooks/ponytail-activate.js",
+      "target": "file:hooks/ponytail-instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-activate.js",
+          "line": 12,
+          "excerpt": "import \"./ponytail-instructions\""
+        }
+      ]
+    },
+    {
+      "id": "edge-38",
+      "source": "file:hooks/ponytail-activate.js",
+      "target": "file:hooks/ponytail-runtime.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-activate.js",
+          "line": 19,
+          "excerpt": "import \"./ponytail-runtime\""
+        }
+      ]
+    },
+    {
+      "id": "edge-39",
+      "source": "file:hooks/ponytail-config.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-config.js",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "id": "edge-40",
+      "source": "file:hooks/ponytail-config.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-config.js",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "id": "edge-41",
+      "source": "file:hooks/ponytail-config.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-config.js",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "edge-42",
+      "source": "file:hooks/ponytail-instructions.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-instructions.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-43",
+      "source": "file:hooks/ponytail-instructions.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-instructions.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-44",
+      "source": "file:hooks/ponytail-instructions.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-instructions.js",
+          "line": 6,
+          "excerpt": "import \"./ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-45",
+      "source": "file:hooks/ponytail-mode-tracker.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-mode-tracker.js",
+          "line": 5,
+          "excerpt": "import \"./ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-46",
+      "source": "file:hooks/ponytail-mode-tracker.js",
+      "target": "file:hooks/ponytail-runtime.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-mode-tracker.js",
+          "line": 6,
+          "excerpt": "import \"./ponytail-runtime\""
+        }
+      ]
+    },
+    {
+      "id": "edge-47",
+      "source": "file:hooks/ponytail-mode-tracker.js",
+      "target": "file:hooks/ponytail-instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-mode-tracker.js",
+          "line": 7,
+          "excerpt": "import \"./ponytail-instructions\""
+        }
+      ]
+    },
+    {
+      "id": "edge-48",
+      "source": "file:hooks/ponytail-runtime.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-runtime.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "edge-49",
+      "source": "file:hooks/ponytail-runtime.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-runtime.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-50",
+      "source": "file:hooks/ponytail-runtime.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-runtime.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-51",
+      "source": "file:hooks/ponytail-runtime.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-runtime.js",
+          "line": 4,
+          "excerpt": "import \"./ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-52",
+      "source": "file:hooks/ponytail-subagent.js",
+      "target": "file:hooks/ponytail-instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-subagent.js",
+          "line": 13,
+          "excerpt": "import \"./ponytail-instructions\""
+        }
+      ]
+    },
+    {
+      "id": "edge-53",
+      "source": "file:hooks/ponytail-subagent.js",
+      "target": "file:hooks/ponytail-runtime.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "hooks/ponytail-subagent.js",
+          "line": 14,
+          "excerpt": "import \"./ponytail-runtime\""
+        }
+      ]
+    },
+    {
+      "id": "edge-54",
+      "source": "file:package.json",
+      "target": "file:.opencode/plugins/ponytail.mjs",
+      "label": "エントリー",
+      "kind": "reference",
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "excerpt": "entry: ./.opencode/plugins/ponytail.mjs"
+        }
+      ]
+    },
+    {
+      "id": "edge-55",
+      "source": "file:pi-extension/index.js",
+      "target": "dependency:node:module",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/index.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "edge-56",
+      "source": "file:pi-extension/index.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/index.js",
+          "line": 14,
+          "excerpt": "import \"../hooks/ponytail-config.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-57",
+      "source": "file:pi-extension/index.js",
+      "target": "file:hooks/ponytail-instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/index.js",
+          "line": 15,
+          "excerpt": "import \"../hooks/ponytail-instructions.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-58",
+      "source": "file:pi-extension/test/extension.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "edge-59",
+      "source": "file:pi-extension/test/extension.test.js",
+      "target": "dependency:node:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-60",
+      "source": "file:pi-extension/test/extension.test.js",
+      "target": "dependency:node:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-61",
+      "source": "file:pi-extension/test/extension.test.js",
+      "target": "dependency:node:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-62",
+      "source": "file:pi-extension/test/extension.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-63",
+      "source": "file:pi-extension/test/extension.test.js",
+      "target": "file:pi-extension/index.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/extension.test.js",
+          "line": 7,
+          "excerpt": "import \"../index.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-64",
+      "source": "file:pi-extension/test/helpers.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "edge-65",
+      "source": "file:pi-extension/test/helpers.test.js",
+      "target": "dependency:node:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-66",
+      "source": "file:pi-extension/test/helpers.test.js",
+      "target": "dependency:node:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-67",
+      "source": "file:pi-extension/test/helpers.test.js",
+      "target": "dependency:node:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-68",
+      "source": "file:pi-extension/test/helpers.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-69",
+      "source": "file:pi-extension/test/helpers.test.js",
+      "target": "file:pi-extension/index.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "pi-extension/test/helpers.test.js",
+          "line": 7,
+          "excerpt": "import \"../index.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-70",
+      "source": "file:ponytail-mcp/index.js",
+      "target": "dependency:node:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-71",
+      "source": "file:ponytail-mcp/index.js",
+      "target": "dependency:@modelcontextprotocol/sdk",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-72",
+      "source": "file:ponytail-mcp/index.js",
+      "target": "dependency:zod",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-73",
+      "source": "file:ponytail-mcp/index.js",
+      "target": "file:ponytail-mcp/instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/index.js",
+          "line": 11,
+          "excerpt": "import \"./instructions.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-74",
+      "source": "file:ponytail-mcp/instructions.js",
+      "target": "dependency:node:module",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/instructions.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-75",
+      "source": "file:ponytail-mcp/instructions.js",
+      "target": "file:hooks/ponytail-instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/instructions.js",
+          "line": 7,
+          "excerpt": "import \"../hooks/ponytail-instructions.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-76",
+      "source": "file:ponytail-mcp/instructions.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/instructions.js",
+          "line": 8,
+          "excerpt": "import \"../hooks/ponytail-config.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-77",
+      "source": "file:ponytail-mcp/test/instructions.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/test/instructions.test.js",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "edge-78",
+      "source": "file:ponytail-mcp/test/instructions.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/test/instructions.test.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-79",
+      "source": "file:ponytail-mcp/test/instructions.test.js",
+      "target": "file:ponytail-mcp/instructions.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "ponytail-mcp/test/instructions.test.js",
+          "line": 4,
+          "excerpt": "import \"../instructions.js\""
+        }
+      ]
+    },
+    {
+      "id": "edge-80",
+      "source": "file:scripts/build-openclaw-skills.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/build-openclaw-skills.js",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "id": "edge-81",
+      "source": "file:scripts/build-openclaw-skills.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/build-openclaw-skills.js",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "edge-82",
+      "source": "file:scripts/check-rule-copies.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/check-rule-copies.js",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": "edge-83",
+      "source": "file:scripts/check-rule-copies.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/check-rule-copies.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-84",
+      "source": "file:scripts/check-versions.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/check-versions.js",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "id": "edge-85",
+      "source": "file:scripts/check-versions.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/check-versions.js",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "edge-86",
+      "source": "file:scripts/publish-openclaw-skills.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/publish-openclaw-skills.js",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "id": "edge-87",
+      "source": "file:scripts/publish-openclaw-skills.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/publish-openclaw-skills.js",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "id": "edge-88",
+      "source": "file:scripts/publish-openclaw-skills.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/publish-openclaw-skills.js",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "id": "edge-89",
+      "source": "file:scripts/uninstall.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/uninstall.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-90",
+      "source": "file:scripts/uninstall.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/uninstall.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-91",
+      "source": "file:scripts/uninstall.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "scripts/uninstall.js",
+          "line": 10,
+          "excerpt": "import \"../hooks/ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-92",
+      "source": "file:tests/behavior.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/behavior.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-93",
+      "source": "file:tests/behavior.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/behavior.test.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-94",
+      "source": "file:tests/behavior.test.js",
+      "target": "file:benchmarks/behavior.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/behavior.test.js",
+          "line": 10,
+          "excerpt": "import \"../benchmarks/behavior\""
+        }
+      ]
+    },
+    {
+      "id": "edge-95",
+      "source": "file:tests/commands.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/commands.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-96",
+      "source": "file:tests/commands.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/commands.test.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-97",
+      "source": "file:tests/commands.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/commands.test.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-98",
+      "source": "file:tests/commands.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/commands.test.js",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "id": "edge-99",
+      "source": "file:tests/copilot-plugin.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/copilot-plugin.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-100",
+      "source": "file:tests/copilot-plugin.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/copilot-plugin.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-101",
+      "source": "file:tests/copilot-plugin.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/copilot-plugin.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-102",
+      "source": "file:tests/copilot-plugin.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/copilot-plugin.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-103",
+      "source": "file:tests/correctness.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/correctness.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-104",
+      "source": "file:tests/correctness.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/correctness.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-105",
+      "source": "file:tests/correctness.test.js",
+      "target": "file:benchmarks/correctness.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/correctness.test.js",
+          "line": 8,
+          "excerpt": "import \"../benchmarks/correctness\""
+        }
+      ]
+    },
+    {
+      "id": "edge-106",
+      "source": "file:tests/gemini-extension.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/gemini-extension.test.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-107",
+      "source": "file:tests/gemini-extension.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/gemini-extension.test.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-108",
+      "source": "file:tests/gemini-extension.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/gemini-extension.test.js",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "id": "edge-109",
+      "source": "file:tests/gemini-extension.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/gemini-extension.test.js",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "id": "edge-110",
+      "source": "file:tests/grok-plugin.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/grok-plugin.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-111",
+      "source": "file:tests/grok-plugin.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/grok-plugin.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-112",
+      "source": "file:tests/grok-plugin.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/grok-plugin.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-113",
+      "source": "file:tests/grok-plugin.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/grok-plugin.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-114",
+      "source": "file:tests/hermes-plugin.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-115",
+      "source": "file:tests/hermes-plugin.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-116",
+      "source": "file:tests/hermes-plugin.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-117",
+      "source": "file:tests/hermes-plugin.test.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-118",
+      "source": "file:tests/hermes-plugin.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-119",
+      "source": "file:tests/hermes-plugin.test.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hermes-plugin.test.js",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "id": "edge-120",
+      "source": "file:tests/hooks-windows.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks-windows.test.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-121",
+      "source": "file:tests/hooks-windows.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks-windows.test.js",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "id": "edge-122",
+      "source": "file:tests/hooks-windows.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks-windows.test.js",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "id": "edge-123",
+      "source": "file:tests/hooks-windows.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks-windows.test.js",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "id": "edge-124",
+      "source": "file:tests/hooks-windows.test.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks-windows.test.js",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "edge-125",
+      "source": "file:tests/hooks.test.js",
+      "target": "dependency:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-126",
+      "source": "file:tests/hooks.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-127",
+      "source": "file:tests/hooks.test.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-128",
+      "source": "file:tests/hooks.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-129",
+      "source": "file:tests/hooks.test.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-130",
+      "source": "file:tests/hooks.test.js",
+      "target": "file:hooks/ponytail-config.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/hooks.test.js",
+          "line": 14,
+          "excerpt": "import \"../hooks/ponytail-config\""
+        }
+      ]
+    },
+    {
+      "id": "edge-131",
+      "source": "file:tests/openclaw-skills.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/openclaw-skills.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-132",
+      "source": "file:tests/openclaw-skills.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/openclaw-skills.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-133",
+      "source": "file:tests/openclaw-skills.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/openclaw-skills.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-134",
+      "source": "file:tests/openclaw-skills.test.js",
+      "target": "file:scripts/build-openclaw-skills.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/openclaw-skills.test.js",
+          "line": 9,
+          "excerpt": "import \"../scripts/build-openclaw-skills\""
+        }
+      ]
+    },
+    {
+      "id": "edge-135",
+      "source": "file:tests/opencode-plugin.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-136",
+      "source": "file:tests/opencode-plugin.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-137",
+      "source": "file:tests/opencode-plugin.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-138",
+      "source": "file:tests/opencode-plugin.test.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-139",
+      "source": "file:tests/opencode-plugin.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "id": "edge-140",
+      "source": "file:tests/opencode-plugin.test.js",
+      "target": "dependency:url",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/opencode-plugin.test.js",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "edge-141",
+      "source": "file:tests/package-scripts.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package-scripts.test.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-142",
+      "source": "file:tests/package-scripts.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package-scripts.test.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-143",
+      "source": "file:tests/package-scripts.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package-scripts.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-144",
+      "source": "file:tests/package-scripts.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package-scripts.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-145",
+      "source": "file:tests/package.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-146",
+      "source": "file:tests/package.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-147",
+      "source": "file:tests/package.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-148",
+      "source": "file:tests/package.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/package.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-149",
+      "source": "file:tests/qoder-plugin.test.js",
+      "target": "dependency:node:test",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/qoder-plugin.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-150",
+      "source": "file:tests/qoder-plugin.test.js",
+      "target": "dependency:node:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/qoder-plugin.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-151",
+      "source": "file:tests/qoder-plugin.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/qoder-plugin.test.js",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "id": "edge-152",
+      "source": "file:tests/qoder-plugin.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/qoder-plugin.test.js",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "id": "edge-153",
+      "source": "file:tests/qoder-plugin.test.js",
+      "target": "file:hooks/ponytail-runtime.js",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/qoder-plugin.test.js",
+          "line": 79,
+          "excerpt": "import \"../hooks/ponytail-runtime\""
+        }
+      ]
+    },
+    {
+      "id": "edge-154",
+      "source": "file:tests/uninstall.test.js",
+      "target": "dependency:assert",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/uninstall.test.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "id": "edge-155",
+      "source": "file:tests/uninstall.test.js",
+      "target": "dependency:fs",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/uninstall.test.js",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "id": "edge-156",
+      "source": "file:tests/uninstall.test.js",
+      "target": "dependency:os",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/uninstall.test.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "edge-157",
+      "source": "file:tests/uninstall.test.js",
+      "target": "dependency:path",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/uninstall.test.js",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "edge-158",
+      "source": "file:tests/uninstall.test.js",
+      "target": "dependency:child_process",
+      "label": "import",
+      "kind": "import",
+      "evidence": [
+        {
+          "path": "tests/uninstall.test.js",
+          "line": 7
+        }
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "id": "reading-guide",
+      "name": "参照関係を辿る",
+      "description": "宣言・importを順番に読むガイド。実行順序を表すものではありません。",
+      "steps": [
+        {
+          "nodeId": "file:package.json",
+          "title": "01 / @dietrichgebert/ponytail",
+          "description": "Lazy senior dev mode for AI agents. The best code is the code you never wrote."
+        },
+        {
+          "nodeId": "file:.opencode/plugins/ponytail.mjs",
+          "title": "02 / ponytail.mjs",
+          "description": ".opencode/plugins/ponytail.mjs にあるソースファイル。具体的な役割は根拠を読み、説明に追記できます。"
+        },
+        {
+          "nodeId": "dependency:module",
+          "title": "03 / module",
+          "description": "ソースから参照される外部モジュール。パッケージまたは組み込み機能です。"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "2026-09-16 にローカルのクローンから生成したスナップショットです。GitHubの現在の状態と異なる場合があります。",
+    "静的な宣言とimportを解析しています。実行時の呼び出し・業務上の意味・権限・稼働状態は推定しません。Pythonは基本的なimport構文を対象とします。"
+  ]
+}
