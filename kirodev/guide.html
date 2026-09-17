@@ -1,0 +1,1880 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kiro｜既存プロジェクトの開発フロー</title>
+<style>
+:root{color-scheme:light;--bg:#f4f3f8;--paper:#fff;--ink:#242137;--muted:#666279;--line:#ddd9e8;--accent:#6240b5;--wash:#ede7fa}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;line-height:1.85;font-size:15px}a{color:var(--accent);text-underline-offset:3px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ae80ec;outline-offset:3px}
+.shell{max-width:1540px;margin:auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:44px;padding:32px 44px}.sidebar{position:sticky;top:24px;height:calc(100vh - 48px);overflow-y:auto;padding:8px 12px 18px 0}.wordmark{font-weight:800;font-size:34px;letter-spacing:-1.8px}.wordmark span{font-weight:500;font-size:11px;letter-spacing:1px;display:block;color:var(--muted)}.search{margin:24px 0 10px;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:11px 13px;font-size:13px}.search-status{font-size:11px;color:var(--muted);min-height:20px}.nav-group{font-size:10px;font-weight:750;color:var(--muted);letter-spacing:1.4px;margin:22px 0 7px}.sidebar nav>a{display:block;text-decoration:none;color:var(--muted);font-size:13px;line-height:1.6;padding:7px 11px;border-radius:7px;border-left:3px solid transparent}.sidebar nav>a:hover,.sidebar nav>a.active{background:var(--wash);border-color:var(--accent);color:var(--accent)}.print{margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 16px;font-size:12px}
+main{min-width:0;padding-bottom:60px}.hero{padding:34px 0 38px;border-bottom:1px solid var(--line);margin-bottom:24px}.eyebrow{font-size:10px;letter-spacing:2.5px;font-weight:800;color:var(--accent)}.hero h1{font-size:clamp(28px,3vw,46px);line-height:1.45;letter-spacing:-1.3px;margin:16px 0}.hero p{color:var(--muted);max-width:700px;margin:0}.badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}.badge{font-size:11px;line-height:1.5;background:var(--wash);color:var(--accent);padding:6px 10px;border-radius:5px}.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0 32px}.quick a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--paper);font-weight:700;font-size:14px}.quick small{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:5px}
+.chapter{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 38px;margin-bottom:24px;scroll-margin-top:24px}.chapter-meta{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.5px;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:26px}.chapter-meta a{font-weight:400;white-space:nowrap}.chapter h1{font-size:26px;line-height:1.5;margin:0 0 23px;letter-spacing:-.5px}.chapter h2{font-size:19px;line-height:1.6;margin:38px 0 15px;padding-top:8px;border-top:1px solid var(--line)}.chapter h3{font-size:16px;margin:28px 0 10px}.chapter p{margin:14px 0}.chapter li{margin:8px 0}.chapter strong{font-weight:750}.chapter code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.88em;background:#f0eef6;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}.chapter pre{position:relative;background:#262237;color:#eee8ff;padding:28px 20px 20px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.85}.chapter pre code{background:none;color:inherit;padding:0;font-size:inherit}.copy{position:absolute;top:6px;right:9px;background:#433952;color:#e2d9f5;border:0;border-radius:4px;font-size:10px;padding:2px 8px}.table-wrap{width:100%;overflow-x:auto;margin:18px 0 24px}table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.85}th,td{border:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}th{background:#f0edf8;font-weight:700}td{min-width:80px}tr:nth-child(even) td{background:#faf9fc}blockquote{border-left:3px solid var(--accent);margin:20px 0;padding:0 20px;color:var(--muted)}details{font-size:12px;margin-top:24px}summary{cursor:pointer}.no-result{display:none;padding:30px;background:var(--paper);border-radius:12px}.chapter[hidden]{display:none}footer{font-size:11px;color:var(--muted);margin:24px 0}
+@media(min-width:1700px){.shell{gap:64px;padding-top:48px}.chapter{padding:40px 50px}}
+@media(max-width:1000px){.shell{grid-template-columns:210px minmax(0,1fr);padding:24px;gap:22px}.chapter{padding:26px}.quick{grid-template-columns:1fr}.hero h1{font-size:32px}}
+@media(max-width:720px){.shell{display:block;padding:18px}.sidebar{position:static;height:auto;padding:0}.sidebar nav{display:flex;gap:5px;flex-wrap:wrap;max-height:140px;overflow:auto}.nav-group{display:none}.sidebar nav>a{border:1px solid var(--line);font-size:11px;padding:5px 8px}.wordmark{font-size:28px}.search{margin-top:15px}.print{margin:12px 0}.hero{padding-top:16px}.hero h1{font-size:29px}.chapter{padding:22px 18px}.chapter h1{font-size:23px}.chapter-meta{font-size:9px}.chapter h2{font-size:18px}.quick{gap:8px}.quick a{padding:13px}.chapter pre{font-size:11px}}
+@media print{body{background:white;font-size:10pt}.shell{display:block;padding:0;max-width:none}.sidebar,.quick,.copy,.chapter-meta a{display:none}.hero{padding:0}.chapter{display:block!important;border:0;border-radius:0;padding:0;break-before:page}h1,h2,h3{break-after:avoid}pre,tr{break-inside:avoid}.table-wrap{overflow:visible}.hero h1{font-size:26pt}a{color:inherit;text-decoration:none}}
+</style></head><body><div class="shell"><aside class="sidebar"><div class="wordmark">kiro<span>TEAM DEVELOPMENT GUIDE</span></div><label for="search" style="display:block;font-size:11px;margin-top:18px">ガイド内を検索</label><input id="search" class="search" type="search" placeholder="例：受入条件・再試行・権限"><div id="search-status" class="search-status" aria-live="polite"></div><nav aria-label="目次"><p class="nav-group">読む入口</p><a href="#start">はじめに</a>
+<a href="#map">Kiro の機能と役割</a>
+<p class="nav-group">役割別フロー</p><a href="#manager">マネージャー</a>
+<a href="#developer">開発者</a>
+<a href="#senior">新任シニアの90分</a>
+<p class="nav-group">実務で使う</p><a href="#prompts">コピーして使う指示文</a>
+<a href="#example">CSV改善の記入例</a>
+<a href="#skills">3つのスキルの適用</a>
+<a href="#adoption">導入と保守</a>
+<p class="nav-group">テンプレート</p><a href="#context-template">プロジェクト把握</a>
+<a href="#brief-template">変更依頼</a>
+<a href="#decision-template">意思決定記録</a>
+<a href="#handoff-template">検証と引継ぎ</a>
+<p class="nav-group">スキル本体</p><a href="#persona-source">team-persona</a>
+<a href="#detour-source">team-detour</a>
+<a href="#thriller-source">team-thriller</a>
+<p class="nav-group">資料情報</p><a href="#sources">出典・確認範囲</a>
+<a href="#validation">確認記録</a></nav><button class="print" onclick="window.print()">印刷 / PDF に保存</button></aside><main><header class="hero"><div class="eyebrow">EXISTING PROJECTS · SEPTEMBER 2026</div><h1>目的をそろえ、根拠で判断し、<br>小さく確かめて進める。</h1><p>Kiro を既存プロジェクトへ導入するチームのために。<br>マネージャーの意思決定から、新任シニアの最初の指示まで。</p><div class="badges"><span class="badge">既存プロジェクト向け</span><span class="badge">公式仕様の確認：2026-09-17</span><span class="badge">人格スキルは独自再構成</span></div></header><div class="quick"><a href="#manager">01 マネージャーから読む<small>目的・範囲・受入を決める</small></a><a href="#developer">02 開発者から読む<small>設計・実装・検証をつなぐ</small></a><a href="#senior">03 新任シニアから読む<small>90分で把握し、最初の指示へ</small></a></div><p id="no-result" class="no-result">該当する章がありません。別の言葉で検索してください。</p><article id="start" class="chapter" data-title="はじめに"><div class="chapter-meta"><span>01 / はじめに</span><a href="README.md">Markdown 原本 ↗</a></div><h1>Kiro 開発フローガイド</h1>
+<p>既存プロジェクトへ Kiro を導入し、マネージャー・開発者・新任シニアエンジニアが、同じ要件と検証結果を使って判断するための実務ガイドです。</p>
+<p><strong>入口は <a href="guide.html">ブラウザで読むガイド</a>。</strong> 編集・レビューの原本はこのフォルダの Markdown です。調査基準日は <strong>2026-09-17</strong>。対象は Kiro を使う開発チームであり、Kiro 製品そのものの社内開発プロセスを説明するものではありません。</p>
+<h2>読む順番</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>読み手</th>
+<th>最初に読む</th>
+<th>次に使う</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>マネージャー</td>
+<td><a href="#manager">マネージャーの作業フロー</a></td>
+<td><a href="#brief-template">変更依頼テンプレート</a></td>
+</tr>
+<tr>
+<td>開発者</td>
+<td><a href="#developer">開発者の作業フロー</a></td>
+<td><a href="#prompts">指示文集</a></td>
+</tr>
+<tr>
+<td>初参加のシニアエンジニア</td>
+<td><a href="#senior">90分の導入手順</a></td>
+<td><a href="#context-template">プロジェクト把握シート</a></td>
+</tr>
+<tr>
+<td>導入責任者</td>
+<td><a href="#map">Kiro の機能と役割</a></td>
+<td><a href="#adoption">導入・保守の手順</a></td>
+</tr>
+</tbody></table></div>
+<h2>共通の進め方</h2>
+<p>課題と成功条件 → コードの現状確認 → 要件 → 設計候補の比較 → 設計とタスクの確定 → 小さな実装 → 検証・レビュー → 受入・公開・効果確認。</p>
+<p>人格スキルは「設計候補の比較」に使います。発散した案をそのまま実装せず、採用した考えを要件・設計へ反映します。<strong>事業上の受入判断、技術判断、Kiro の操作権限は別々に扱います。</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>成果物</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="diagrams/manager-workflow.html">マネージャー図</a> / <a href="diagrams/developer-workflow.html">開発者図</a></td>
+<td>担当と受け渡しの全体像。単体のオフライン HTML</td>
+</tr>
+<tr>
+<td><a href="#example">一連の記入例</a></td>
+<td>既存 SaaS の CSV 出力改善を例に、要件から検証まで追う</td>
+</tr>
+<tr>
+<td><a href="#skills">3つのスキルの設計と適用記録</a></td>
+<td>Persona・Detour・Thriller を今回のフローへどう適用したか</td>
+</tr>
+<tr>
+<td><a href=".kiro/skills">.kiro/skills</a></td>
+<td>Kiro に読み込ませられる3つの再構成スキル</td>
+</tr>
+<tr>
+<td><a href="#sources">出典と確認範囲</a></td>
+<td>公式仕様、独自の運用提案、未検証部分の区別</td>
+</tr>
+</tbody></table></div>
+<h2>本書の前提</h2>
+<p>ユーザー指定により <strong>既存プロジェクトへの導入</strong>を対象とします。開発者は IDE 中心、マネージャーは文書・PR と必要に応じた Kiro Web を利用する想定です。GitHub がない場合もローカル IDE で同じ成果物を作成できます。</p>
+<p>対象プロジェクトのソースコード、組織の承認規程、CI、デプロイ環境は未提供です。そのため、本書の役割分担・判断点・ファイル命名・時間配分は提案であり、導入先の現行手順に合わせて決めます。サンプルの数値・パス・担当名を実在のものとして扱わないでください。</p>
+<p>「Detour・Persona・Thriller」は <a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">Cocoda の事例記事</a> に着想を得ています。原本の GitHub 配布先は確認できていないため、同梱スキルは <strong>独自再構成</strong>です。特に Thriller の具体的な評価手順は本書で定義したもので、記事の原実装を再現したという主張はしません。</p>
+<h2>すぐ使う</h2>
+<ol>
+<li>この <code>kirodev</code> フォルダを Kiro IDE で開き、本書を読みます。</li>
+<li>実プロジェクトでは既存の <code>.kiro/</code> を確認し、同梱の3つのスキルフォルダだけを <code>.kiro/skills/</code> にコピーまたはローカルインポートします。<a href="#adoption">導入手順</a>に従って認識を確認します。</li>
+<li><a href="#context-template">把握シート</a>を対象コードの証拠で埋めます。</li>
+<li>低リスクの変更1件で <a href="#prompts">指示文集</a>を試し、要件IDとテストを対応させます。</li>
+</ol>
+<p>図の本文は日本語です。Archify の操作 UI と HTML の言語属性は製品の対応言語に従い英語です。文書閲覧用 <code>guide.html</code> の言語は日本語です。</p>
+</article>
+<article id="map" class="chapter" data-title="Kiro の機能と役割"><div class="chapter-meta"><span>02 / Kiro の機能と役割</span><a href="docs/00-kiro-map.md">Markdown 原本 ↗</a></div><h1>Kiro の機能とチームでの役割</h1>
+<p><a href="#start">入口に戻る</a> · <a href="#sources">公式情報の確認日と出典</a></p>
+<h2>最初に押さえること</h2>
+<p>Kiro は、要件・設計・タスクを作成し、コード変更と検証を支援する開発エージェントです。本書では「何を任せたか」「何を根拠に完了とするか」をファイルと PR に残し、別の担当者が引き継げるように運用します。対象コードの説明は、チャットでの推測ではなく、実ファイル・実行結果と照合します。</p>
+<h2>使い分け</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>機能</th>
+<th>Kiro の公式上の役割</th>
+<th>本書での使い方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Specs</td>
+<td>変更ごとの要件・設計・タスクを構造化</td>
+<td>変更の契約。何を作るか、どこまで完了したかを共有</td>
+</tr>
+<tr>
+<td>Steering</td>
+<td>プロジェクトの方針・技術・構造を継続的に伝える</td>
+<td>複数の変更に共通する、確認済みの前提</td>
+</tr>
+<tr>
+<td>Agent Skills</td>
+<td>必要なときに読み込む再利用可能な手順</td>
+<td>今回の3つの設計思考を呼び分ける</td>
+</tr>
+<tr>
+<td>Hooks</td>
+<td>イベントに応じてコマンドやプロンプトを実行</td>
+<td>チームで確認済みの反復チェックを補助</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>外部ツールやデータへの接続</td>
+<td>必要なサービスだけ接続。権限は個別に管理</td>
+</tr>
+<tr>
+<td>Permissions</td>
+<td>エージェントが操作できる範囲を制御</td>
+<td>作業に必要な操作範囲と、組織の権限を合わせる</td>
+</tr>
+</tbody></table></div>
+<p>出典：<a href="https://kiro.dev/docs/specs/">Specs</a>・<a href="https://kiro.dev/docs/steering/">Steering</a>・<a href="https://kiro.dev/docs/skills/">Skills</a>・<a href="https://kiro.dev/docs/hooks/">Hooks</a>・<a href="https://kiro.dev/docs/permissions/">Permissions</a>。MCP は公式ドキュメントの機能項目として掲載されています。<a href="https://kiro.dev/docs/">公式 Docs</a></p>
+<p>Steering に一度限りの作業計画をためず、Specs に置きます。Skills に会社の全規程を複製せず、必要な前提ファイルを入力として指定します。技術スタックやディレクトリ構造を変えたら、実装と Steering を同じ変更で更新する運用を推奨します。</p>
+<h2>利用する画面</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>利用面</th>
+<th>この導入での担当</th>
+<th>本書の扱い</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kiro IDE</td>
+<td>開発者、技術責任者</td>
+<td>ローカルのコード・差分・テストを見ながら進める標準</td>
+</tr>
+<tr>
+<td>Kiro Web</td>
+<td>マネージャー、委任する開発者</td>
+<td>接続済みリポジトリを指定して調査や作業を依頼する選択肢</td>
+</tr>
+<tr>
+<td>Kiro CLI</td>
+<td>ターミナル中心の開発者</td>
+<td>既存の CLI 運用がある場合に採用。コマンドは導入版のヘルプで確認</td>
+</tr>
+</tbody></table></div>
+<p>Kiro Web の通常セッションは対話型で、New session → Select repo → 依頼入力から開始できます。PR を作成するよう依頼する操作は外部のリポジトリを変更します。<a href="https://kiro.dev/docs/web/using-the-agent/">Web の操作</a></p>
+<p>GitHub 連携ではアプリ側の対象リポジトリ設定と利用者自身の権限が必要です。作業の委任には書き込み権限が必要とされています。マネージャーにその権限がない場合は、変更依頼を作成して開発者へ渡す運用で構いません。同じ Issue を複数人が委任すると別タスクになり得るため、委任担当者を1名に決めます。<a href="https://kiro.dev/docs/web/github/">GitHub 連携</a></p>
+<h2>Spec の選び方</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状況</th>
+<th>入口</th>
+<th>このチーム運用での確認点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>利用者の困りごとから機能を改善</td>
+<td>Feature / Requirements-First</td>
+<td>要件と対象外を先に決め、既存の制約を設計へ反映</td>
+</tr>
+<tr>
+<td>API移行・基盤制約など技術上の起点が明確</td>
+<td>Feature / Design-First</td>
+<td>設計から導いた要件が業務目的を満たすか確認</td>
+</tr>
+<tr>
+<td>原因調査が必要な不具合</td>
+<td>Bugfix Spec</td>
+<td>現在・期待・変えてはいけない振る舞いを分ける</td>
+</tr>
+<tr>
+<td>十分理解された小さな変更</td>
+<td>Quick Spec</td>
+<td>一括生成された文書を、実装前に必要な範囲でレビュー</td>
+</tr>
+<tr>
+<td>純粋な質問・小さな調査</td>
+<td>通常のチャット</td>
+<td>根拠・未確認事項を残す。全件に大きな Spec を要求しない</td>
+</tr>
+</tbody></table></div>
+<p>Requirements-First は要件→設計→タスク、Design-First は設計→要件→タスクです。Quick Spec には各文書間の承認ステップがありません。新任者の初回変更は、途中で前提を照合しやすい通常の Feature Spec を推奨します。<a href="https://kiro.dev/docs/specs/feature-specs/">Feature Specs</a>・<a href="https://kiro.dev/docs/specs/quick-spec/">Quick Spec</a>・<a href="https://kiro.dev/docs/specs/bugfix-specs/">Bugfix Specs</a></p>
+<h2>成果物の置き場所</h2>
+<p>公式の基本構造は <code>.kiro/specs/</code> 配下の <code>requirements.md</code>（バグなら <code>bugfix.md</code>）、<code>design.md</code>、<code>tasks.md</code> です。Steering の基本ファイルは <code>.kiro/steering/product.md</code>・<code>tech.md</code>・<code>structure.md</code>、Skills は <code>.kiro/skills/&lt;name&gt;/SKILL.md</code> です。<a href="https://kiro.dev/docs/specs/">Specs</a>・<a href="https://kiro.dev/docs/steering/">Steering</a>・<a href="https://kiro.dev/docs/skills/">Skills</a></p>
+<p>本書では次の追加ファイルを<strong>チーム独自の記録</strong>として提案します。Kiro が自動生成する前提にはしません。</p>
+<pre><code class="language-text">docs/project-context.md                # 実コードに基づく把握シート
+docs/changes/&lt;change-id&gt;/brief.md       # 目的・対象外・成功条件
+docs/changes/&lt;change-id&gt;/options.md     # 発散した案・採否・根拠
+docs/changes/&lt;change-id&gt;/decision.md    # 判断者・対象リビジョン・理由
+docs/changes/&lt;change-id&gt;/verification.md # 検証コマンド・結果・残課題
+.kiro/specs/&lt;feature&gt;/                 # Kiro の Spec 一式
+</code></pre>
+<h2>権限とレビューを混同しない</h2>
+<p>「要件を承認した」は、設計された機能に合意したという記録です。「ターミナル操作を許可した」は、ツールに操作権限を与えたという意味です。「PR を承認した」は、リポジトリでのレビュー判断です。本書の G0〜G4 は業務上の判断点で、Kiro の設定項目や組み込みのロールではありません。</p>
+<p>Steering に禁止事項を書くことと、操作権限で強制することも別です。権限・保護ブランチ・必須 CI は導入先で確認します。調査プロンプトだけで書き込みが技術的に禁止されるとは扱いません。<a href="https://kiro.dev/docs/permissions/">Permissions</a></p>
+</article>
+<article id="manager" class="chapter" data-title="マネージャー"><div class="chapter-meta"><span>03 / マネージャー</span><a href="docs/01-manager-workflow.md">Markdown 原本 ↗</a></div><h1>マネージャー用の作業フロー</h1>
+<p><a href="#start">入口</a> · <a href="diagrams/manager-workflow.html">フロー図を開く</a></p>
+<h2>この役割の到達点</h2>
+<p>「誰のどの問題を、どこまで解くか」と「何を見れば成功と言えるか」を決め、開発者が実装へ進める依頼にします。技術責任者は設計の妥当性、開発者は実装と検証の証拠を担当します。小規模チームでは兼任できますが、記録上の判断は分けます。</p>
+<p>以下は本書が提案する運用です。既存の決裁・PR・公開規程がある場合は、その担当名と判断点へ対応させます。</p>
+<h2>1件の変更を進める</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>工程</th>
+<th>マネージャーの作業</th>
+<th>Kiro への依頼・他職種の作業</th>
+<th>出力・次へ進む条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 依頼を受ける</td>
+<td>問題、対象者、観測した困りごと、優先理由を記入</td>
+<td>現行動作・既存機能・関連 Issue の調査を依頼</td>
+<td><code>brief.md</code>。事実と要望を分ける</td>
+</tr>
+<tr>
+<td>2. 利用者視点を比較</td>
+<td><code>/team-persona</code> で利用者・運用者・承認者の成功条件を比較</td>
+<td>技術責任者がコードで制約を確認</td>
+<td><code>options.md</code>。視点の衝突が見える</td>
+</tr>
+<tr>
+<td>3. 解き方を広げる</td>
+<td>行き詰まる場合 <code>/team-detour</code>、体験の磨き込みなら <code>/team-thriller</code></td>
+<td>通常案・代替案・費用・影響・検証方法を同じ軸で比較</td>
+<td>採用案と不採用理由。全スキルを毎回実行する必要はない</td>
+</tr>
+<tr>
+<td>4. 範囲を決める</td>
+<td>必須・後回し・対象外、受入条件、成功指標を決定</td>
+<td>Requirements-First の Spec へ採用案を反映</td>
+<td>G1：要件合意。曖昧な条件をテスト可能にする</td>
+</tr>
+<tr>
+<td>5. 実装に引き継ぐ</td>
+<td>期限と事業上の制約を説明</td>
+<td>技術責任者が設計・移行・回復方法・タスク依存を確認</td>
+<td>G2：設計と実装範囲の合意。依頼先・判断者が明確</td>
+</tr>
+<tr>
+<td>6. 進捗を確認</td>
+<td>遅延要因と必要な意思決定に対応</td>
+<td>完了した受入条件、証拠、未解決の依存を報告させる</td>
+<td>タスク数だけで進捗を評価しない</td>
+</tr>
+<tr>
+<td>7. 受け入れる</td>
+<td>シナリオを試し、利用者の目的が満たされるか判断</td>
+<td>開発者が要件→テスト→結果の対応、PR、残課題を提示</td>
+<td>G3：技術レビュー。G4：事業受入と公開判断</td>
+</tr>
+<tr>
+<td>8. 効果を測る</td>
+<td>指標と問い合わせの変化を確認</td>
+<td>公開担当が段階反映・監視・障害時の回復を担当</td>
+<td>結果を次の依頼へ反映</td>
+</tr>
+</tbody></table></div>
+<h2>判断点と責任者</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>判断点</th>
+<th>判断の対象</th>
+<th>主に判断する人</th>
+<th>不合格なら</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G0 現状把握</td>
+<td>基準ブランチ、既存動作、検証手順の信頼性</td>
+<td>技術責任者</td>
+<td>証拠を取り直す。要件の検討自体は続けられる</td>
+</tr>
+<tr>
+<td>G1 要件合意</td>
+<td>解く問題・受入条件・対象外</td>
+<td>マネージャー / 業務責任者</td>
+<td>依頼者へ質問し、要件を修正</td>
+</tr>
+<tr>
+<td>G2 設計合意</td>
+<td>契約、影響範囲、移行、テスト、依存</td>
+<td>技術責任者</td>
+<td>設計へ戻す。範囲変更なら G1 も更新</td>
+</tr>
+<tr>
+<td>G3 技術レビュー</td>
+<td>実装差分、CI、回帰、運用上の可否</td>
+<td>リポジトリのレビュアー</td>
+<td>指摘を該当タスクへ戻す</td>
+</tr>
+<tr>
+<td>G4 受入・公開</td>
+<td>受入条件と公開条件、残リスク</td>
+<td>業務責任者と公開責任者</td>
+<td>未達要件を直すか、対象外へ変える判断を記録</td>
+</tr>
+</tbody></table></div>
+<p>G1〜G4 を毎回会議にする必要はありません。既存の Issue コメント、PR レビュー、リリース記録で満たせます。判断した文書の版やコミットを必ず識別し、後で変更された要件まで承認したと扱わないようにします。</p>
+<h2>そのまま使える最初の指示</h2>
+<pre><code class="language-text">既存プロジェクトの改善依頼を整理してください。今回は要件案の作成までです。
+対象：〈リポジトリ・対象ブランチ・対象機能〉
+困りごと：〈観測した事実、問い合わせや操作の具体例〉
+対象者：〈主利用者・運用担当〉
+成功条件：〈誰が何をできればよいか〉
+固定する制約：〈既存API、納期、互換性、運用条件〉
+対象外：〈今回扱わないこと〉
+参照：〈brief、project-context、関連Issueのパス〉
+
+/team-persona を使って、利用者・運用者の成功条件と衝突を整理してください。
+必要な事実をリポジトリで確認し、根拠パスと未確認事項を分けてください。
+通常案と改善案を比較し、受入条件案を requirements.md 向けにまとめてください。
+コード実装やPR作成は、この依頼の範囲に含めません。
+</code></pre>
+<p>これは Kiro の組み込みコマンドの一覧ではなく、同梱スキル導入後に使う依頼文です。単独で呼ぶ場合は <code>/team-persona</code> をチャット入力で選択します。<a href="https://kiro.dev/docs/skills/">Skills の呼出仕様</a></p>
+<h2>進捗会話の型</h2>
+<p>「何％できたか」だけを聞かず、次の4点を1行ずつ報告してもらいます。</p>
+<ul>
+<li>達成済み：受入条件ID、PR・テスト等の証拠。</li>
+<li>現在の詰まり：再現条件、外部依存、情報不足の種類。</li>
+<li>必要な判断：選択肢、推奨案、放置した場合の影響、回答期限。</li>
+<li>次の作業：担当者、タスクID、完了と判断する証拠。</li>
+</ul>
+<p>例：「R-1/R-2 は検証済み。R-3 は上限件数が未決定。5千件と1万件の実測を添付し、業務責任者に本日中の判断を依頼。決まり次第 T-3 の境界値テストへ進む」。数値は説明例です。</p>
+<h2>途中で要望が増えた場合</h2>
+<ol>
+<li>追加要望が、現在の受入条件の不足か、新しい目的かを区別します。</li>
+<li>Kiro に影響する要件・設計・タスク・テストのIDを列挙させます。</li>
+<li>納期・コスト・公開範囲を比較し、採用・延期・分割を決めます。</li>
+<li><code>decision.md</code> と該当文書を更新してから、影響を受ける実装を再開します。影響のない作業まで止める必要はありません。</li>
+</ol>
+<h2>Web を使う場合</h2>
+<p>接続済みの対象リポジトリを選び、調査・文書化・実装のどこまでを委任するか明記します。ローカルにしかない変更はクラウド側の前提に含めず、対象ブランチ・基準 SHA と成果物を渡してください。本書では IDE と Web 間のチャットが自動で完全に引き継がれるとは想定しません。<a href="https://kiro.dev/docs/web/using-the-agent/">Web の操作</a>・<a href="https://kiro.dev/docs/web/github/">GitHub 連携</a></p>
+</article>
+<article id="developer" class="chapter" data-title="開発者"><div class="chapter-meta"><span>04 / 開発者</span><a href="docs/02-developer-workflow.md">Markdown 原本 ↗</a></div><h1>開発者用の作業フロー</h1>
+<p><a href="#start">入口</a> · <a href="diagrams/developer-workflow.html">フロー図を開く</a> · <a href="#prompts">指示文集</a></p>
+<h2>開始前にそろえるもの</h2>
+<p>対象リポジトリ・ブランチ・基準 SHA、変更目的、受入条件、変更可能な範囲、実行環境、レビュー担当者を確認します。引継ぎが口頭だけなら <a href="#brief-template">変更依頼</a>へ要点を残します。未コミット変更がある場合は所有者と作業範囲を把握します。</p>
+<h2>1. 現状を確かめる</h2>
+<p>README、既存の AGENTS.md / Steering、依存定義とロックファイル、起動入口、主要ユースケース、データ境界、CI を読みます。実ファイルを根拠に <a href="#context-template">把握シート</a>を作り、既存テストを1つ実行して、変更前の状態を記録します。</p>
+<pre><code class="language-sh">git status --short
+git branch --show-current
+git rev-parse HEAD
+rg --files -g &#39;!node_modules&#39; -g &#39;!vendor&#39; -g &#39;!dist&#39;
+</code></pre>
+<p>この4コマンドは調査の入口です。依存インストールやテストのコマンドは、対象リポジトリの README・CI・パッケージ定義で確認してから使います。<code>npm test</code> や特定のフレームワークを前提にしません。</p>
+<p>G0 の目安は「主要な1要求の入口→処理→データ→外部依存を説明でき、代表テストの成功/失敗と理由を示せること」です。既知の失敗がある場合は新しい回帰と区別し、対象変更に関係する検証が可能か技術責任者と判断します。</p>
+<h2>2. Spec を作成・更新する</h2>
+<p>IDE では Specs の <code>+</code> またはチャットの Spec から、Feature / Bug を選びます。機能改善は通常 Requirements-First、技術設計から始まる場合は Design-First を使います。画面ラベルが異なる版では公式の対象版の案内を確認してください。<a href="https://kiro.dev/docs/specs/">Specs の開始操作</a></p>
+<p>要件には以下を含めます。</p>
+<ul>
+<li>主な成功シナリオと、条件付きの振る舞い。</li>
+<li>権限不足、入力不正、タイムアウト、同時更新など、その変更で意味のある異常系。</li>
+<li>維持する API・データ・UI の契約、対象外。</li>
+<li>観測可能な受入条件と要件ID（本書では <code>R-1</code> 等を使用）。</li>
+</ul>
+<p>「速い」「直感的」をそのまま受入条件にせず、対象操作・入力条件・測定方法を決めます。仕様が未確定の項目は推測で埋めず、質問と担当者を付けます。G1 で採用する要件の版を決めます。</p>
+<h2>3. 必要な設計候補を発散・比較する</h2>
+<p>共通入力は要件、現状の実装根拠、固定する制約、今回の対象範囲です。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>スキル</th>
+<th>開発時の用途</th>
+<th>必ず戻す制約</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/team-persona</code></td>
+<td>主利用者・低権限利用者・運用者の視点で見落としを探す</td>
+<td>同じ業務ルールとアクセス制御</td>
+</tr>
+<tr>
+<td><code>/team-detour</code></td>
+<td>構造の異なる解き方を比較する。設定・運用改善も候補にする</td>
+<td>互換性、データ保護、可用性、依頼範囲</td>
+</tr>
+<tr>
+<td><code>/team-thriller</code></td>
+<td>失敗復帰・完了確認など最重要体験を具体化する</td>
+<td>実在の機能とデータ、性能とアクセシビリティ</td>
+</tr>
+</tbody></table></div>
+<p><code>options.md</code> に「通常案 / 候補 / 利用者への効果 / 変更箇所 / コスト / 未確認 / 採否」を残します。候補ごとにコードを作る必要はありません。UI がない内部処理なら Persona は呼出元・運用者の視点に置き換えられます。確定した不具合の最小修正では発散工程を省略できます。</p>
+<h2>4. 設計・タスクを確定する</h2>
+<p><code>design.md</code> に変更対象、公開インターフェース、入力と出力、状態遷移、失敗時の挙動、移行、テスト方針を記載します。既存の実装を再利用する箇所と理由を示し、必要なら短い意思決定記録を残します。非互換変更やデータ移行は、前進手順だけでなく回復可能性も確認します。</p>
+<p><code>tasks.md</code> では各タスクを、担当可能な範囲・依存タスク・対応要件・完了条件まで具体化します。G2 では技術責任者が設計と実装範囲を確認します。</p>
+<pre><code class="language-text">T-1: CSV出力サービスの認可・条件・上限を確認し、不足を修正する
+対応要件: R-1 / R-2 / R-3
+依存: T-0で現行仕様と契約を調査
+変更範囲: 実在確認済みの対象モジュールと関連テスト
+完了条件: 権限・条件・上限内・上限超過を検証し、既存出力との互換を確認
+引継ぎ: 実行コマンド、終了状態、結果パス、残課題
+</code></pre>
+<p>Kiro はタスクの依存関係に基づく並列実行をサポートします。本書では初回は1タスクで前提を確認し、独立性が確認できたものだけをまとめて実行する運用を推奨します。共通のスキーマ、ロックファイル、同一関数を同時変更する作業は調整が必要です。<a href="https://kiro.dev/docs/specs/">タスク実行</a></p>
+<h2>5. 小さく実装・検証する</h2>
+<ol>
+<li>対象タスクと参照 Spec の版を指定します。</li>
+<li>意図した振る舞いを最小の変更で実装します。</li>
+<li>変更に対応するテストを実行し、既存動作が保たれるか確認します。</li>
+<li>型・静的解析・結合テスト・ビルドは既存 CI と変更範囲に合わせて実行します。</li>
+<li>差分を読み、要件外の変更、意図しない生成物、依存追加がないか確認します。</li>
+<li>要件→タスク→テスト→結果を対応させ、未実行は理由を記録します。</li>
+</ol>
+<p>テスト生成数や Kiro の「完了しました」という文章は、検証の代わりになりません。失敗した検証は再現条件を絞って修正し、意味のある成功結果が得られてから完了状態にします。UI の変更では操作・表示・キーボード・空状態や異常状態など、要件に関係する範囲を目視でも確認します。</p>
+<h2>6. PR と受入の引継ぎ</h2>
+<p>PR には具体的な変更前後、関連 Spec、要件ID、テスト結果、移行・ロールバック、既知の制約を添えます。G3 の技術レビュー後、業務責任者へシナリオと検証結果を渡し、G4 の受入・公開判断につなげます。<a href="#handoff-template">検証と引継ぎテンプレート</a>を使えます。</p>
+<p>公開は既存の CI/CD と責任者の手順で行います。本書の導入だけでデプロイ権限や手順を変更することは想定しません。反映後の代表シナリオと監視指標を確認し、不達なら事前に決めた回復手順へ移ります。ロールバック不能な移行は、前進修正の方法と担当者を公開前に決めます。</p>
+<h2>不具合の場合の分岐</h2>
+<p>Bugfix Spec では <code>bugfix.md</code> に <strong>現在の不正な動作 / 正しい期待動作 / 維持する既存動作</strong>を記録します。再現条件→原因仮説→証拠→修正→再現テストの成功→回帰確認の順で進めます。原因が確定している小さな修正に、3つの人格による発散を機械的に追加しません。<a href="https://kiro.dev/docs/specs/bugfix-specs/">Bugfix Specs</a></p>
+<h2>途中で止まったとき</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状況</th>
+<th>次にすること</th>
+<th>戻り先</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>要件と実コードが食い違う</td>
+<td>差異、根拠パス、影響する受入条件を提示</td>
+<td>G0 / G1</td>
+</tr>
+<tr>
+<td>Spec と実装がずれた</td>
+<td>どちらを変えるか判断し、同じ変更で更新</td>
+<td>G1 / G2</td>
+</tr>
+<tr>
+<td>テストを実行できない</td>
+<td>実行条件・環境不足を記録し、成功と扱わない</td>
+<td>環境担当 / G3</td>
+</tr>
+<tr>
+<td>UI案が似通う</td>
+<td>Detour で変える前提を1つ明示し、構造を比較</td>
+<td>候補比較</td>
+</tr>
+<tr>
+<td>仕様変更で作業が膨らむ</td>
+<td>影響するタスクと新旧の範囲を列挙</td>
+<td>G1</td>
+</tr>
+<tr>
+<td>公開後の指標が悪化</td>
+<td>回復条件に従い停止・切戻し・前進修正</td>
+<td>公開責任者</td>
+</tr>
+</tbody></table></div>
+</article>
+<article id="senior" class="chapter" data-title="新任シニアの90分"><div class="chapter-meta"><span>05 / 新任シニアの90分</span><a href="docs/03-senior-onboarding.md">Markdown 原本 ↗</a></div><h1>新任シニアエンジニアの導入手順</h1>
+<p><a href="#start">入口</a> · <a href="#map">機能の整理</a> · <a href="#prompts">指示文集</a></p>
+<h2>このガイドでできるようになること</h2>
+<p>初めて入った既存プロジェクトで、構造・制約・検証手段を説明し、Kiro や開発者へ「対象範囲と完了条件が明確な作業」を依頼できるようにします。最初に作る成果物はコードの全面改修案ではなく、<strong>根拠付きの把握シートと、最初の変更1件の指示書</strong>です。</p>
+<h2>最初の90分の目安</h2>
+<p>以下の時間は本書の進行案です。アクセス不足、巨大なリポジトリ、起動不能な環境では、時間を超えて調査を続けるか、未確認として担当者へ渡します。90分経過を理解完了とはみなしません。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>時間</th>
+<th>確認すること</th>
+<th>手段</th>
+<th>残すもの</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0–15分</td>
+<td>事業目的、利用者、開発中の課題、意思決定者</td>
+<td>brief、README、product steering、既存担当者</td>
+<td>目的・対象外・責任者</td>
+</tr>
+<tr>
+<td>15–35分</td>
+<td>実行入口、主要モジュール、データと外部境界</td>
+<td>実コードと依存定義、structure / tech steering</td>
+<td>代表的な1要求の経路と根拠パス</td>
+</tr>
+<tr>
+<td>35–50分</td>
+<td>起動、テスト、CI、既知の失敗</td>
+<td>README・CI の実コマンドを確認して実行</td>
+<td>基準 SHA、コマンド、結果、環境差</td>
+</tr>
+<tr>
+<td>50–65分</td>
+<td>壊してはいけない契約と運用条件</td>
+<td>API定義、スキーマ、移行、監視、過去PR</td>
+<td>変更可能・要相談の境界</td>
+</tr>
+<tr>
+<td>65–80分</td>
+<td>小さな変更の要件と設計候補</td>
+<td>受入条件と必要な人格スキル</td>
+<td>比較表、採用理由、未解決の質問</td>
+</tr>
+<tr>
+<td>80–90分</td>
+<td>実装依頼とレビューの方法</td>
+<td>タスク分割、指示文レビュー</td>
+<td>最初の1タスクの依頼文と完了条件</td>
+</tr>
+</tbody></table></div>
+<h2>理解を組み立てる7つの問い</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>問い</th>
+<th>調べる根拠</th>
+<th>説明できた状態</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>このプロダクトは誰の何を改善するか</td>
+<td>README、業務資料、product steering</td>
+<td>利用者・主要ユースケース・成功条件を一文で説明</td>
+</tr>
+<tr>
+<td>リクエストはどこから入りどこへ出るか</td>
+<td>実際のエントリポイント、ルータ、ジョブ</td>
+<td>入口→業務処理→データ→外部呼出の1経路を追える</td>
+</tr>
+<tr>
+<td>データの正本と更新責任はどこか</td>
+<td>スキーマ、トランザクション、イベント</td>
+<td>保存先、整合条件、重複・同時更新の扱いを説明</td>
+</tr>
+<tr>
+<td>公開契約は何か</td>
+<td>API、イベント、画面、外部連携定義</td>
+<td>変更が他者に影響する境界を列挙</td>
+</tr>
+<tr>
+<td>どう起動し、どう壊れたと分かるか</td>
+<td>CI、テスト、起動手順、監視</td>
+<td>同じコマンドを別の人が再実行できる</td>
+</tr>
+<tr>
+<td>誰が何を決めるか</td>
+<td>PR規則、担当表、公開手順</td>
+<td>要件、設計、受入、公開の判断先を識別</td>
+</tr>
+<tr>
+<td>何が未確認か</td>
+<td>矛盾した資料、調査不能箇所</td>
+<td>仮説・必要な証拠・担当・期限を明示</td>
+</tr>
+</tbody></table></div>
+<p>Kiro に描かせた構造図は、その図に記載された関係の根拠ファイルを開いて照合します。「名前からそう見える」モジュールと「実際に呼び出される」モジュールを分けます。動的ロードや環境分岐は、実行時に未確認ならそのまま記載します。</p>
+<h2>最初に Kiro へ渡す調査指示</h2>
+<pre><code class="language-text">この既存プロジェクトに新しく参加したシニアエンジニア向けに、現状を調査してください。
+対象は〈リポジトリ、ブランチ、基準SHA〉です。
+今回の範囲は参照と説明、および指定した把握シートの作成です。
+参照：README、既存のAGENTS.md / .kiro/steering、依存定義、CI、主要コード。
+代表ユースケース〈1つ指定〉を、入口→処理→データ→外部依存まで追ってください。
+各主張にファイルパスとシンボルまたは行を添えてください。
+実行確認したこと、コードから推定したこと、未確認を分けてください。
+起動・テストのコマンドは既存定義から抽出し、実行前に内容を説明してください。
+成果物：docs/project-context.md、優先度付きの質問、最初に試す小さな変更案。
+アプリのコード変更や外部サービスの設定変更は今回の範囲に含めません。
+</code></pre>
+<p>「調査だけ」という依頼は作業範囲の指定です。操作を強制的に制限する必要がある環境では、別途 Kiro の権限と組織のアクセス設定を確認します。<a href="https://kiro.dev/docs/permissions/">Permissions</a></p>
+<h2>的確な指示に必要な8項目</h2>
+<ol>
+<li><strong>目的</strong>：利用者の振る舞いがどう変わるか。</li>
+<li><strong>対象</strong>：リポジトリ、ブランチ、基準 SHA、Spec とタスクID。</li>
+<li><strong>根拠</strong>：実ファイル、既存の類似実装、決定済みの設計。</li>
+<li><strong>範囲</strong>：変更してよいモジュールと今回は触れない契約。</li>
+<li><strong>条件</strong>：成功・失敗・境界値・互換性の受入条件。</li>
+<li><strong>裁量</strong>：実装者が決められる部分と相談が必要な変更。</li>
+<li><strong>検証</strong>：実在するコマンド、期待結果、必要な証拠。</li>
+<li><strong>引継ぎ</strong>：成果物の場所、レビュー担当、残課題の伝え方。</li>
+</ol>
+<p>不足した項目をすべて事前質問で埋める必要はありません。コードから確かめられることは調査し、事業上の判断だけを責任者へ質問します。</p>
+<h2>良くない指示を具体化する</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>元の依頼</th>
+<th>判断できないこと</th>
+<th>具体化した依頼</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>「Kiroでいい感じに改善して」</td>
+<td>目的と変更範囲</td>
+<td>「検索画面で条件を変更したあと、現在の条件が分かるようにする。既存の検索APIを維持し、空結果と通信失敗の表示を受入条件にする」</td>
+</tr>
+<tr>
+<td>「この設計をリファクタして」</td>
+<td>維持すべき振る舞い</td>
+<td>「重複する入力検証を対象2モジュールに限定して整理する。公開APIとエラー形式は維持し、対象の既存テストが通ることを確認する」</td>
+</tr>
+<tr>
+<td>「全部並列で進めて」</td>
+<td>依存と編集競合</td>
+<td>「共有契約を先に確定し、別モジュールで完結するタスクを分ける。統合担当と統合テストを最後に置く」</td>
+</tr>
+</tbody></table></div>
+<h2>初回レビューで自分が見るところ</h2>
+<ul>
+<li>要件にない振る舞いが、人格スキルの提案から混入していないか。</li>
+<li>既存設計と矛盾する変更を、根拠なしに「ベストプラクティス」で正当化していないか。</li>
+<li>テストが実装の写しにならず、利用者が必要とする結果を確かめているか。</li>
+<li>更新対象のドキュメントとコードが同じ版になっているか。</li>
+<li>コードを戻せば十分か、データや外部副作用の回復も必要か。</li>
+</ul>
+<h2>導入完了の判定</h2>
+<p>自分の言葉で代表ユースケースを説明し、任意の受入条件から対応コードとテストへたどれれば、実装指示を出す基礎ができています。把握シートの未確認事項を見ずに断定してしまう場合は、調査の範囲をもう一段狭めて確かめます。</p>
+<p>初日の終わりに、把握シート、1件の Spec、最初のタスク依頼、検証の証拠、質問の担当先が残っている状態を目指します。初週はその1件をレビュー・受入まで通し、使わなかった記録項目を削り、実際に迷った判断を手順へ追加します。</p>
+</article>
+<article id="prompts" class="chapter" data-title="コピーして使う指示文"><div class="chapter-meta"><span>06 / コピーして使う指示文</span><a href="docs/04-instruction-playbook.md">Markdown 原本 ↗</a></div><h1>Kiro への指示文集</h1>
+<p><a href="#start">入口</a> · <a href="#example">記入済みの例</a></p>
+<p><code>〈…〉</code> を実際の情報へ置き換えて使います。ここに書かれた <code>/team-*</code> は同梱の再構成スキル名です。役割・G番号・R/T番号は本書の運用上の識別子であり、Kiro の組み込みコマンドではありません。</p>
+<h2>共通ヘッダー</h2>
+<pre><code class="language-text">目的：〈利用者の困りごとと期待する変化〉
+対象：〈リポジトリ / ブランチ / 基準SHA〉
+参照：〈project-context、Spec、関連コードの実在パス〉
+今回の作業段階：〈調査 / 要件 / 設計 / 実装 / レビュー〉
+対象範囲：〈変更してよい機能・モジュール〉
+維持する契約：〈API、データ、権限、既存UIなど〉
+受入条件：〈R-IDごとの確認可能な振る舞い〉
+成果物：〈文書パス / タスクID / 差分 / 検証結果〉
+判断が必要になる条件：〈範囲拡大、互換性変更など具体的な境界〉
+</code></pre>
+<h2>A. 現状の調査</h2>
+<pre><code class="language-text">共通ヘッダーの対象を調査し、docs/project-context.md を作成してください。
+入口、主要ユースケース、依存、データ境界、CI、既知の不具合を整理してください。
+各説明に根拠のファイルパスとシンボルを付けてください。
+READMEと実装が違う場合は両者を併記してください。
+確認済み / 推定 / 未確認を区別し、重要な未確認には次の調査方法を付けてください。
+</code></pre>
+<h2>B. マネージャーの要件整理</h2>
+<pre><code class="language-text">brief.md と現状把握をもとに Feature Spec の要件案を作成してください。
+成功・異常・維持する動作を、条件と期待結果の形で記述してください。
+各要件にIDを付け、対象外と未決定事項も分けてください。
+今回は requirements.md の作成とレビュー用の質問までです。
+</code></pre>
+<h2>C. Persona の実行</h2>
+<pre><code class="language-text">/team-persona
+対象：〈機能〉
+参照：〈要件、現状、固定制約のファイル〉
+視点：主利用者、権限の低い利用者、運用担当。
+全視点に同じ確定要件を渡し、それぞれの成功条件と困りやすい状態を比較してください。
+現行案に欠ける情報、操作、復帰経路を列挙し、要件追加候補として提案してください。
+</code></pre>
+<h2>D. Detour の実行</h2>
+<pre><code class="language-text">/team-detour
+対象：〈行き詰まっている問題〉
+通常案：〈現行の解決策〉
+固定する制約：〈互換性・権限・整合性・依頼範囲〉
+動かせる前提：〈画面構造 / タイミング / 作業の順序など〉
+前提を変えた候補を比較し、最後に固定制約へ戻して実現できる工夫を抽出してください。
+非採用案の理由も options.md に残してください。
+</code></pre>
+<h2>E. Thriller の実行</h2>
+<pre><code class="language-text">/team-thriller
+対象：〈機能〉
+最重要の瞬間：〈利用者が成功・失敗を理解して次へ進む場面〉
+変えたい観測結果：〈迷い、やり直し、完了確認の負担など〉
+既存要件と実在機能の範囲で、その瞬間を改善する小さな案を比較してください。
+見栄えだけの差を避け、効果の確認方法と実装費用を示してください。
+</code></pre>
+<h2>F. 設計とタスクへの収束</h2>
+<pre><code class="language-text">options.md で採用した案だけを、確定要件に対応づけて design.md に反映してください。
+既存コードの再利用、変更する契約、データ・状態の変化、異常時の処理を記述してください。
+移行と回復が必要ならその方法、テストの観点、未確認事項を含めてください。
+tasks.md は、依存、対応要件、変更範囲、完了条件が分かる単位へ分割してください。
+既存の要件から範囲が広がる部分は変更提案として明示してください。
+</code></pre>
+<h2>G. 1タスクの実装</h2>
+<pre><code class="language-text">〈Specのパス・版〉の〈タスクID〉を実装してください。
+要件〈R-ID〉、設計〈該当節〉、既存の類似実装〈パス〉に従ってください。
+実装上の局所的な選択は任せます。
+公開APIの変更、依存追加、データ移行が必要になった場合は、根拠と代替案を提示してください。
+実在する検証コマンド〈確認済みのコマンド〉を実行してください。
+結果は、変更ファイル、要件対応、コマンドと結果、未実行項目、残課題で報告してください。
+今回の範囲はローカル実装と検証までです。
+</code></pre>
+<p>最後の一文は実際の委任範囲に合わせます。PR 作成まで依頼する場合は、対象リポジトリ・ブランチ・PR 作成の意図を明記してください。既に与えた権限を形式的に再確認するためのテンプレートではありません。</p>
+<h2>H. シニアのレビュー</h2>
+<pre><code class="language-text">〈基準SHA〉から〈変更SHA〉の差分をレビューしてください。
+参照は確定要件、design.md、verification.md です。
+優先する観点：要件未達、既存契約の破壊、異常系、データ整合性、回復可能性。
+指摘には発生条件、実際の影響、ファイル位置、修正の方向を含めてください。
+要件からテストへたどれないものを列挙し、未実行を成功扱いしないでください。
+今回はレビュー結果の提示までです。
+</code></pre>
+<h2>I. 仕様変更・再開時の引継ぎ</h2>
+<pre><code class="language-text">基準：〈リポジトリ、ブランチ、最新SHA〉
+完了済み：〈タスクIDと証拠〉
+追加・変更する要件：〈旧条件 → 新条件〉
+決定記録：〈decision.md の版〉
+残課題：〈条件、担当者、次の調査〉
+影響する設計・タスク・テストを先に列挙して更新してください。
+その後、影響範囲に含まれる未完了タスク〈ID〉から再開してください。
+</code></pre>
+<h2>J. バグの修正依頼</h2>
+<pre><code class="language-text">Bugfix Spec を使って〈症状〉を調査してください。
+再現条件：〈環境、入力、手順〉
+実際の結果：〈ログや画面の証拠〉
+期待結果：〈正しい動作〉
+維持する動作：〈既存の成功系・互換性〉
+まず再現と原因の証拠をまとめ、最小の修正と回帰確認を計画してください。
+再現できない場合は、仮説を確定事項にせず不足する情報を示してください。
+</code></pre>
+</article>
+<article id="example" class="chapter" data-title="CSV改善の記入例"><div class="chapter-meta"><span>07 / CSV改善の記入例</span><a href="docs/05-worked-example.md">Markdown 原本 ↗</a></div><h1>記入例：既存 SaaS の CSV 出力を改善する</h1>
+<p><a href="#start">入口</a> · <a href="#brief-template">変更依頼テンプレート</a></p>
+<p><strong>以下は架空の練習例です。</strong> 対象リポジトリの実装を調査した結果ではありません。上限件数、役割、モジュール名、採否はこの例だけの設定で、実プロジェクトでは根拠を確認して置き換えます。テスト結果は未実行です。</p>
+<h2>依頼を具体化する</h2>
+<p>想定する現状：一覧画面には絞り込みと CSV 出力があるが、出力対象の条件が分かりにくい。出力は既存の同期 API を使い、閲覧者と管理者という権限区分がある。</p>
+<p>改善の目的：管理者が「今の絞り込み条件で何を出力するか」を把握して実行でき、失敗時に条件を保持したまま再試行できること。</p>
+<p>固定する制約：既存の列順・文字コード・API 契約・権限制御を維持する。新規のバックグラウンドジョブ、メール通知、保存履歴は今回の対象外。上限は練習用に <strong>1,000件</strong>とする。</p>
+<h2>3つのスキルを適用する</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>視点・モード</th>
+<th>得られた候補</th>
+<th>評価と採否</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Persona：管理者</td>
+<td>現在の条件と対象範囲を出力前に表示</td>
+<td>目的に直結するため採用。件数取得の実装可否は調査事項</td>
+</tr>
+<tr>
+<td>Persona：閲覧者</td>
+<td>ボタン表示とサーバーの認可を一致させる</td>
+<td>UI と API の両方で確認。既存の権限ルールを変えない</td>
+</tr>
+<tr>
+<td>Persona：運用担当</td>
+<td>失敗時に問い合わせへつなげる情報を出す</td>
+<td>既存の問い合わせ経路を表示。存在しない追跡IDは生成しない</td>
+</tr>
+<tr>
+<td>Detour：別のタイミングで届ける</td>
+<td>非同期ジョブで作成しメールで通知</td>
+<td>今回は運用と契約の変更が大きいため不採用</td>
+</tr>
+<tr>
+<td>Detour：新しい画面を作らない</td>
+<td>一覧画面の出力操作の近くに対象条件を表示</td>
+<td>小さい変更で迷いを減らせるため採用</td>
+</tr>
+<tr>
+<td>Thriller：失敗から戻る瞬間</td>
+<td>エラー時にもフィルタを保持し、再試行できる</td>
+<td>最重要体験の改善として採用。二重操作時の挙動も確認</td>
+</tr>
+</tbody></table></div>
+<p>これは同梱スキルの手順を用いた著者側の適用例であり、Kiro 実機で生成・検証したログではありません。</p>
+<h2>受入条件に落とす</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要件ID</th>
+<th>条件</th>
+<th>期待する振る舞い</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R-1</td>
+<td>管理者が条件 F で一覧を絞り込み、CSVを要求</td>
+<td>出力対象は同じ条件 F に一致し、既存の列順と文字コードを維持</td>
+</tr>
+<tr>
+<td>R-2</td>
+<td>出力権限がない利用者が直接APIを呼ぶ</td>
+<td>既存の認可契約に従い拒否し、CSVデータを返さない</td>
+</tr>
+<tr>
+<td>R-3</td>
+<td>対象が1,000件を超える</td>
+<td>出力を開始せず、条件を絞り込む案内を表示</td>
+</tr>
+<tr>
+<td>R-4</td>
+<td>対象が0件</td>
+<td>空であることを表示し、不要な出力処理を開始しない</td>
+</tr>
+<tr>
+<td>R-5</td>
+<td>出力要求が失敗する</td>
+<td>絞り込み条件を保持し、失敗したことと再試行方法を示す</td>
+</tr>
+<tr>
+<td>R-6</td>
+<td>ブラウザへCSVの応答を正常に渡す</td>
+<td>出力処理の進行表示を解除する。利用者がファイルを保存済みとは断定しない</td>
+</tr>
+</tbody></table></div>
+<p>未決定の質問：件数と出力データの間に更新が起きた場合の整合性をどう扱うか。初回検討では、サーバー側で上限を最終判定し、フロントの事前表示を保証値と扱わない案を技術責任者へ提示する。</p>
+<h2>設計を決める</h2>
+<p>採用方針：既存のフィルタ表現と出力 API を利用する。認可・上限の判定はサーバーで維持し、画面側は利用者の判断と復帰を補助する。新規キューと通知経路は作らない。</p>
+<p>調査で確認する箇所：一覧のフィルタ状態、APIのフィルタ変換、認可関数、CSV生成関数、ダウンロード失敗時の状態処理、既存テスト。実在パスはここでは作りません。</p>
+<p>状態の例：待機 → 実行中 → 応答受領 / 失敗。二重クリック時は同じ操作を多重に開始しない。失敗から待機へ戻る際もフィルタは保持する。</p>
+<h2>タスクと証拠を対応させる</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>タスク</th>
+<th>依存</th>
+<th>対応要件</th>
+<th>完了を示す検証</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T-0 現行仕様と契約の調査</td>
+<td>なし</td>
+<td>全体</td>
+<td>実ファイル根拠、既存テストの基準結果</td>
+</tr>
+<tr>
+<td>T-1 サーバーの認可・条件・上限の確認と不足修正</td>
+<td>T-0</td>
+<td>R-1/R-2/R-3</td>
+<td>権限、境界件数、条件付き出力の結合テスト</td>
+</tr>
+<tr>
+<td>T-2 画面の対象条件・状態・再試行の改善</td>
+<td>T-0、T-1で契約確定</td>
+<td>R-3/R-4/R-5/R-6</td>
+<td>0件、超過、失敗、再試行、多重操作のテスト</td>
+</tr>
+<tr>
+<td>T-3 統合して受入条件を検証</td>
+<td>T-1/T-2</td>
+<td>全体</td>
+<td>UI操作とAPI結果の整合、既存CSVとの比較</td>
+</tr>
+<tr>
+<td>T-4 文書更新・公開引継ぎ</td>
+<td>T-3</td>
+<td>全体</td>
+<td>受入結果、変更差分、回復手順、観測項目</td>
+</tr>
+</tbody></table></div>
+<h2>マネージャーとシニアの指示例</h2>
+<p>マネージャーの依頼：「CSV出力の対象条件と、失敗時の再試行を分かりやすくしたい。既存 API と CSV 形式を維持し、今回は R-1〜R-6 を対象にする。非同期通知は対象外。技術責任者に件数整合性とテスト方針の判断を依頼する。」</p>
+<p>シニアの実装指示：「確定した契約をもとに T-2 を実装する。既存のフィルタ状態を再利用し、0件・上限超過・失敗・応答受領を分ける。成功表示はブラウザへの応答受領を意味し、ファイル保存完了とは表示しない。認可処理の置換は今回の範囲外。既存の検証コマンドを確認して結果を添付する。」</p>
+<h2>検証報告の完成形</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>練習例での状態</th>
+<th>実作業で記入する内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基準 / 変更 SHA</td>
+<td>未実行</td>
+<td>実際のリビジョン</td>
+</tr>
+<tr>
+<td>R-1〜R-6</td>
+<td>すべて未検証</td>
+<td>テストケース・コマンド・結果・証拠</td>
+</tr>
+<tr>
+<td>件数境界</td>
+<td>テスト計画のみ</td>
+<td>0、1、1,000、1,001件での結果</td>
+</tr>
+<tr>
+<td>形式の互換性</td>
+<td>テスト計画のみ</td>
+<td>既存と新しいCSVの比較</td>
+</tr>
+<tr>
+<td>公開後の観測</td>
+<td>提案</td>
+<td>出力失敗率、問い合わせ、操作完了までの迷い</td>
+</tr>
+<tr>
+<td>回復</td>
+<td>設計時に要確認</td>
+<td>UIとAPIの互換性、戻せる単位、責任者</td>
+</tr>
+</tbody></table></div>
+<p>この表を成功済みへ置き換えるには、実プロジェクトでの実行証拠が必要です。サンプル文書がそろったことと、機能の受入完了は別です。</p>
+</article>
+<article id="skills" class="chapter" data-title="3つのスキルの適用"><div class="chapter-meta"><span>08 / 3つのスキルの適用</span><a href="docs/06-skill-design.md">Markdown 原本 ↗</a></div><h1>3つのスキルの設計と、このガイドへの適用</h1>
+<p><a href="#start">入口</a> · <a href="#adoption">導入手順</a></p>
+<h2>出典と再構成の範囲</h2>
+<p>参照記事はカナリーの <a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">「デザイナー人格」の skill 化について</a> です。Detour は一度前提を外して案を広げ、元の設計へ戻す考え方、Persona は複数の利用者視点、Thriller は音楽制作から着想を得た人格として紹介されています。</p>
+<p>公開原本を確認できていないため、本書では次の名前で独自に再構成しました。記事の本文や画像を大量転記せず、実務で使うための入力・判断・出力を独自に定義しています。Kiro 公式、カナリー公式、著者本人の承認済みスキルではありません。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名前</th>
+<th>本書での定義</th>
+<th>主な出力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="#persona-source">team-persona</a></td>
+<td>同じ課題を、利害・作業・情報が異なる利用者の視点から比較</td>
+<td>成功条件・衝突・不足要件</td>
+</tr>
+<tr>
+<td><a href="#detour-source">team-detour</a></td>
+<td>変更可能な前提を動かし、異なる解き方を比較して固定制約へ戻す</td>
+<td>代替案・採否・持ち帰る工夫</td>
+</tr>
+<tr>
+<td><a href="#thriller-source">team-thriller</a></td>
+<td>最重要体験を選び、少数の改善案を作り、観測可能な価値で絞る</td>
+<td>重要な場面・候補・評価方法</td>
+</tr>
+</tbody></table></div>
+<p>Thriller の「最重要体験・少数案・評価」という具体手順は本書の独自設計です。記事にある実装の詳細を推測して仕様化したものとは扱いません。</p>
+<h2>共通の入出力</h2>
+<p>入力は「目的、対象、現状の根拠、受入条件、固定制約、動かせる前提」。情報が足りない場合は、コードで調べられるものを先に調べ、業務上の選択だけを質問にします。</p>
+<p>出力は <code>options.md</code> に整理し、採用された項目を <code>requirements.md</code> / <code>design.md</code> へ反映します。候補を生成した時点では要件も実装範囲も変更されません。スキル自体は実装・PR・公開を許可するものではなく、ユーザーの依頼範囲に沿って使います。</p>
+<p>3つを同時に実行することや、複数エージェントを起動することは必須ではありません。単一セッションで視点を順に切り替えて使えます。UI 以外に適用する場合は「画面」を「作業・判断の流れ」に読み替えます。</p>
+<h2>今回のドキュメントに適用した結果</h2>
+<p>この記録は作成時にスキルの手順を用いて行った設計判断です。Kiro 実機での実行ログではありません。</p>
+<h3>Persona：誰がどこで困るか</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>読み手</th>
+<th>成功の条件</th>
+<th>つまずき</th>
+<th>文書への反映</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>マネージャー</td>
+<td>技術詳細を全部読まずに範囲・優先順位・受入を判断</td>
+<td>AIの進捗表示だけでは品質が分からない</td>
+<td>判断点と証拠の対応表、進捗会話の型</td>
+</tr>
+<tr>
+<td>開発者</td>
+<td>何を変えてよいかと検証方法が明確</td>
+<td>要件と設計と追加要望が混ざる</td>
+<td>要件ID、変更範囲、差し戻し先、PR引継ぎ</td>
+</tr>
+<tr>
+<td>新任シニア</td>
+<td>初見コードの制約を理解し、最初の1タスクを指示</td>
+<td>既存の前提や意思決定者が分からない</td>
+<td>90分導入、根拠付き把握シート、8項目の指示型</td>
+</tr>
+<tr>
+<td>公開・運用担当</td>
+<td>変更を観測し、異常時に回復できる</td>
+<td>実装完了の連絡だけでは運用を引き取れない</td>
+<td>回復条件、監視項目、担当者を引継ぎに含める</td>
+</tr>
+</tbody></table></div>
+<h3>Detour：文書構成の前提を変える</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>候補</th>
+<th>利点</th>
+<th>費用・弱点</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全員が長い単一マニュアルを順に読む</td>
+<td>管理するファイルが少ない</td>
+<td>自分の作業へ到達しづらい</td>
+<td>原本は役割別に分割</td>
+</tr>
+<tr>
+<td>マネージャーも全員 IDE を使う</td>
+<td>同じ画面で会話できる</td>
+<td>導入負担とアクセス条件が増える</td>
+<td>文書・PRを基本に、Webは選択肢</td>
+</tr>
+<tr>
+<td>チャットだけで引き継ぐ</td>
+<td>着手が速い</td>
+<td>前提と版と証拠が残りにくい</td>
+<td>ファイルとPRを引継ぎの単位に採用</td>
+</tr>
+<tr>
+<td>文書の説明を省きテンプレートだけ配る</td>
+<td>すぐ入力できる</td>
+<td>新任者が判断の意味を理解できない</td>
+<td>手順・テンプレート・記入例を連結</td>
+</tr>
+</tbody></table></div>
+<p>戻した固定制約は、既存プロジェクトの運用を前提にすること、架空のコード構成を断定しないこと、マネージャー用と開発者用を用意すること、新任シニアが指示できることです。</p>
+<h3>Thriller：最も価値が出る瞬間を磨く</h3>
+<p>最重要体験を「新任シニアが、根拠と完了条件のある最初の指示を出せる瞬間」と定めました。装飾を増やす案より、把握シート→指示文→記入例→検証結果のつながりを優先しました。</p>
+<p>確認方法は、導入先で初参加者に実際の小さな変更を説明してもらい、対象・制約・受入条件・検証・判断先の5点が欠けずに伝わるかを見ることです。この利用者テストはまだ実施していません。</p>
+<h2>同じ手法を次の変更に使う</h2>
+<p>まず Persona で見落としを探します。解決が一案に固定されているときだけ Detour で構造を変え、利用者にとって重要な瞬間が弱いときだけ Thriller で磨きます。毎回3つの成果物を増やす運用にはせず、必要な判断ができたら正式な仕様へ収束します。</p>
+</article>
+<article id="adoption" class="chapter" data-title="導入と保守"><div class="chapter-meta"><span>09 / 導入と保守</span><a href="docs/07-adoption-and-maintenance.md">Markdown 原本 ↗</a></div><h1>既存プロジェクトへの導入と保守</h1>
+<p><a href="#start">入口</a> · <a href="#skills">スキルの意図</a></p>
+<h2>今回作成したものと、導入先で行うこと</h2>
+<p>このフォルダには文書、テンプレート、3つのスキル、2つの図を用意しています。実プロジェクトのコード変更、Kiro のインストール、GitHub 連携、Hooks・権限設定、PR・本番公開は実行していません。</p>
+<p>既存チームの手順を置き換える前に、小さな変更1件で使い、役割名・判断点・検証コマンドを合わせます。</p>
+<h2>スキルを使えるようにする</h2>
+<p>Kiro はプロジェクトの <code>.kiro/skills/&lt;name&gt;/SKILL.md</code> を認識します。IDE の Agent Steering &amp; Skills から <code>+</code> → Import a skill → Local folder でも取り込めます。<a href="https://kiro.dev/docs/skills/">公式 Skills</a></p>
+<ol>
+<li>対象プロジェクトの既存 <code>.kiro/skills/</code> に同じ名前がないか確認します。</li>
+<li>このガイドの <code>.kiro/skills/</code> にある <code>team-persona</code>、<code>team-detour</code>、<code>team-thriller</code> の3フォルダを対象側へコピーします。同名があれば中身を比較し、必要な差分を統合します。</li>
+<li>Kiro で対象プロジェクトを開き直すか、新しいセッションで認識を確認します。</li>
+<li>チャットで <code>/</code> を入力し、対象スキルが候補に現れることを確認します。</li>
+<li>実データを使わない小さな設計課題で1つずつ呼び、入力不足・固定制約・出力が想定通りか確かめます。</li>
+</ol>
+<p>Kiro Web から使う場合、ワークスペーススキルを対象リポジトリで利用できる状態にします。ローカルの未コミットファイルや <code>~/.kiro/skills/</code> が自動でクラウドに存在するとは想定しません。組織の通常のレビューと反映手順で共有してください。<a href="https://kiro.dev/docs/skills/">Skills の対象範囲</a></p>
+<p>見つからない場合は、フォルダ名と frontmatter の <code>name</code>、配置するルート、ファイル名の大文字小文字、対象バージョンを確認します。カスタムエージェントを使用している場合は、Steering と Skills の読み込み設定も確認します。公式ではカスタムエージェントの <code>resources</code> で参照を指定する例が示されています。<a href="https://kiro.dev/docs/steering/">Steering</a>・<a href="https://kiro.dev/docs/skills/">Skills</a></p>
+<h2>プロジェクトの前提を整える</h2>
+<p>まず <a href="#context-template">把握シート</a>を埋め、確認済みの内容を <code>.kiro/steering/</code> へ整理します。Kiro IDE には基礎の Steering を生成する UI がありますが、生成結果の事実確認は必要です。<a href="https://kiro.dev/docs/steering/">公式 Steering</a></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ファイル</th>
+<th>入れる情報</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>product.md</code></td>
+<td>目的、利用者、主要機能、業務上の制約</td>
+<td>既存の業務仕様、責任者が確認した brief</td>
+</tr>
+<tr>
+<td><code>tech.md</code></td>
+<td>現在の言語、依存、実行環境、検証コマンド</td>
+<td>依存定義、ロックファイル、CI</td>
+</tr>
+<tr>
+<td><code>structure.md</code></td>
+<td>実際のモジュール責任、入口、依存方向</td>
+<td>実コード、追跡したユースケース</td>
+</tr>
+</tbody></table></div>
+<p>常時読み込む情報は短く保ち、個別変更の履歴は Spec や決定記録へ置きます。<code>always</code>・<code>fileMatch</code>・<code>manual</code> などの取り込み方法は、導入版の公式仕様と照合して選びます。今回の配布物には未記入の Steering を有効状態で置いていません。</p>
+<h2>初回導入の順序</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>段階</th>
+<th>実施内容</th>
+<th>終了条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>準備</td>
+<td>対象・担当者・利用面・既存ルールを把握</td>
+<td>把握シートの重要な未確認に担当が付く</td>
+</tr>
+<tr>
+<td>試行</td>
+<td>低リスクの変更1件を Spec から受入まで通す</td>
+<td>要件とコードとテストを対応できる</td>
+</tr>
+<tr>
+<td>振り返り</td>
+<td>指示の不足、手戻り、記録負担を確認</td>
+<td>続ける項目と削る項目を決める</td>
+</tr>
+<tr>
+<td>共有</td>
+<td>スキルと短い Steering を通常のレビューで共有</td>
+<td>新しい参加者が同じ入口へ到達できる</td>
+</tr>
+<tr>
+<td>拡張</td>
+<td>必要なら Web、MCP、Hooks を追加</td>
+<td>手作業で有効と確認済みの反復処理から自動化</td>
+</tr>
+</tbody></table></div>
+<h2>Hooks は最後に小さく追加する</h2>
+<p>Hooks はイベントに応じてコマンドやプロンプトを実行する機能です。トリガーごとに IDE・CLI・Web の対応が異なり、公式ページには概要表と詳細表の粒度差もあります。<code>PostFileSave</code> など特定のトリガーが全利用面で同じ動作をするとは断定せず、使うトリガー・版・利用面を確認してください。<a href="https://kiro.dev/docs/hooks/">公式 Hooks</a></p>
+<p>本書では自動実行設定を配布せず、以下の導入基準を提案します。</p>
+<ul>
+<li>まず既存 CI のコマンドを手動で再現する。</li>
+<li>フックの入力、対象ファイル、終了状態、タイムアウトを確認する。</li>
+<li>自動修正が必要か、検査だけで足りるかを決める。</li>
+<li>失敗時に作業が止まるか、通知だけかを明示する。</li>
+<li>実行回数、所要時間、再帰的な再実行の有無を小さな変更で確認する。</li>
+</ul>
+<p>Hooks による補助と、サーバー側の必須 CI・保護ブランチによる制御は区別します。</p>
+<h2>文書を古くしない</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>変化</th>
+<th>更新するもの</th>
+<th>確認する人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API・データ・構造が変わる</td>
+<td>対象 Spec、把握シート、関連 Steering</td>
+<td>技術責任者</td>
+</tr>
+<tr>
+<td>業務の受入条件が変わる</td>
+<td>brief、requirements、decision</td>
+<td>業務責任者</td>
+</tr>
+<tr>
+<td>CI・起動・公開手順が変わる</td>
+<td>tech、verification のひな形、公開手順</td>
+<td>開発・運用担当</td>
+</tr>
+<tr>
+<td>Kiro を更新する</td>
+<td>利用面、操作名、スキルの呼出、Hooks互換性</td>
+<td>導入担当</td>
+</tr>
+<tr>
+<td>スキルが誤った場面で発動する</td>
+<td>description と具体的な判断条件</td>
+<td>スキル担当</td>
+</tr>
+</tbody></table></div>
+<p>Kiro の公式仕様は本書の <a href="#sources">出典一覧</a>から再確認します。モデル名、料金、クォータは変化が早く、本書の作業フローの固定条件に含めていません。</p>
+<h2>導入の効果を見る</h2>
+<p>初回の比較値を残し、最初の数件で「レビュー差し戻しの原因」「要件変更による手戻り」「新任者が最初の指示を出すまでの時間」「公開後の回帰」を見ます。数値目標は現状を測ってから決めます。生成コード量や AI のタスク消化数だけを成果指標にしません。</p>
+</article>
+<article id="context-template" class="chapter" data-title="プロジェクト把握"><div class="chapter-meta"><span>10 / プロジェクト把握</span><a href="templates/project-context.md">Markdown 原本 ↗</a></div><h1>プロジェクト把握シート</h1>
+<p>このひな形を対象プロジェクトの <code>docs/project-context.md</code> 等へコピーし、実コードで確認した情報を記入する。未確認は未確認のまま残す。</p>
+<h2>対象と確認時点</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>記入欄</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>リポジトリ / 対象ディレクトリ</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>ブランチ / 基準コミットSHA</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>調査日 / 調査者</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>Kiro の利用面とバージョン</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>プロダクトの目的 / 主利用者</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>業務責任者 / 技術責任者 / レビュアー / 公開担当</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>参照した既存規程・AGENTS.md・Steering</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<h2>主要な1要求の流れ</h2>
+<p>ユースケース：未記入</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>順序</th>
+<th>モジュール・責務</th>
+<th>入力 → 出力</th>
+<th>実ファイル・シンボル</th>
+<th>確認状態</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>入口</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>業務処理</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>データ</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>外部依存</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未確認</td>
+</tr>
+</tbody></table></div>
+<p>確認状態は「実行確認 / コードから確認 / 推定 / 未確認」を使う。</p>
+<h2>開発・検証・公開</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>用途</th>
+<th>確認したコマンド・手順</th>
+<th>定義元</th>
+<th>実行結果と環境</th>
+<th>既知の制約</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>依存準備</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>ローカル起動</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>単体テスト</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>結合・E2E</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>型・静的解析・ビルド</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>CI / PR 条件</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未確認</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>公開 / 観測 / 回復</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未確認</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<h2>変更の境界</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>境界</th>
+<th>維持する契約・不変条件</th>
+<th>変更すると影響する相手</th>
+<th>決める人</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API・イベント</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>データ・整合性</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>権限</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>運用・非機能</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<h2>未確認・質問</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>事実と仮説</th>
+<th>判断への影響</th>
+<th>次に得る証拠</th>
+<th>担当・期限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q-1</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<p>最初の変更候補：未記入。小さく試す理由と、成功を示す検証：未記入。</p>
+</article>
+<article id="brief-template" class="chapter" data-title="変更依頼"><div class="chapter-meta"><span>11 / 変更依頼</span><a href="templates/change-brief.md">Markdown 原本 ↗</a></div><h1>変更依頼</h1>
+<p>変更ID：未記入 / 作成者：未記入 / 更新日：未記入</p>
+<h2>目的と根拠</h2>
+<ul>
+<li>誰の、どの場面の困りごとか：未記入</li>
+<li>実際に観測した問題と証拠：未記入</li>
+<li>現行動作：未記入</li>
+<li>実現したい変化：未記入</li>
+<li>優先する理由・期限：未記入</li>
+<li>成功指標と計測方法：未記入</li>
+</ul>
+<h2>対象と制約</h2>
+<ul>
+<li>リポジトリ・ブランチ・基準SHA：未記入</li>
+<li>対象機能・変更してよい範囲：未記入</li>
+<li>固定する制約：未記入</li>
+<li>今回の対象外：未記入</li>
+<li>外部依存・影響するチーム：未記入</li>
+<li>参照する把握シート・Spec・Issue：未記入</li>
+</ul>
+<h2>受入条件案</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>条件・操作</th>
+<th>期待結果</th>
+<th>検証方法</th>
+<th>確定 / 未決定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R-1</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未決定</td>
+</tr>
+</tbody></table></div>
+<h2>候補と判断</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>案</th>
+<th>根拠・仮説</th>
+<th>利用者への効果</th>
+<th>費用・影響</th>
+<th>採否・理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通常案</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未決定</td>
+</tr>
+<tr>
+<td>改善案</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未決定</td>
+</tr>
+</tbody></table></div>
+<p>使用したスキルと理由：未記入。不要だったスキルを省略した理由：必要な場合だけ記入。</p>
+<h2>依頼と責任分担</h2>
+<ul>
+<li>今回 Kiro / 開発者へ依頼する段階：未記入</li>
+<li>業務責任者・技術責任者・実装者・レビュアー・公開担当：未記入</li>
+<li>委任する判断と、相談が必要になる変更：未記入</li>
+<li>不明点の担当と回答期限：未記入</li>
+<li>次に判断する人へ渡す成果物：未記入</li>
+</ul>
+</article>
+<article id="decision-template" class="chapter" data-title="意思決定記録"><div class="chapter-meta"><span>12 / 意思決定記録</span><a href="templates/decision-record.md">Markdown 原本 ↗</a></div><h1>意思決定記録</h1>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>記入欄</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>変更ID / 決定ID / 日付</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>判断点（G0〜G4 または既存の名称）</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>判断者と役割</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>判断対象の文書パス・版・コミット</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>判断結果（採用 / 修正 / 延期 / 対象外）</td>
+<td>未決定</td>
+</tr>
+</tbody></table></div>
+<h2>判断する問題</h2>
+<p>未記入</p>
+<h2>選択肢と証拠</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>選択肢</th>
+<th>利点</th>
+<th>費用・リスク</th>
+<th>根拠と未確認</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>B</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<h2>決定と影響</h2>
+<ul>
+<li>採用した案と理由：未記入</li>
+<li>採用しない案と理由：未記入</li>
+<li>許容した制約・残リスク：未記入</li>
+<li>更新する要件・設計・タスク・テスト：未記入</li>
+<li>次の作業と担当：未記入</li>
+<li>再検討する条件：未記入</li>
+</ul>
+<p>この記録の合意は、Kiro のツール実行権限・リポジトリ権限・本番権限の付与を意味しない。</p>
+</article>
+<article id="handoff-template" class="chapter" data-title="検証と引継ぎ"><div class="chapter-meta"><span>13 / 検証と引継ぎ</span><a href="templates/verification-handoff.md">Markdown 原本 ↗</a></div><h1>検証と引継ぎ</h1>
+<p>変更ID：未記入 / 報告者：未記入 / 日時：未記入</p>
+<h2>再開できる情報</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>記入欄</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>リポジトリ / ブランチ</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>基準SHA / 変更SHA</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>参照したSpecと版</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>関連PR / Issue</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>実行環境 / 依存バージョン</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>今回完了したタスク</td>
+<td>未記入</td>
+</tr>
+<tr>
+<td>次に行うタスクと担当</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<h2>要件と結果</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要件ID</th>
+<th>設計の箇所</th>
+<th>タスクID</th>
+<th>コード・テストの場所</th>
+<th>結果と証拠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R-1</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+</tr>
+</tbody></table></div>
+<p>結果は成功 / 失敗 / 未実行 / 対象外を区別する。テスト名だけでなく、実行結果が確認できるファイルや CI 実行への参照を残す。</p>
+<h2>実行した検証</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>コマンド・手順</th>
+<th>対象と条件</th>
+<th>実行結果・終了状態</th>
+<th>証拠</th>
+<th>未実行なら理由と担当</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未記入</td>
+<td>未記入</td>
+<td>未実行</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<p>変更前からの失敗：未記入。新たな失敗：未記入。UI等の目視確認：未記入。</p>
+<h2>公開と回復</h2>
+<ul>
+<li>公開する単位・既存手順：未記入</li>
+<li>公開の判断者・実行担当・時期：未記入</li>
+<li>段階反映の方法と停止条件：未記入</li>
+<li>公開後の代表シナリオ・指標・観測担当：未記入</li>
+<li>切戻し方法、切戻せない変更、前進修正：未記入</li>
+<li>移行・外部副作用・既存バージョンとの互換性：未記入</li>
+</ul>
+<h2>残課題</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>未完了・未確認の内容</th>
+<th>影響</th>
+<th>担当・期限</th>
+<th>次の具体的な作業</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q-1</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+<td>未記入</td>
+</tr>
+</tbody></table></div>
+<h2>判断の状態</h2>
+<p>技術レビュー（G3）：未実施。業務受入と公開判断（G4）：未実施。
+判断済みの場合は、判断者・対象リビジョン・判断記録への参照を記入する。</p>
+</article>
+<article id="persona-source" class="chapter" data-title="team-persona"><div class="chapter-meta"><span>14 / team-persona</span><a href=".kiro/skills/team-persona/SKILL.md">Markdown 原本 ↗</a></div><h1>Persona による設計比較</h1>
+<p>本スキルは <a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">Cocoda の事例</a> を参考に独自再構成したもの。カナリーの原本・公式配布物ではない。</p>
+<p>目的、現状の根拠、確定要件、固定制約、動かせる前提を入力にする。未指定の利用者像は仮説と明記する。コードで確認できる事実は調査し、業務上の決定だけを質問にする。</p>
+<ol>
+<li>操作・情報・責任が異なる視点を選ぶ。通常は主利用者、制約のある利用者、運用者など2〜4視点で十分。属性を勝手に決めつけず、課題に関連する能力・権限・状況を使う。</li>
+<li>全視点へ同じ確定要件と固定制約を適用する。各視点で、目的、必要情報、成功条件、失敗しやすい状態、復帰方法を整理する。</li>
+<li>現行案との差を比較する。表示の好みだけでなく、情報構造、操作順、判断に必要な説明を評価する。</li>
+<li>視点間の衝突を明示し、両立方法または意思決定者への選択肢を示す。</li>
+<li>採用候補を検証可能な受入条件の案として出す。確定していない案を既存要件に混ぜない。</li>
+</ol>
+<p>出力：視点 / 成功条件 / 根拠・仮説 / 不足・衝突 / 改善候補 / 検証方法。参照したファイルを示し、採用判断が必要な箇所を明示する。保存先が指定されていればその文書へ、なければ会話で提示する。</p>
+<p>単一セッションで視点を切り替えて実行できる。実装、外部送信、PR作成などはユーザーから依頼された範囲に限る。原因が明らかな局所バグ修正へ、不要な人格比較を追加しない。</p>
+<details><summary>スキルのメタデータ</summary><pre><code>name: team-persona
+description: 既存プロダクトの機能・UI・開発手順を複数の利用者や担当者の視点で評価し、成功条件の衝突と不足要件を整理する。設計候補の比較や受入条件の見直しに使う。</code></pre></details></article>
+<article id="detour-source" class="chapter" data-title="team-detour"><div class="chapter-meta"><span>15 / team-detour</span><a href=".kiro/skills/team-detour/SKILL.md">Markdown 原本 ↗</a></div><h1>Detour による代替案の探索</h1>
+<p>本スキルは <a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">Cocoda の事例</a> を参考に独自再構成したもの。カナリーの原本・公式配布物ではない。</p>
+<p>目的、通常案、現状の根拠、固定制約、動かせる前提を確認する。既存契約・権限・データ整合性やユーザーの明示条件を、発散のために暗黙に捨てない。</p>
+<ol>
+<li>通常案を簡潔に記録する。</li>
+<li>画面構造、タイミング、作業順、担当など、動かせる前提を1つ選ぶ。何を動かすかを明示する。</li>
+<li>構造の異なる代替案を少数出す。必要なら新規実装を増やさない設定・運用上の解決も比較する。制約を仮に外した案は思考実験と表示する。</li>
+<li>すべての案を固定制約へ戻し、再利用できる部分、追加費用、互換性、運用負担、未確認事項を評価する。制約を満たせない案は不採用または別途の変更提案にする。</li>
+<li>通常案との比較から推奨案と不採用理由を示す。最も新しい案や最も複雑な案を優先しない。</li>
+</ol>
+<p>出力：動かした前提 / 通常案と代替案 / 目的への効果 / 固定制約との適合 / 根拠 / コスト・不確実性 / 採否。最終的に何を要件や設計へ反映するかが分かるようにする。</p>
+<p>候補生成だけで仕様を変更しない。決定権が既に委任されていればその範囲で判断し、境界を超える変更だけを選択肢として提示する。実装や外部操作は依頼された範囲に限る。</p>
+<details><summary>スキルのメタデータ</summary><pre><code>name: team-detour
+description: 既存の設計案が一つに固定されたとき、変更可能な前提を動かして代替案を比較し、固定制約へ戻して実現可能な工夫を抽出する。機能設計・UI・開発フローの発散と収束に使う。</code></pre></details></article>
+<article id="thriller-source" class="chapter" data-title="team-thriller"><div class="chapter-meta"><span>16 / team-thriller</span><a href=".kiro/skills/team-thriller/SKILL.md">Markdown 原本 ↗</a></div><h1>Thriller に着想を得た体験の磨き込み</h1>
+<p><a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">Cocoda の事例</a> の Thriller という人格名と発想に着想を得た独自スキル。原本は未確認であり、以下の「最重要体験→候補比較→検証」は本スキル独自の具体化である。</p>
+<p>入力は目的、利用者、現行案、要件、固定制約、利用可能な実データと機能。未提供の能力やデータを前提にしない。</p>
+<ol>
+<li>成功・失敗・判断の境目にある重要な瞬間を1つ選び、利用者がその時に理解・実行できるべきことを一文にする。</li>
+<li>説明、情報の順序、状態の見せ方、復帰経路など、その瞬間を改善する少数の案を出す。装飾量を成果とみなさない。</li>
+<li>各案について、利用者への価値、根拠、実装・運用費用、既存設計への適合、検証方法を示す。</li>
+<li>効果を観測でき、確定要件に適合する案を選ぶ。必要なら何も追加しない結論を選ぶ。</li>
+<li>変更後に検証するシナリオまたは計測項目を提案し、未実施の効果は仮説として残す。</li>
+</ol>
+<p>出力：最重要の瞬間 / 現状の問題 / 候補 / 採用理由 / 受入条件案 / 効果の確認方法。</p>
+<p>未取得の予定日時、確約できない完了、存在しない問い合わせIDなどを、安心感の演出のために生成しない。使いやすさ、アクセシビリティ、既存契約を保ち、確定要件を変える案は変更提案として扱う。実装や外部操作はユーザーの依頼範囲に従う。</p>
+<details><summary>スキルのメタデータ</summary><pre><code>name: team-thriller
+description: 機能や作業フローの最重要体験を選び、少数の改善案を観測可能な価値で絞り込む。完了確認、失敗からの復帰、重要な意思決定などの体験を磨くときに使う。</code></pre></details></article>
+<article id="sources" class="chapter" data-title="出典・確認範囲"><div class="chapter-meta"><span>17 / 出典・確認範囲</span><a href="sources.md">Markdown 原本 ↗</a></div><h1>出典・確認範囲</h1>
+<p>確認日：<strong>2026-09-17（日本時間）</strong>。公式ページと、ユーザーが指定した X 投稿のリンク先を閲覧しました。Kiro の画面で本書の操作を実行した確認はしていません。</p>
+<h2>公式の一次資料</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>資料</th>
+<th>本書で確認したこと</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S01</td>
+<td><a href="https://kiro.dev/">Kiro 公式</a> / <a href="https://kiro.dev/docs/">Docs</a></td>
+<td>IDE・CLI・Web などの利用面、機能一覧。Docs は IDE 1.x / CLI 3.0 の案内を掲載</td>
+</tr>
+<tr>
+<td>S02</td>
+<td><a href="https://kiro.dev/docs/specs/">Specs</a></td>
+<td>基本文書、Feature / Bugfix、開始手順、タスク依存と並列実行</td>
+</tr>
+<tr>
+<td>S03</td>
+<td><a href="https://kiro.dev/docs/specs/feature-specs/">Feature Specs</a></td>
+<td>Requirements-First、Design-First、EARS形式の要件</td>
+</tr>
+<tr>
+<td>S04</td>
+<td><a href="https://kiro.dev/docs/specs/bugfix-specs/">Bugfix Specs</a></td>
+<td>現在・期待・維持する動作、原因調査、回帰確認</td>
+</tr>
+<tr>
+<td>S05</td>
+<td><a href="https://kiro.dev/docs/specs/quick-spec/">Quick Spec</a></td>
+<td>三文書を一括生成し、フェーズ間の承認を省く方式</td>
+</tr>
+<tr>
+<td>S06</td>
+<td><a href="https://kiro.dev/docs/steering/">Steering</a></td>
+<td>product / tech / structure、スコープ、取り込み方式、カスタムエージェントの参照</td>
+</tr>
+<tr>
+<td>S07</td>
+<td><a href="https://kiro.dev/docs/skills/">Agent Skills</a></td>
+<td>配置、SKILL.md形式、呼び出し、インポート、利用面</td>
+</tr>
+<tr>
+<td>S08</td>
+<td><a href="https://kiro.dev/docs/hooks/">Hooks</a></td>
+<td>イベントとアクション、トリガーごとの対応差。概要表と詳細表の差に留意</td>
+</tr>
+<tr>
+<td>S09</td>
+<td><a href="https://kiro.dev/docs/permissions/">Permissions</a></td>
+<td>操作権限、IDE の自律設定との関係。自然言語の依頼範囲と強制的な制限は別</td>
+</tr>
+<tr>
+<td>S10</td>
+<td><a href="https://kiro.dev/docs/web/using-the-agent/">Web：Working with the agent</a></td>
+<td>セッション開始、リポジトリ選択、対話、PR 作成</td>
+</tr>
+<tr>
+<td>S11</td>
+<td><a href="https://kiro.dev/docs/web/github/">Web：GitHub</a></td>
+<td>アプリとユーザーの権限、作業委任、重複タスク、PR と保護ブランチ</td>
+</tr>
+</tbody></table></div>
+<p>確認時の公式ページでは、Specs の機能対応も利用面ごとに異なります。例えば Analyze Requirements と Correctness の対応範囲は同じではありません。本書ではこれらの機能が全利用面で使えることを前提にせず、通常の要件レビューと既存テストで進められる構成にしています。<a href="https://kiro.dev/docs/specs/">対応表</a></p>
+<h2>発想の出典</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>資料</th>
+<th>利用した範囲</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S12</td>
+<td><a href="https://x.com/mayugelion/status/2099656127894237392">元の X 投稿</a></td>
+<td>対象記事の特定</td>
+</tr>
+<tr>
+<td>S13</td>
+<td><a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">Cocoda：デザイナー人格の skill 化</a></td>
+<td>Detour・Persona・Thriller の名称と、発散後に制約へ戻して収束する考え方</td>
+</tr>
+</tbody></table></div>
+<p>S13 の原本スキルと GitHub 配布先は確認できていません。同梱の3つの <code>SKILL.md</code> は独自再構成です。実施可能な手順、テンプレート、例題、判断点は本書の著作として作成しました。</p>
+<h2>本書が提案した運用</h2>
+<p>G0〜G4、R/T番号、役割別の責任分担、90分の導入計画、変更記録のファイル構成、人格スキルの適用順、CSVの練習例は、本書の提案です。Kiro の必須設定・公式の開発規程・カナリー社の実運用としては扱いません。</p>
+<p>2つの HTML 図はこの提案運用を図式化したものです。図のノード間でラベルを省略した線は、隣接工程の順序のみを表します。文書の受け渡しや判断条件を表す線にはラベルを付けています。実システムの呼び出し経路を示す図ではありません。</p>
+<h2>未検証の範囲</h2>
+<ul>
+<li>特定リポジトリの構造、起動、テスト、CI、公開手順。</li>
+<li>ユーザー環境の Kiro バージョン、プラン、GitHub 連携、組織の権限。</li>
+<li>Kiro 実機での同梱スキル認識・実行と、実案件での効果。</li>
+<li>新任者がこのガイドを利用するオンボーディングの実測。</li>
+</ul>
+<p>文書、内部リンク、スキル形式、図の生成とブラウザ表示の検査結果は <a href="#validation">確認記録</a> に別途記載します。</p>
+</article>
+<article id="validation" class="chapter" data-title="確認記録"><div class="chapter-meta"><span>18 / 確認記録</span><a href="validation.md">Markdown 原本 ↗</a></div><h1>確認記録</h1>
+<p>作成日：<strong>2026-09-17</strong>。文書・スキル・図の確認記録です。実プロジェクトや Kiro 実機での検証とは区別します。</p>
+<h2>文書とスキル</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>対象</th>
+<th>確認結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Markdown 18ファイル</td>
+<td>相対リンクの参照先が存在することを確認。参照切れ0件</td>
+</tr>
+<tr>
+<td><code>guide.html</code></td>
+<td>18章を生成。内部アンカーの参照先とID重複を検査。参照切れ・ID重複0件</td>
+</tr>
+<tr>
+<td>ガイドの依存</td>
+<td>閲覧に必要な外部スクリプト・画像・CSSの読み込みなし。出典リンクは外部ページを開く</td>
+</tr>
+<tr>
+<td>3つの <code>SKILL.md</code></td>
+<td><code>skill-creator</code> の <code>quick_validate.py</code> で3件すべて <code>Skill is valid!</code>。形式の確認であり Kiro 実行試験ではない</td>
+</tr>
+<tr>
+<td>役割・要件の対応</td>
+<td>G0〜G4 の役割と差し戻し先、CSV記入例の R-1〜R-6 と T-0〜T-4 の対応を読み合わせ</td>
+</tr>
+<tr>
+<td>出典と未確認</td>
+<td>公式仕様・独自運用・架空例・再構成スキルの区別を記載</td>
+</tr>
+</tbody></table></div>
+<h2>ガイドのブラウザ確認</h2>
+<p>macOS の Brave Browser でローカル HTML を表示し、1652×918 のデスクトップ幅と390×844のモバイル幅を目視確認しました。どちらも <code>scrollWidth = innerWidth</code> で、文書全体の横方向のはみ出しはありません。縦方向は長文ガイドとしてスクロールします。幅が足りない表は表の範囲で横スクロールできます。</p>
+<ul>
+<li>「90分」の検索で4章へ絞り込めることを確認。</li>
+<li>絞り込みで非表示になった「マネージャー」へ目次から移動すると、検索を解除し18章へ戻ることを確認。</li>
+<li>モバイル幅で新任シニアの本文・表を表示確認。</li>
+<li>指示文のコピーボタンが「コピー済み」へ変わることを確認。</li>
+<li>印刷/PDF保存、および <code>file://</code> でのクリップボード操作は未検証。ブラウザがクリップボード書き込みを拒否した場合の範囲選択処理を実装しています。</li>
+</ul>
+<h2>フロー図</h2>
+<p>両図とも Archify の <code>validate</code> と <code>deliver</code> で showcase の <strong>9/9項目、エラー0件、警告0件</strong>を確認しました。最終 HTML をブラウザで確認し、線・ラベル・カードの重なり、テーマ切替、検索、工程へのフォーカス、詳細パネルを閉じた際の解除を確認しました。表示は通常の読書状態・静止表示です。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>表示領域（CSS px）</th>
+<th>マネージャーの文書寸法</th>
+<th>開発者の文書寸法</th>
+<th>収まり</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1440×900</td>
+<td>1440×900</td>
+<td>1440×900</td>
+<td>両方合格</td>
+</tr>
+<tr>
+<td>1600×1000</td>
+<td>1600×1000</td>
+<td>1600×1000</td>
+<td>両方合格</td>
+</tr>
+<tr>
+<td>1920×1080</td>
+<td>1920×1080</td>
+<td>1920×1080</td>
+<td>両方合格</td>
+</tr>
+<tr>
+<td>2048×1320</td>
+<td>2048×1320</td>
+<td>2048×1320</td>
+<td>両方合格</td>
+</tr>
+</tbody></table></div>
+<p>全4サイズをライト表示で測定し、1440×900・2048×1320はライト/ダーク両方の画面を取得して目視確認しました。画面は会話のツール出力で確認し、PNGの添付ファイルは保存していません。自動 <code>visual-check</code> の実行結果ではなく、ブラウザツールでの測定・目視記録です。</p>
+<p>初回の縦はみ出しに対し、工程名と役割欄で説明済みの凡例を省き、ノードの横幅を調整しました。ノード内の文字サイズは変更していません。目視確認開始後の調整はマネージャー図1回、開発者図2回です。</p>
+<p><a href="diagrams/visual-review.json">ブラウザ確認記録 JSON</a>、<a href="diagrams/manager-delivery.json">マネージャーの生成記録</a>、<a href="diagrams/developer-delivery.json">開発者の生成記録</a>を同梱しています。図のモバイル表示、画像/動画エクスポート、プレゼンテーションモードは未検証です。</p>
+<p>公開用コピーでは、生成記録に含まれるローカル絶対パスを <code>kirodev/</code> 基準の相対パスへ置き換えています。フロー図の原本 JSON・HTML と SHA-256 は変更していません。</p>
+<h2>図の引渡し記録</h2>
+<pre><code class="language-text">diagram_type: workflow
+output: diagrams/manager-workflow.html
+specification_sha256: b8d0d6fc5723c987871ae729afc84f1b5099e19e4b083149199ce8fd2754b5da
+artifact_sha256: cf9992736f59e861d77f70d26a76dd21c865e6f382d9ad13c01cae8bf4712722
+validation: 9/9 showcase, 0 errors, 0 warnings
+visual_review: passed
+correction_rounds: 1
+</code></pre>
+<pre><code class="language-text">diagram_type: workflow
+output: diagrams/developer-workflow.html
+specification_sha256: 3bb99579518b3d869712f257fb32fc9c7f674b4cdbde5a3abe598752fdad4621
+artifact_sha256: 36421fac6bdef11c8bf60edb4d24909c357326be540b96d28da5dc294c730525
+validation: 9/9 showcase, 0 errors, 0 warnings
+visual_review: passed
+correction_rounds: 2
+</code></pre>
+<h2>再生成</h2>
+<p>Markdown を編集した後は、Node.js と <code>marked</code> が使える環境で次を実行します。生成後の HTML 自体に外部依存はありません。</p>
+<pre><code class="language-sh">node scripts/build-guide.mjs
+# marked を別の場所から読み込む場合
+node scripts/build-guide.mjs /path/to/marked/lib/marked.esm.js
+</code></pre>
+<p>フロー図は <code>diagrams/*.json</code> のうち <code>*-workflow.json</code> が原本です。Archify の <code>validate workflow</code> と <code>deliver workflow</code> で再生成し、HTML を再度目視確認します。図を更新した場合は、そのファイルのハッシュ値と確認記録も更新します。</p>
+<h2>実プロジェクトへの適用時に残る確認</h2>
+<p>同梱スキルが利用する Kiro で認識・実行されること、対象コードの構造、テスト、CI、公開手順は導入先で確認します。対象リポジトリが未提供のため、これらを成功済みとはしていません。<a href="#adoption">導入手順</a>に小さな試行の進め方を記載しています。</p>
+</article><footer>編集原本は同梱の Markdown。文書はオフラインで閲覧できます。出典リンクはインターネット上のページを開きます。</footer></main></div>
+<script>
+const chapters=[...document.querySelectorAll('.chapter')];
+const input=document.querySelector('#search');
+const status=document.querySelector('#search-status');
+input.addEventListener('input',()=>{const q=input.value.trim().toLocaleLowerCase();let count=0;for(const c of chapters){c.hidden=!!q&&!c.textContent.toLocaleLowerCase().includes(q);if(!c.hidden)count++;}status.textContent=q?count+'章が一致（章単位で表示）':'';document.querySelector('#no-result').style.display=count?'none':'block';});
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{const target=document.getElementById(a.hash.slice(1));if(target?.hidden){input.value='';input.dispatchEvent(new Event('input'));}}));
+document.querySelectorAll('pre').forEach(pre=>{if(!pre.querySelector('code'))return;const button=document.createElement('button');button.className='copy';button.textContent='コピー';button.setAttribute('aria-label','指示文・コードをコピー');button.onclick=async()=>{try{await navigator.clipboard.writeText(pre.querySelector('code').textContent);button.textContent='コピー済み';setTimeout(()=>button.textContent='コピー',1800);}catch{button.textContent='範囲選択してコピー';const r=document.createRange();r.selectNodeContents(pre.querySelector('code'));const s=window.getSelection();s.removeAllRanges();s.addRange(r);}};pre.append(button);});
+const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id));}},{rootMargin:'-5% 0px -70% 0px'});chapters.forEach(c=>observer.observe(c));
+</script></body></html>

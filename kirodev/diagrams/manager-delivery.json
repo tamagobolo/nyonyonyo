@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "diagrams/manager-workflow.json",
+  "output": "diagrams/manager-workflow.html",
+  "specification": {
+    "sha256": "b8d0d6fc5723c987871ae729afc84f1b5099e19e4b083149199ce8fd2754b5da",
+    "bytes": 3374
+  },
+  "artifact": {
+    "sha256": "cf9992736f59e861d77f70d26a76dd21c865e6f382d9ad13c01cae8bf4712722",
+    "bytes": 706723
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

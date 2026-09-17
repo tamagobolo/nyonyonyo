@@ -11,6 +11,7 @@
 | リポジトリ直下 | Codebase Observatory。コードベース・スキル・エージェントの構造を観測する共通ツール | このREADMEの「使い始める」以降 |
 | [`ponytail/`](ponytail/) | DietrichGebert/ponytail のソース一式。既存の仕組みの再利用と、小さな実装を促すツール・スキル | [ponytailのREADME](ponytail/README.md) |
 | [`design/`](design/) | design / System Atlas。リポジトリ・クラウド・データ・画面を共通モデルで探索するアプリ | [designのREADME](design/README.md) |
+| [`kirodev/`](kirodev/) | 既存プロジェクト向けの Kiro 開発フロー、マネージャー・開発者・新任シニアのガイド、3つの再構成スキル | [Kiro開発フローガイド](kirodev/README.md) |
 
 `ponytail/` は [DietrichGebert/ponytail のコミット 356918e](https://github.com/DietrichGebert/ponytail/tree/356918eba965ee1eac64bd3a7f0dd02108350de5) から取り込み、[元のMITライセンス](ponytail/LICENSE)を保持しています。`design/` は作成済みアプリのコミット `0cc11b8c8df13c2141aaa055ce2c39e42919812c` のソースです。どちらもこのリポジトリ内の通常のフォルダーとして保存しているため、クローンすると一緒に取得できます。
 

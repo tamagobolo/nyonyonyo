@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "diagrams/developer-workflow.json",
+  "output": "diagrams/developer-workflow.html",
+  "specification": {
+    "sha256": "3bb99579518b3d869712f257fb32fc9c7f674b4cdbde5a3abe598752fdad4621",
+    "bytes": 4088
+  },
+  "artifact": {
+    "sha256": "36421fac6bdef11c8bf60edb4d24909c357326be540b96d28da5dc294c730525",
+    "bytes": 709596
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "開発者：現状把握から変更の引継ぎまで",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "investigate",
+      "label": "把握・設計"
+    },
+    {
+      "id": "implement",
+      "label": "実装・検証"
+    },
+    {
+      "id": "handoff",
+      "label": "レビュー"
+    },
+    {
+      "id": "operate",
+      "label": "公開・運用"
+    }
+  ],
+  "mainPath": [
+    "baseline",
+    "requirements",
+    "compare",
+    "design",
+    "tasks",
+    "code",
+    "verify",
+    "review",
+    "release"
+  ],
+  "nodes": [
+    {
+      "id": "baseline",
+      "lane": "investigate",
+      "col": 0,
+      "type": "database",
+      "label": "現状を確認",
+      "sublabel": "コード・CI・既知不具合",
+      "width": 132
+    },
+    {
+      "id": "requirements",
+      "lane": "investigate",
+      "col": 1,
+      "type": "frontend",
+      "label": "要件を整理",
+      "sublabel": "Feature / Bugfix",
+      "width": 132
+    },
+    {
+      "id": "compare",
+      "lane": "investigate",
+      "col": 2,
+      "type": "frontend",
+      "label": "候補を評価",
+      "sublabel": "必要なスキルで発散",
+      "width": 132
+    },
+    {
+      "id": "design",
+      "lane": "investigate",
+      "col": 3,
+      "type": "security",
+      "label": "設計を決定",
+      "sublabel": "契約・影響・回復方法",
+      "width": 132
+    },
+    {
+      "id": "tasks",
+      "lane": "implement",
+      "col": 3,
+      "type": "backend",
+      "label": "タスクを分割",
+      "sublabel": "要件ID・依存・完了条件",
+      "width": 132
+    },
+    {
+      "id": "code",
+      "lane": "implement",
+      "col": 4,
+      "type": "backend",
+      "label": "小さく実装",
+      "sublabel": "1タスクから検証",
+      "width": 132
+    },
+    {
+      "id": "verify",
+      "lane": "implement",
+      "col": 5,
+      "type": "security",
+      "label": "結果を照合",
+      "sublabel": "受入条件・回帰・CI",
+      "width": 132
+    },
+    {
+      "id": "review",
+      "lane": "handoff",
+      "col": 5,
+      "type": "security",
+      "label": "PRレビュー",
+      "sublabel": "差分と証拠を確認",
+      "width": 132
+    },
+    {
+      "id": "release",
+      "lane": "operate",
+      "col": 5,
+      "type": "external",
+      "label": "公開と観測",
+      "sublabel": "既存の公開手順へ",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "from": "baseline",
+      "to": "requirements",
+      "role": "main"
+    },
+    {
+      "from": "requirements",
+      "to": "compare",
+      "role": "main"
+    },
+    {
+      "from": "compare",
+      "to": "design",
+      "role": "main"
+    },
+    {
+      "from": "design",
+      "to": "tasks",
+      "label": "設計確定",
+      "role": "main"
+    },
+    {
+      "from": "tasks",
+      "to": "code",
+      "role": "main"
+    },
+    {
+      "from": "code",
+      "to": "verify",
+      "role": "main"
+    },
+    {
+      "from": "verify",
+      "to": "review",
+      "label": "証拠を添付",
+      "role": "main"
+    },
+    {
+      "from": "review",
+      "to": "release",
+      "label": "公開条件充足",
+      "role": "main"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "引継ぎの単位",
+      "items": [
+        "対象リポジトリ・ブランチ・基準SHA",
+        "要件 → 設計 → タスク → テスト",
+        "実行コマンドと未確認事項"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "戻る条件",
+      "items": [
+        "要件の矛盾は範囲決定へ戻す",
+        "回帰は再現条件を付けて修正",
+        "公開後の異常は回復手順へ"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "実行の境界",
+      "items": [
+        "発散中の案は未採用として保存",
+        "CI成功と人の受入を区別する",
+        "本番反映は既存の責任分担に従う"
+      ]
+    }
+  ]
+}
