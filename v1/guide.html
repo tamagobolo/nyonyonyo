@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ワークスペース開発ガイド v1</title>
+<style>
+:root{color-scheme:light;--bg:#f4f3f8;--paper:#fff;--ink:#242137;--muted:#666279;--line:#ddd9e8;--accent:#6240b5;--wash:#ede7fa}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;line-height:1.85;font-size:15px}a{color:var(--accent);text-underline-offset:3px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ae80ec;outline-offset:3px}
+.shell{max-width:1540px;margin:auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:44px;padding:32px 44px}.sidebar{position:sticky;top:24px;height:calc(100vh - 48px);overflow-y:auto;padding:8px 12px 18px 0}.wordmark{font-weight:800;font-size:34px;letter-spacing:-1.8px}.wordmark span{font-weight:500;font-size:11px;letter-spacing:1px;display:block;color:var(--muted)}.search{margin:24px 0 10px;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:11px 13px;font-size:13px}.search-status{font-size:11px;color:var(--muted);min-height:20px}.nav-group{font-size:10px;font-weight:750;color:var(--muted);letter-spacing:1.4px;margin:22px 0 7px}.sidebar nav>a{display:block;text-decoration:none;color:var(--muted);font-size:13px;line-height:1.6;padding:7px 11px;border-radius:7px;border-left:3px solid transparent}.sidebar nav>a:hover,.sidebar nav>a.active{background:var(--wash);border-color:var(--accent);color:var(--accent)}.print{margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 16px;font-size:12px}
+main{min-width:0;padding-bottom:60px}.hero{padding:34px 0 38px;border-bottom:1px solid var(--line);margin-bottom:24px}.eyebrow{font-size:10px;letter-spacing:2.5px;font-weight:800;color:var(--accent)}.hero h1{font-size:clamp(28px,3vw,46px);line-height:1.45;letter-spacing:-1.3px;margin:16px 0}.hero p{color:var(--muted);max-width:700px;margin:0}.badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}.badge{font-size:11px;line-height:1.5;background:var(--wash);color:var(--accent);padding:6px 10px;border-radius:5px}.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0 32px}.quick a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--paper);font-weight:700;font-size:14px}.quick small{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:5px}
+.chapter{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:30px 38px;margin-bottom:24px;scroll-margin-top:24px}.chapter-meta{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.5px;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:26px}.chapter-meta a{font-weight:400;white-space:nowrap}.chapter h1{font-size:26px;line-height:1.5;margin:0 0 23px;letter-spacing:-.5px}.chapter h2{font-size:19px;line-height:1.6;margin:38px 0 15px;padding-top:8px;border-top:1px solid var(--line)}.chapter h3{font-size:16px;margin:28px 0 10px}.chapter p{margin:14px 0}.chapter li{margin:8px 0}.chapter strong{font-weight:750}.chapter code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.88em;background:#f0eef6;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}.chapter pre{position:relative;background:#262237;color:#eee8ff;padding:28px 20px 20px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.85}.chapter pre code{background:none;color:inherit;padding:0;font-size:inherit}.copy{position:absolute;top:6px;right:9px;background:#433952;color:#e2d9f5;border:0;border-radius:4px;font-size:10px;padding:2px 8px}.table-wrap{width:100%;overflow-x:auto;margin:18px 0 24px}table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.85}th,td{border:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}th{background:#f0edf8;font-weight:700}td{min-width:80px}tr:nth-child(even) td{background:#faf9fc}blockquote{border-left:3px solid var(--accent);margin:20px 0;padding:0 20px;color:var(--muted)}details{font-size:12px;margin-top:24px}summary{cursor:pointer}.no-result{display:none;padding:30px;background:var(--paper);border-radius:12px}.chapter[hidden]{display:none}footer{font-size:11px;color:var(--muted);margin:24px 0}
+@media(min-width:1700px){.shell{gap:64px;padding-top:48px}.chapter{padding:40px 50px}}
+@media(max-width:1000px){.shell{grid-template-columns:210px minmax(0,1fr);padding:24px;gap:22px}.chapter{padding:26px}.quick{grid-template-columns:1fr}.hero h1{font-size:32px}}
+@media(max-width:720px){.shell{display:block;padding:18px}.sidebar{position:static;height:auto;padding:0}.sidebar nav{display:flex;gap:5px;flex-wrap:wrap;max-height:140px;overflow:auto}.nav-group{display:none}.sidebar nav>a{border:1px solid var(--line);font-size:11px;padding:5px 8px}.wordmark{font-size:28px}.search{margin-top:15px}.print{margin:12px 0}.hero{padding-top:16px}.hero h1{font-size:29px}.chapter{padding:22px 18px}.chapter h1{font-size:23px}.chapter-meta{font-size:9px}.chapter h2{font-size:18px}.quick{gap:8px}.quick a{padding:13px}.chapter pre{font-size:11px}}
+@media print{body{background:white;font-size:10pt}.shell{display:block;padding:0;max-width:none}.sidebar,.quick,.copy,.chapter-meta a{display:none}.hero{padding:0}.chapter{display:block!important;border:0;border-radius:0;padding:0;break-before:page}h1,h2,h3{break-after:avoid}pre,tr{break-inside:avoid}.table-wrap{overflow:visible}.hero h1{font-size:26pt}a{color:inherit;text-decoration:none}}
+</style></head><body><div class="shell"><aside class="sidebar"><div class="wordmark">workspace<span>DEVELOPMENT GUIDE · V1</span></div><label for="search" style="display:block;font-size:11px;margin-top:18px">ガイド内を検索</label><input id="search" class="search" type="search" placeholder="例：対象・受入条件・新任シニア"><div id="search-status" class="search-status" aria-live="polite"></div><nav aria-label="目次"><p class="nav-group">読む入口</p><a href="#start">はじめに</a>
+<a href="#map">ワークスペースの地図</a>
+<p class="nav-group">役割別フロー</p><a href="#manager">マネージャー</a>
+<a href="#developer">開発者</a>
+<a href="#senior">新任シニアの90分</a>
+<p class="nav-group">実務で使う</p><a href="#prompts">コピーして使う指示文</a>
+<a href="#example">版を保持して共有する実例</a>
+<a href="#skills">3つのスキルの適用</a>
+<a href="#adoption">導入と保守</a>
+<p class="nav-group">テンプレート</p><a href="#context-template">プロジェクト把握</a>
+<a href="#brief-template">変更依頼</a>
+<a href="#decision-template">意思決定記録</a>
+<a href="#handoff-template">検証と引継ぎ</a>
+<p class="nav-group">スキル本体</p><a href="#persona-source">workspace-persona</a>
+<a href="#detour-source">workspace-detour</a>
+<a href="#thriller-source">workspace-thriller</a>
+<p class="nav-group">資料情報</p><a href="#sources">出典・確認範囲</a>
+<a href="#validation">確認記録</a></nav><button class="print" onclick="window.print()">印刷 / PDF に保存</button></aside><main><header class="hero"><div class="eyebrow">THIS WORKSPACE · VERSION 1</div><h1>対象をそろえ、根拠で判断し、<br>小さく確かめて共有する。</h1><p>このワークスペースで、既存プロジェクトを育てるチームへ。<br>マネージャーの意思決定から、新任シニアの最初の指示まで。</p><div class="badges"><span class="badge">ワークスペース専用</span><span class="badge">実ファイル・公式仕様を確認：2026-09-17</span><span class="badge">3つの視点を独自に再構成</span></div></header><div class="quick"><a href="#manager">01 マネージャーから読む<small>目的・範囲・受入を決める</small></a><a href="#developer">02 開発者から読む<small>設計・実装・検証をつなぐ</small></a><a href="#senior">03 新任シニアから読む<small>90分で把握し、最初の指示へ</small></a></div><p id="no-result" class="no-result">該当する章がありません。別の言葉で検索してください。</p><article id="start" class="chapter" data-title="はじめに"><div class="chapter-meta"><span>01 / はじめに</span><a href="README.md">Markdown 原本 ↗</a></div><h1>ワークスペース開発ガイド v1</h1>
+<p>このガイドは、複数のプロジェクトを同じローカルワークスペースで扱い、Codex と共同で開発するチームのための資料です。作業対象を特定し、根拠を集め、変更・検証・共有まで進める方法をまとめています。共有先は <code>tamagobolo/nyonyonyo</code>、本版の格納場所は <code>v1/</code> です。</p>
+<p>初版資料は既存の場所に保存したまま、本版を追加しています。<code>v1</code> は資料のフォルダ名です。Git タグや GitHub Release の作成を意味しません。</p>
+<h2>最初に読む場所</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>読み手</th>
+<th>読む順番</th>
+<th>読んだ後にできること</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>マネージャー</td>
+<td><a href="#map">ワークスペースの地図</a> → <a href="#manager">作業フロー</a></td>
+<td>対象、目的、範囲、受入条件を決めて依頼する</td>
+</tr>
+<tr>
+<td>開発者</td>
+<td><a href="#map">ワークスペースの地図</a> → <a href="#developer">作業フロー</a></td>
+<td>適用ルールと既存コードを確認し、小さく実装・検証する</td>
+</tr>
+<tr>
+<td>新しく参加したシニア</td>
+<td><a href="#senior">90分の導入</a> → <a href="#prompts">指示文集</a></td>
+<td>実装の入口と影響範囲を説明し、検証可能な指示を出す</td>
+</tr>
+<tr>
+<td>導入・保守担当</td>
+<td><a href="#skills">スキルの設計</a> → <a href="#adoption">導入と保守</a></td>
+<td>3つのスキルを適切な対象に配置し、資料を更新する</td>
+</tr>
+</tbody></table></div>
+<p><a href="guide.html">検索・コピーができる HTML ガイド</a> は、このフォルダ一式を取得してブラウザで開きます。本文はオフラインで読めます。GitHub の通常のファイル画面では HTML は実行されません。上位フォルダの実コードへの参照もたどる場合は、リポジトリ全体を取得してください。</p>
+<h2>このワークスペースで守る3つの前提</h2>
+<ol>
+<li><strong>ワークスペースと Git リポジトリを分ける。</strong> ローカルの親フォルダは複数プロジェクトを置く場所で、親全体が一つの Git リポジトリではありません。変更先・実行するディレクトリ・アップロード先を依頼ごとに合わせます。</li>
+<li><strong>配置されていることと、利用可能であることを分ける。</strong> スキルの原本、読み込まれたスキル、エージェントの設定、実行権限は別々に確認します。</li>
+<li><strong>実ファイルの事実と提案を分ける。</strong> このガイドの運用はチームへの提案です。実際の <code>AGENTS.md</code>、依頼、仕様、既存の検証・公開手順を読み、対象に合わせて使います。</li>
+</ol>
+<h2>同梱するもの</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>場所</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>docs/</code></td>
+<td>8章の解説。対象の把握、役割別の作業、指示、実例、保守</td>
+</tr>
+<tr>
+<td><code>templates/</code></td>
+<td>プロジェクト把握、変更依頼、意思決定、検証・引継ぎの4書式</td>
+</tr>
+<tr>
+<td><code>.agents/skills/</code></td>
+<td><code>workspace-persona</code>、<code>workspace-detour</code>、<code>workspace-thriller</code></td>
+</tr>
+<tr>
+<td><code>diagrams/</code></td>
+<td>マネージャー・開発者の対話型フロー図、入力 JSON、検証記録</td>
+</tr>
+<tr>
+<td><code>guide.html</code></td>
+<td>18章を検索・閲覧・コピーできるまとめ版</td>
+</tr>
+<tr>
+<td><code>sources.md</code> / <code>validation.md</code></td>
+<td>出典、確認した基準、検証結果と未確認事項</td>
+</tr>
+</tbody></table></div>
+<p>図は <a href="diagrams/manager-workflow.html">マネージャー</a> と <a href="diagrams/developer-workflow.html">開発者</a> の2種類です。図の文章は日本語、拡大・検索・テーマ切替など固定の Viewer UI と HTML の言語属性は英語です。本文の手順と合わせて読みます。</p>
+<p>3つのスキルは、紹介記事の着想をこのワークスペース向けに独自に再構成したものです。記事執筆者の公式実装や、確認済みの上流 GitHub スキルとしては扱いません。<a href="#sources">出典と確認範囲</a> に経緯を記載しています。</p>
+<h2>今日から始める</h2>
+<p>対象のプロジェクトで、<a href="#context-template">プロジェクト把握テンプレート</a> の「対象・基準」を埋めます。次に <a href="#brief-template">変更依頼テンプレート</a> の目的と受入条件を記入します。小さな変更なら、この2つを依頼本文の中に短くまとめるだけでも構いません。</p>
+<p>本版のスキルを使う場合は <a href="#adoption">導入手順</a> を先に確認してください。<code>v1/</code> に置かれたスキルが、ワークスペース全体に自動で有効になるわけではありません。</p>
+<p>確認日：2026-09-17。リポジトリの調査基準は <code>fc2ee7929bd4838272a292f58ded856b275da8b3</code>。後続の変更では最新の実ファイルを再確認します。</p>
+</article>
+<article id="map" class="chapter" data-title="ワークスペースの地図"><div class="chapter-meta"><span>02 / ワークスペースの地図</span><a href="docs/00-workspace-map.md">Markdown 原本 ↗</a></div><h1>ワークスペースの地図と作業の前提</h1>
+<h2>どこで作業し、どこへ保存するか</h2>
+<p>このローカル環境では、親のワークスペースに複数の独立したプロジェクトがあります。共有資料の保存先は <code>tamagobolo/nyonyonyo</code> です。親フォルダ全体を公開する構成ではありません。公開資料では個人の絶対パスを使わず、次の相対表記を用います。</p>
+<pre><code class="language-text">〈workspace〉/                  ローカルで複数の案件を置く親。Git リポジトリではない
+├── 〈対象プロジェクト〉/       日々の開発対象。独自の Git・ルールを持つ場合がある
+└── nyonyonyo/                 共有先 tamagobolo/nyonyonyo のチェックアウト
+    ├── AGENTS.md              このリポジトリの基本方針
+    ├── obs / observatory.py   Codebase Observatory の入口
+    ├── src/ / viewer/         解析・レポート生成・画面
+    ├── skills/ / agents/     共通スキルとエージェントの配布用原本
+    ├── design/                System Atlas アプリ
+    ├── ponytail/              取り込まれた外部プロジェクト
+    ├── SAPGUI/                別の実行環境を前提とする専用手順
+    └── v1/                    本ガイド。独立した Git リポジトリではない
+</code></pre>
+<p>別フォルダにある同名プロジェクトと、共有先に格納されたコピーを混同しないでください。依頼には「編集元」「共有先」「対象パス」を書きます。コピーする場合は編集元のコミットと共有先の保存位置も記録します。</p>
+<h2>開始時に確認すること</h2>
+<p>対象フォルダへ移動して実行します。結果を見てから変更に入ります。</p>
+<pre><code class="language-bash">pwd
+git rev-parse --show-toplevel
+git remote -v
+git branch --show-current
+git rev-parse HEAD
+git status --short
+</code></pre>
+<p>Git の確認が失敗する場合は、そのフォルダが管理対象の外なのか、作業場所が違うのかを調べます。失敗を理由に新しい Git リポジトリを作ったり、親フォルダをまとめて追加したりしません。既存差分があれば依頼対象との関係を確認し、他者の作業を保持します。</p>
+<h2>ルール・スキル・実行手段の役割</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要素</th>
+<th>役割</th>
+<th>このワークスペースでの確認</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>AGENTS.md</code> / <code>AGENTS.override.md</code></td>
+<td>対象の作業方針、検証、禁止事項を伝える</td>
+<td>リポジトリから作業フォルダまでの適用ファイルと、編集先の下位ルールを読む</td>
+</tr>
+<tr>
+<td><code>SKILL.md</code></td>
+<td>特定の仕事の進め方と、使う条件を定義する</td>
+<td>原本パス、名前、説明、実際の利用可否を確認する</td>
+</tr>
+<tr>
+<td><code>agents/</code> などの設定原本</td>
+<td>分担する役割や設定を配布する</td>
+<td>ファイルが存在するだけで、その役割が登録済みとは判断しない</td>
+</tr>
+<tr>
+<td>CLI・ブラウザ・接続済みアプリ</td>
+<td>ファイルや外部サービスを読み書きする</td>
+<td>認証、実行対象、書込み範囲、ユーザーの依頼を照合する</td>
+</tr>
+<tr>
+<td>チェックや CI</td>
+<td>定めた条件に対する検証結果を返す</td>
+<td>何を検証したか、実行基準、未確認範囲を記録する</td>
+</tr>
+</tbody></table></div>
+<p>Codex の公式仕様では、プロジェクトの指示は通常 Git ルートから作業ディレクトリまでの経路をもとに読み込まれます。兄弟プロジェクトや下位フォルダにあるすべての指示が、親を開くだけで一括適用されるものではありません。対象の指示が読み込まれているかを確認します。<a href="https://learn.chatgpt.com/ja-JP/docs/agent-configuration/agents-md">公式：AGENTS.md</a></p>
+<p>本リポジトリの方針は「要求を満たす最小の変更」「影響に必要な検証」です。今回の文書追加だけで、無関係なアプリの全面改修やフルテストを追加する理由にはなりません。<a href="../AGENTS.md">実ファイル：AGENTS.md</a></p>
+<h2>リポジトリ内の入口と確認コマンド</h2>
+<p>以下は基準コミットのファイルで確認した定義です。本ガイド作成時に、アプリや全テストの動作を実行確認した一覧ではありません。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>作業対象 / 実行場所</th>
+<th>入口</th>
+<th>定義されているコマンド・条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Observatory / <code>nyonyonyo/</code></td>
+<td><code>obs</code> → <code>observatory.py</code></td>
+<td><code>./obs test</code> または <code>npm test</code>。Node.js 20以上、Python 3.11以上が定義されている</td>
+</tr>
+<tr>
+<td>解析 / <code>nyonyonyo/</code></td>
+<td><code>src/scanner.py</code>、<code>scripts/js-analyze.mjs</code></td>
+<td><code>./obs scan --root 〈対象〉 --out 〈出力先〉</code>。解析結果を書き出す操作なので対象と出力先を指定する</td>
+</tr>
+<tr>
+<td>レポート画面 / <code>nyonyonyo/</code></td>
+<td><code>viewer/main.jsx</code>、<code>viewer/style.css</code></td>
+<td><code>npm run build</code> が <code>assets/</code> の画面資産を生成する。ソースと生成物の関係を確認する</td>
+</tr>
+<tr>
+<td>System Atlas / <code>nyonyonyo/design/</code></td>
+<td><code>package.json</code>、当該 README</td>
+<td><code>npm run lint</code>、<code>npm run typecheck</code>、<code>npm test</code>、<code>npm run build</code>。Node.js 24以上</td>
+</tr>
+<tr>
+<td>外部取り込み / <code>nyonyonyo/ponytail/</code></td>
+<td>当該 README、LICENSE</td>
+<td>元の仕様とライセンスを保持し、変更内容に合う手順を選ぶ</td>
+</tr>
+<tr>
+<td>SAP GUI / <code>nyonyonyo/SAPGUI/</code></td>
+<td>当該 README、AGENTS.md</td>
+<td>Windows・SAP GUI を前提とする。ローカル macOS の確認で業務動作まで合格としない</td>
+</tr>
+<tr>
+<td>本ガイド / <code>nyonyonyo/v1/</code></td>
+<td><code>README.md</code>、<code>scripts/build-guide.mjs</code></td>
+<td>Markdown・リンク・スキル定義・HTML表示を確認する</td>
+</tr>
+</tbody></table></div>
+<p><code>npm test</code> の意味は実行場所で変わります。別プロジェクトのコマンドを、そのまま現在の場所で使わないでください。依存導入・ビルド・解析による生成物も変更差分として把握します。</p>
+<h2>実装の理解に必要な最短の流れ</h2>
+<p>Observatory の構造を読む場合は、次の順序が入口です。これは静的なソース確認に基づく関係です。</p>
+<pre><code class="language-text">obs
+  → observatory.py：引数、対象・出力先、scan / watch / compare / test の分岐
+  → src/scanner.py：ファイル解析と関係・検出事項の集約
+       → scripts/js-analyze.mjs：JS / TS の解析
+  → src/reporting.py：JSON・Markdown・HTML の生成
+       → assets/viewer.js・viewer.css：HTMLへ組み込む画面資産
+            ↑ scripts/build.mjs が viewer/ から生成
+</code></pre>
+<p>処理を変更するときは、入口、公開される出力形式、例外時の挙動、既存テストをつなげて読みます。<a href="../docs/architecture.md">既存の構造説明</a> と <a href="#senior">新任シニアの読み方</a> を参照してください。</p>
+</article>
+<article id="manager" class="chapter" data-title="マネージャー"><div class="chapter-meta"><span>03 / マネージャー</span><a href="docs/01-manager-workflow.md">Markdown 原本 ↗</a></div><h1>マネージャーの作業フロー</h1>
+<p>目的は、開発者が対象と完了条件を取り違えずに着手でき、結果を受け入れられる依頼にすることです。資料の枚数や会議を増やすことは目的に含めません。小さな変更では依頼本文だけで一連の判断を記録できます。</p>
+<p><a href="diagrams/manager-workflow.html">対話型フロー図を開く</a></p>
+<h2>1. 目的と対象を決める</h2>
+<p><a href="#brief-template">変更依頼</a> に「誰の、どの場面の問題か」「成功を何で判断するか」「編集先と共有先」「今回の対象外」を書きます。プロジェクト名だけでなく、リポジトリと相対パスを記します。</p>
+<p>このワークスペースでの例は「新しく参加したシニアが、対象コードと検証方法を特定して最初の指示を出せること。保存先は <code>tamagobolo/nyonyonyo/v1/</code>、既存版は保持」です。「分かりやすくする」だけの依頼から、読者の行動と成果物を判定できる依頼へ具体化します。</p>
+<h2>2. 必要な視点を使って案を比べる</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>スキル</th>
+<th>問うこと</th>
+<th>残す結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$workspace-persona</code></td>
+<td>マネージャー、開発者、新任シニアで何に迷うか</td>
+<td>読者ごとの課題・成功条件・必要な情報</td>
+</tr>
+<tr>
+<td><code>$workspace-detour</code></td>
+<td>新規実装以外の方法で目的を満たせるか</td>
+<td>現状維持、既存機能の活用、資料改善、小さな実装の比較</td>
+</tr>
+<tr>
+<td><code>$workspace-thriller</code></td>
+<td>最初の一回で、どの行動が成功すれば役立つと分かるか</td>
+<td>最重要の利用場面と、その確認方法</td>
+</tr>
+</tbody></table></div>
+<p>すべてを毎回呼び出す必要はありません。対象の配置と使い方は <a href="#adoption">導入手順</a> を確認します。人物像は調査済みの事実と仮定を分け、スキルが出した案は採用するまで候補として扱います。</p>
+<h2>3. 範囲と受入条件を確定する</h2>
+<p>受入条件には、観測できる結果を付けます。資料なら「リンクが開く」「指示文に対象・完了条件がある」、機能なら「この入力にこの出力を返す」「失敗時にこの状態を保持する」などです。優先順位と対象外も合わせて技術責任者へ渡します。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>判断の地点</th>
+<th>誰が主に判断するか</th>
+<th>次へ進める状態</th>
+<th>足りないとき</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G0 対象</td>
+<td>依頼者・開発者</td>
+<td>編集先、Git、保存先を特定できる</td>
+<td>対象を調べ、不明な部分だけ依頼者へ確認</td>
+</tr>
+<tr>
+<td>G1 要件</td>
+<td>マネージャー</td>
+<td>目的、範囲、受入条件が一致する</td>
+<td>読者・利用場面に戻って条件を具体化</td>
+</tr>
+<tr>
+<td>G2 実装可能性</td>
+<td>技術責任者</td>
+<td>既存資産、影響、検証、回復方法を説明できる</td>
+<td>調査するか、範囲を小さくする</td>
+</tr>
+<tr>
+<td>G3 完了</td>
+<td>開発者・必要なレビュー担当</td>
+<td>差分と検証証拠が条件に対応する</td>
+<td>該当する実装または要件に戻す</td>
+</tr>
+<tr>
+<td>G4 共有</td>
+<td>指定された公開担当</td>
+<td>公開先と公開内容が依頼に一致する</td>
+<td>保存先・権限・未確認事項を解消</td>
+</tr>
+</tbody></table></div>
+<p>G0〜G4 は判断の整理用の名称です。既存の依頼で認められた操作を再承認させたり、新しい会議を必須にしたりするものではありません。外部公開や本番反映は、対象・範囲について既存の指示を確認して扱います。</p>
+<h2>4. 進捗は成果物と未確定事項で見る</h2>
+<p>進捗共有では「何ができたか」「何がまだ分からないか」「次の確認で何が決まるか」を聞きます。実装行数や AI が動いた時間は、目的を達成した証拠にはなりません。</p>
+<p>依存する回答が必要なときは、判断事項と必要な期限を明示します。回答を待たなくてよい調査・資料化・検証は進められます。推測で決めた値は仮定と記録し、完了扱いに紛れ込ませません。</p>
+<h2>5. 受入と共有を行う</h2>
+<p><a href="#handoff-template">検証・引継ぎ</a> を使い、受入条件と結果を一対一で見ます。実行した確認、実行していない確認、その理由を分けます。GitHub への保存ならリポジトリ、ブランチ、パス、コミットを確認し、リンクから成果物を開きます。</p>
+<p>運用後は、新任メンバーが最初の依頼で対象を特定できたか、指示を読み直す回数が減ったか、引継ぎ時の不足が何だったかを確認します。数値の改善は計測できた場合だけ報告し、初回は観測を始めるところからにします。</p>
+</article>
+<article id="developer" class="chapter" data-title="開発者"><div class="chapter-meta"><span>04 / 開発者</span><a href="docs/02-developer-workflow.md">Markdown 原本 ↗</a></div><h1>開発者の作業フロー</h1>
+<p><a href="diagrams/developer-workflow.html">対話型フロー図を開く</a></p>
+<h2>1. 作業の境界を固定する</h2>
+<p><a href="#map">地図の確認コマンド</a> で作業ディレクトリ、Git ルート、remote、ブランチ、基準コミット、既存差分を確認します。<code>AGENTS.md</code> と対象の下位ルールを読み、依頼と照合します。</p>
+<p>このワークスペースでは、親フォルダにある開発元と <code>nyonyonyo/</code> 内の共有コピーが同名の場合があります。編集元と公開先を記録し、同じ内容を両方で独立に変更しないようにします。既存の変更をリセットして作業を始めてはいけません。</p>
+<h2>2. 現状の入口から変更点まで読む</h2>
+<p>ファイル名やシンボルを <code>rg</code> / <code>rg --files</code> で探し、入口、呼出先、データ形式、出力、対応するテストの順に読みます。文書に書かれた関係と、コードで確認した関係を区別します。必要なら現象を再現し、変更前の結果を残します。</p>
+<p>Observatory なら <code>obs</code>、<code>observatory.py</code>、対象の <code>src/</code>、<code>tests/</code> が入口です。画面なら <code>viewer/</code> とビルド生成物の関係も確認します。System Atlas や SAP GUI の作業は、それぞれのフォルダの説明と実行環境へ切り替えます。</p>
+<h2>3. 要件を実装と検証へつなぐ</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要件ID</th>
+<th>受入条件</th>
+<th>変更する場所・契約</th>
+<th>必要な確認</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R1</td>
+<td>入力に対し期待する結果を返す</td>
+<td>関数、CLI、画面、文書の該当箇所</td>
+<td>振る舞いを確認するテストや操作</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>既存利用を壊さない</td>
+<td>出力形式、設定、既存版、関連データ</td>
+<td>対象を絞った回帰確認や差分比較</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>指定先から利用できる</td>
+<td>保存先、パス、リンク、公開手順</td>
+<td>保存後に参照・取得できること</td>
+</tr>
+</tbody></table></div>
+<p>大きな変更では設計・タスクを文書化します。小さな変更ではこの表を依頼や作業記録に埋めるだけで十分です。特定のファイル名を置くだけで自動処理されると想定しません。</p>
+<h2>4. 既存の解決策を探し、小さく実装する</h2>
+<p>既存コード、標準機能、導入済み依存で要件を満たせるかを調べます。案が一つに固定されているときは <code>$workspace-detour</code>、利用者の成功条件が曖昧なら <code>$workspace-persona</code>、最初の利用体験を絞るときは <code>$workspace-thriller</code> を選べます。</p>
+<p>変更は一つの完了条件に対応する単位へ分けます。分担が依頼や適用ルールで求められている場合は、独立する仕事に担当範囲と完了条件を付けます。複数人・複数エージェントが同じファイルを変更する場合は所有範囲を調整し、他者の編集を戻さないようにします。</p>
+<h2>5. 変更の種類に合わせて検証する</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>変更</th>
+<th>最初に行う確認</th>
+<th>広げる条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文書・テンプレート</td>
+<td>要件との一致、リンク、例、表記、生成 HTML の表示</td>
+<td>構成や生成処理を変更した場合は関連ページも見る</td>
+</tr>
+<tr>
+<td>スキルの指示</td>
+<td>名前・説明・形式、使う条件、出力、短い入力例への適用</td>
+<td>指示に矛盾がある、手順が再現しない場合</td>
+</tr>
+<tr>
+<td>解析・データ変換</td>
+<td>対象関数・既存テスト・必要な失敗ケース</td>
+<td>出力契約や共通処理に影響、テスト失敗がある場合</td>
+</tr>
+<tr>
+<td>画面</td>
+<td>変更した状態の操作、必要な画面幅、生成物</td>
+<td>共通部品・操作経路・ビルドに影響する場合</td>
+</tr>
+<tr>
+<td>外部サービスや業務操作</td>
+<td>接続先、実行内容、返った結果</td>
+<td>認められた環境での実動作確認が必要な場合</td>
+</tr>
+</tbody></table></div>
+<p>テストを新設するなら実際の振る舞いを固定します。文書の軽微な変更に、実装と同じ文字列をなぞるだけのテストを追加しません。必要な確認が通った後は、新しい懸念がなければ繰り返さず、引継ぎへ進みます。</p>
+<p>検証結果にはコマンド、実行ディレクトリ、基準、結果、未確認事項を残します。「コマンドが定義されている」「実行した」「成功した」を別々に扱います。</p>
+<h2>6. 差分を確認して共有する</h2>
+<p>変更対象を明示して確認します。下は本版の追加のように <code>v1/</code> と入口だけを扱う例です。実際の依頼に合わせてパスを変えます。</p>
+<pre><code class="language-bash">git diff -- README.md
+git status --short
+git add -- v1 README.md
+git diff --cached --stat
+git diff --cached --check
+git diff --cached --name-status
+</code></pre>
+<p>新規ファイルは通常の <code>git diff</code> だけでは見えません。ステージされた一覧と内容を確認してからコミットします。意図しないファイルがあれば対象から外し、元の編集内容は保持します。</p>
+<p>公開・アップロードまで依頼されていれば、指定された remote・ブランチへ反映して確認します。レビューが必要なリポジトリではその手順に従います。push が競合した場合は最新の変更を確認し、強制 push で他者の履歴を置き換えません。</p>
+<p>最後に、成果物のリンク、コミット、確認内容、未確認範囲を渡します。公開後の修正も通常の追加コミットで行い、必要な場合は影響を把握して取り消します。</p>
+</article>
+<article id="senior" class="chapter" data-title="新任シニアの90分"><div class="chapter-meta"><span>05 / 新任シニアの90分</span><a href="docs/03-senior-onboarding.md">Markdown 原本 ↗</a></div><h1>新任シニアが90分で把握し、的確な指示を出す</h1>
+<p>目標は、全ファイルを読むことではありません。「どこを変えるか」「何を維持するか」「何で完了を判断するか」を根拠付きで言える状態にすることです。90分は目安で、基盤の動作確認まで保証する時間ではありません。</p>
+<h2>0〜15分：対象とルールを確定する</h2>
+<p><a href="#map">ワークスペースの地図</a> を読み、<a href="#context-template">プロジェクト把握</a> の対象・基準を埋めます。対象ディレクトリ、Git ルート、remote、ブランチ、基準 SHA、既存差分を確認します。</p>
+<p><code>nyonyonyo/AGENTS.md</code>、対象フォルダの指示、README、必要な既存設計資料を読みます。親のワークスペースとリポジトリを同じものとして扱っていないか、配布されたスキル原本を読み込み済みと取り違えていないかを確認します。</p>
+<p>この段階の成果は「今回触る範囲と守る条件を2〜3文で言えること」です。</p>
+<h2>15〜40分：一本の処理をソースで追う</h2>
+<p>共有ツールを理解する場合は、以下の順で追います。ファイルの存在と静的な関係は基準コミットで確認済みです。実行時の挙動は担当する変更に必要な範囲で追加確認します。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>読む場所</th>
+<th>確認すること</th>
+<th>指示にどう使うか</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>obs</code></td>
+<td>Python 実行環境を選び、CLI へ渡す</td>
+<td>起動失敗と解析の不具合を分ける</td>
+</tr>
+<tr>
+<td><code>observatory.py</code> の parser / main</td>
+<td>コマンド分岐、対象と出力先、出力ロック、終了コード</td>
+<td>CLI の入力・出力・失敗の契約を特定する</td>
+</tr>
+<tr>
+<td><code>src/scanner.py</code> の <code>scan</code> / <code>compare</code></td>
+<td>解析と差分比較、未完了状態の扱い</td>
+<td>データの生成点と互換性を考える</td>
+</tr>
+<tr>
+<td><code>scripts/js-analyze.mjs</code></td>
+<td>JS / TS の解析経路</td>
+<td>Python 側と別の解析経路を見落とさない</td>
+</tr>
+<tr>
+<td><code>src/reporting.py</code> の <code>write_report</code></td>
+<td>JSON・Markdown・HTML の出力</td>
+<td>一つの変更が複数の出力へ及ぶか確認する</td>
+</tr>
+<tr>
+<td><code>viewer/main.jsx</code> と <code>scripts/build.mjs</code></td>
+<td>表示元と <code>assets/</code> の生成関係</td>
+<td>ソースと生成物を整合させる必要を判断する</td>
+</tr>
+<tr>
+<td><code>tests/test_observatory.py</code>、<code>tests/test_integration.py</code></td>
+<td>既存の契約・失敗ケース</td>
+<td>変更に合う確認を選ぶ</td>
+</tr>
+</tbody></table></div>
+<p>例えば差分比較なら、「不完全な解析結果から削除と断定しない」ことを扱う <code>test_delta_and_incomplete_never_claims_removal</code> を読む手がかりにできます。テスト名の存在だけで、今回の差分が合格しているとは判断しません。</p>
+<p>実装の入口が違う場合は、この表を対象の入口・中核処理・出力・テストへ置き換えます。System Atlas を調べるのに、Observatory のテストだけで品質を説明しないでください。</p>
+<h2>40〜60分：事実、仮説、未確認事項を分ける</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>区分</th>
+<th>記入例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>確認した事実</td>
+<td><code>scripts/build.mjs</code> は画面資産を生成し、<code>src/reporting.py</code> はその資産を HTML に含める</td>
+</tr>
+<tr>
+<td>変更に関する仮説</td>
+<td>表示の追加には、画面ソースと生成物の両方を更新する必要がありそう</td>
+</tr>
+<tr>
+<td>次に確認すること</td>
+<td>出力データに必要な値があるか、既存の画面部品で表現できるか</td>
+</tr>
+<tr>
+<td>未実行</td>
+<td>対象の画面操作、ビルド、関連テスト。実行した場合だけ結果を追記する</td>
+</tr>
+</tbody></table></div>
+<p>重要な設計の選択があるときだけ、<a href="#decision-template">意思決定記録</a> に案・判断理由・残る課題を残します。資料だけで判断できない部分は、担当者への質問か小さな再現で確かめます。</p>
+<h2>60〜80分：最初の指示を作る</h2>
+<pre><code class="language-text">対象：tamagobolo/nyonyonyo の v1/。
+基準：作業開始時のブランチとコミット、既存差分を記録してください。
+目的：新任シニアが、変更対象と検証方法を特定して最初の指示を出せる資料にする。
+範囲：docs/03-senior-onboarding.md と関連する指示文。HTML まとめ版も整合させる。
+維持条件：既存版と他プロジェクトのファイルは保持する。
+根拠：AGENTS.md、実ファイルの入口と責務、既存の構造説明を読む。
+完了条件：対象、契約、検証、未確認事項を含む指示例があり、相対リンクが開く。
+検証：文書と実ファイルの対応、リンク、生成 HTML の該当章を確認する。
+共有：依頼された保存先へ反映し、リンク・コミット・確認結果を報告する。
+</code></pre>
+<p>実際のコード変更では「範囲」をファイルまたはモジュールに、「完了条件」を観測できる振る舞いに置き換えます。解法を細かく固定する前に、既存の実装で満たせるかを調べる余地を残します。</p>
+<h2>80〜90分：指示を自己点検する</h2>
+<ol>
+<li>編集元、Git リポジトリ、公開先を取り違える余地がないか。</li>
+<li>根拠のある現在の振る舞いと、期待する変更を区別したか。</li>
+<li>互換性や既存版など、維持する条件があるか。</li>
+<li>完了を証明する検証と実行場所を説明できるか。</li>
+<li>不明点を仮定で埋めず、必要な調査や担当を指定したか。</li>
+</ol>
+<p>この5点を満たした指示を最初の小さな変更に使います。引継ぎで判明した不足を資料へ戻すことで、次の参加者の理解を速めます。包括的なアーキテクチャ再設計を初日から始める必要はありません。</p>
+</article>
+<article id="prompts" class="chapter" data-title="コピーして使う指示文"><div class="chapter-meta"><span>06 / コピーして使う指示文</span><a href="docs/04-instruction-playbook.md">Markdown 原本 ↗</a></div><h1>コピーして使う指示文</h1>
+<p><code>〈対象〉</code> などの値を実際の依頼に置き換えます。コードブロックの文面は依頼のひな型で、外部操作への一括した許可ではありません。すでに指定された範囲と権限を引き継いで使います。スキルを使う例は <a href="#adoption">導入と保守</a> の配置確認後に利用します。</p>
+<h2>A. 作業対象を確定する</h2>
+<pre><code class="language-text">このワークスペースの〈対象フォルダ〉で作業してください。
+最初に、作業ディレクトリ、Git ルート、remote、ブランチ、基準コミット、既存差分、
+適用される AGENTS.md を確認し、今回変更する範囲を短く整理してください。
+編集元は〈場所〉、共有先は〈リポジトリ・パス〉です。
+既存差分を保持し、独立して進められる調査から開始してください。
+</code></pre>
+<h2>B. 利用者の成功条件をそろえる</h2>
+<pre><code class="language-text">$workspace-persona を使って、〈対象プロジェクト〉の〈課題〉を整理してください。
+読み手はマネージャー、開発者、初めて参加するシニアです。
+各役割について利用場面、迷う点、成功条件、必要な情報を示してください。
+事実と仮定を分け、競合する要望と優先順位を決める材料を出してください。
+今回は〈対象外〉を含めません。
+</code></pre>
+<h2>C. 解決方法の選択肢を広げる</h2>
+<pre><code class="language-text">$workspace-detour を使い、〈目的〉を満たす方法を比較してください。
+現状維持、既存コードや設定の利用、手順・資料の改善、小さな実装を候補に含めます。
+各案の対象範囲、効果、作業量、運用負担、戻しやすさを比較してください。
+推奨案と採用しない理由を残し、採用済みの依頼範囲から実装を進めてください。
+</code></pre>
+<h2>D. 最初の成功体験を定義する</h2>
+<pre><code class="language-text">$workspace-thriller を使って、〈利用者〉が初めて〈目的〉を達成する場面を設計してください。
+例：新任シニアが、対象リポジトリと検証方法を含む最初の指示を出せる。
+開始時点、行動、迷い、提示する情報、成功を確認する観測点を示してください。
+見栄えや驚きのための追加機能を目的にせず、実務の成果に結び付けてください。
+</code></pre>
+<h2>E. コードの入口と変更の影響を調べる</h2>
+<pre><code class="language-text">〈リポジトリ・基準コミット〉の〈機能〉を実コードで調べてください。
+入口、主要な呼出先、データ形式、出力、対応するテストをつないで説明してください。
+根拠は相対ファイルパスと関数名で示し、静的に読んだ関係と実行確認を区別してください。
+変更候補は〈範囲〉です。既存の再利用先と、確認が必要な互換性を挙げてください。
+</code></pre>
+<h2>F. 小さく実装して確認する</h2>
+<pre><code class="language-text">〈対象〉の R1〈受入条件〉を実装してください。
+維持する条件は〈既存の振る舞い・互換性〉、対象外は〈範囲〉です。
+既存コード、標準機能、導入済み依存を調べてから最小の変更を選んでください。
+変更に合う確認を実行し、必要な結果が出たら差分と未確認事項を報告してください。
+不要な抽象化、無関係な修正、既存差分の取り消しを加えないでください。
+</code></pre>
+<h2>G. 不具合を調べる</h2>
+<pre><code class="language-text">〈対象・環境〉で〈入力・操作〉をすると〈実際の結果〉になります。
+期待する結果は〈条件〉です。再現条件、観測、仮説を分けて原因を絞ってください。
+最小の再現または該当テストで確認し、原因に対応する修正と回帰確認を行ってください。
+再現できない場合は、確認した条件と不足情報を示してください。
+</code></pre>
+<h2>H. 差分をレビューする</h2>
+<pre><code class="language-text">〈基準〉からの〈対象パス〉の変更をレビューしてください。
+目的と受入条件は〈要件〉です。仕様の不一致、再現可能な不具合、意図しない変更を確認してください。
+指摘には起きる条件、影響、ファイル位置、必要な確認を付けてください。
+好みの変更や先回りした仕組みを必須事項にせず、未確認は未確認と報告してください。
+</code></pre>
+<h2>I. 旧版を保持して新しい資料を共有する</h2>
+<pre><code class="language-text">tamagobolo/nyonyonyo に、ワークスペース専用の開発ガイドを v1/ として追加してください。
+既存の資料は元の場所と内容を保持し、新版は実際のフォルダ構成・ルール・操作に合わせてください。
+マネージャー用、開発者用、新任シニア向けの導入、指示文、3つのスキルを含めます。
+入口の README に新版へのリンクを追加し、リンク・スキル形式・HTML 表示を確認してください。
+今回追加する内容だけをコミットして GitHub へアップロードし、URL とコミットを報告してください。
+</code></pre>
+<h2>J. 検証と引継ぎをまとめる</h2>
+<pre><code class="language-text">今回の変更を、目的、変更範囲、受入条件との対応、検証結果、未確認事項、共有先でまとめてください。
+実行したコマンドには作業ディレクトリを付け、定義の確認だけの項目と区別してください。
+公開済みの場合はリポジトリ・ブランチ・パス・コミットと取得できるリンクを付けてください。
+次の担当者が必要な作業だけを再開できる粒度にしてください。
+</code></pre>
+</article>
+<article id="example" class="chapter" data-title="版を保持して共有する実例"><div class="chapter-meta"><span>07 / 版を保持して共有する実例</span><a href="docs/05-worked-example.md">Markdown 原本 ↗</a></div><h1>実例：既存資料を残してワークスペース版を追加する</h1>
+<p>このガイド自身の作成を、依頼から共有までの記入例にします。対象は <code>tamagobolo/nyonyonyo/v1/</code>、調査開始時の基準は <code>fc2ee7929bd4838272a292f58ded856b275da8b3</code> です。実行結果の証跡は <a href="#validation">確認記録</a> にまとめます。</p>
+<h2>依頼を受入条件に変える</h2>
+<p>課題は、以前の資料が特定製品の導入を前提としており、現在のワークスペースで「どこを読み、どう指示するか」が直接分からないことです。今回の目的は、既存の成果を残しながら、この環境の実務に使える独立した版を作ることです。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>受入条件</th>
+<th>対応する成果物</th>
+<th>確認方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R1</td>
+<td>旧版の内容とパスを保持する</td>
+<td>追加型の <code>v1/</code> と入口へのリンク</td>
+<td>基準コミットとの差分と既存ツリーを比較</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>本版に旧製品への前提・名称を持ち込まない</td>
+<td>全 Markdown、スキル、HTML、図、生成スクリプト</td>
+<td>ファイル名と本文の表記検索、手順の内容確認</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>実際のワークスペースに合う</td>
+<td>地図、実コードの読み順、実行場所付きコマンド</td>
+<td>AGENTS.md、README、スクリプト、package.json との照合</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>3つの役割が行動できる</td>
+<td>役割別フロー、新任シニアの90分、指示文</td>
+<td>読み手ごとの目的と完了条件を追う</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>スキルを利用できる形で渡す</td>
+<td><code>.agents/skills/workspace-*/SKILL.md</code> と導入説明</td>
+<td>フロントマター、呼出名、配置説明、入力例への適用</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>指定先から取得できる</td>
+<td>GitHub の <code>v1/</code></td>
+<td>remote のコミット・ファイル一覧で確認</td>
+</tr>
+</tbody></table></div>
+<h2>3つのスキルを使った判断</h2>
+<p>以下は本版作成で各 SKILL.md の観点を適用した結果です。ユーザーへのインタビューや定量的な利用テストの結果ではありません。人物像と効果の見込みは設計上の仮定です。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>比較・検討した内容</th>
+<th>本版で選んだこと</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Persona</td>
+<td>マネージャーは成果と範囲、開発者は対象と検証、新任シニアは入口と判断根拠を必要とする</td>
+<td>共有する地図の後に役割別の読み順を用意する</td>
+</tr>
+<tr>
+<td>Detour</td>
+<td>旧版の上書き、用語だけの置換、独立した新版、全面的な開発基盤作り直しを比較する</td>
+<td>旧版を保持し、既存 HTML 生成と図の構造を活用して新版を追加する</td>
+</tr>
+<tr>
+<td>Thriller</td>
+<td>読み切ることより、新任シニアが最初の正しい指示を出せることに価値がある</td>
+<td>90分の読み順、実コードの入口、対象・検証付きの指示文を用意する</td>
+</tr>
+</tbody></table></div>
+<p>Detour の判断理由は、独立版なら差分と保管先が明確で、以前の資料を参照できるためです。単語置換だけでは実行環境やスキルの配置の違いが残り、全面的な基盤変更は今回の目的を超えます。</p>
+<h2>実装する単位</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>単位</th>
+<th>作業</th>
+<th>完了の見方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T1</td>
+<td>作業対象、ルール、コードの入口を調査する</td>
+<td>確認基準と根拠を示せる</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>役割別フロー、テンプレート、スキルを書き直す</td>
+<td>R2〜R5 が本文に対応する</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>HTML ガイドと2つのフロー図を生成する</td>
+<td>表示、リンク、操作、図の検証が通る</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>変更差分と既存資料の保持を確認する</td>
+<td>追加と入口の追記に変更が収まる</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>GitHub の指定先へ保存して確認する</td>
+<td>公開コミットから成果物を取得できる</td>
+</tr>
+</tbody></table></div>
+<h2>指示と結果をつなぐ</h2>
+<p>「資料を作って終わり」ではなく、<code>v1/README.md</code> から役割別の本文へ進めること、HTML の内容が Markdown と一致すること、スキルが別フォルダで自動有効になると誤解させないことまで確認します。</p>
+<p>今回は資料とその生成物の追加です。Observatory、System Atlas、SAP GUI の機能改修や本番実行は含めません。そのため、それらの動作を新たに実行確認したとは報告しません。</p>
+<p>GitHub での公開後、修正が必要なら本版へ追加コミットを行います。資料の改訂を取り消す場合も、対象の差分を確認してから戻します。既存資料を削除したり、共有ブランチを強制的に巻き戻したりする必要はありません。</p>
+</article>
+<article id="skills" class="chapter" data-title="3つのスキルの適用"><div class="chapter-meta"><span>08 / 3つのスキルの適用</span><a href="docs/06-skill-design.md">Markdown 原本 ↗</a></div><h1>3つのスキルの設計と使い分け</h1>
+<p>Persona、Detour、Thriller は紹介記事から着想を得た視点です。本版の <code>workspace-*</code> は、このワークスペース向けに独自に作った指示です。元記事で使われている実装を取得・複製したものではありません。確認した出典と、確認できなかった上流実装の扱いは <a href="#sources">出典</a> を参照してください。</p>
+<h2>使うタイミング</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>スキル</th>
+<th>適した問い</th>
+<th>出力</th>
+<th>通常は使わない場面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="#persona-source">workspace-persona</a></td>
+<td>誰が何に困り、何が成功なのか</td>
+<td>役割・利用場面・課題・成功条件・未確認事項</td>
+<td>対象と振る舞いが確定した単純修正</td>
+</tr>
+<tr>
+<td><a href="#detour-source">workspace-detour</a></td>
+<td>実装を増やす前に、他の方法はあるか</td>
+<td>少数の代替案と採否の理由</td>
+<td>原因と修正が明確で、案を広げる必要がない修正</td>
+</tr>
+<tr>
+<td><a href="#thriller-source">workspace-thriller</a></td>
+<td>最初の実務上の成功をどう確かめるか</td>
+<td>ひとつの利用場面、必要な情報、観測点</td>
+<td>体験設計を伴わない内部の小さな修正</td>
+</tr>
+</tbody></table></div>
+<p>Thriller の「最初の成功体験」という扱いは、本ガイドの運用上の解釈です。記事執筆者の正式な定義や実装仕様として断定しません。</p>
+<h2>発散した案を実行へつなげる</h2>
+<p>スキルに渡す共通情報は、対象フォルダ・リポジトリ、目的、読み手、制約、すでに決まった範囲です。出力された案には、事実・仮定・推奨・未採用を区別して記載します。採用判断が依頼内で済んでいる部分はそのまま進め、判断が不足する部分だけ補います。</p>
+<p>どのスキルにも、公開、削除、外部送信を独自に許可する役割はありません。実行できる内容は元の依頼と対象環境の権限によって決まります。新たな承認手続きを一律に増やすものでもありません。</p>
+<h2>本版に適用した結果</h2>
+<ul>
+<li><strong>Persona：</strong> 共通の地図だけでは、マネージャーの受入判断と新任シニアのコード調査を同時に支えにくいため、入口を3つに分けました。</li>
+<li><strong>Detour：</strong> 旧版の上書きや大きな開発基盤の変更を避け、既存の文書生成器と図の構成を活用し、別フォルダの新版にまとめました。</li>
+<li><strong>Thriller：</strong> 最初の成果を「対象と検証を含んだ指示を出せること」と定義し、90分の読み順とコピーできる指示を用意しました。</li>
+</ul>
+<p>これらは資料設計への適用結果です。利用者の満足度や開発速度の改善を実測した主張ではありません。</p>
+<h2>スキルの確認方法</h2>
+<p>まず <code>name</code> と <code>description</code> を含む YAML フロントマター、ファイル名、参照先、呼出例との一致を確かめます。次に短い入力例へ適用し、用途に合う成果物が出るか、仮定を事実と扱っていないか、スコープを不必要に広げないかを点検します。</p>
+<p>構文検査の成功は、すべての依頼で質の高い結果が出ることを保証しません。本版で確認した範囲は <a href="#validation">確認記録</a> を参照し、実案件で生じた曖昧さを説明や手順へ反映します。</p>
+</article>
+<article id="adoption" class="chapter" data-title="導入と保守"><div class="chapter-meta"><span>09 / 導入と保守</span><a href="docs/07-adoption-and-maintenance.md">Markdown 原本 ↗</a></div><h1>導入と保守</h1>
+<h2>ガイドとして使う</h2>
+<p>このフォルダ一式を GitHub から取得します。<code>README.md</code> を入口にするか、<code>guide.html</code> をブラウザで開きます。ガイド本体とフロー図の表示にネットワーク接続は不要です。出典の外部ページを開く場合は接続が必要です。</p>
+<p>図の HTML では、英語の Viewer UI から検索・フォーカス・テーマ切替などを操作できます。ガイド本体の検索は章単位で、検索語を含む章だけを表示します。コピー機能が使えない環境ではコード範囲が選択されるため、通常のコピー操作を使ってください。</p>
+<h2>3つのスキルを対象の作業で使う</h2>
+<p>本版の配置は次のとおりです。</p>
+<pre><code class="language-text">v1/.agents/skills/
+├── workspace-persona/SKILL.md
+├── workspace-detour/SKILL.md
+└── workspace-thriller/SKILL.md
+</code></pre>
+<p>Codex は、作業ディレクトリから Git リポジトリのルートまでの各階層にある <code>.agents/skills</code> を調べます。本版を <code>v1/</code> の作業として開くと、この場所が探索対象になります。親の <code>nyonyonyo/</code> やワークスペースを開いただけで、下位の本版スキルが全域に有効になるわけではありません。<a href="https://learn.chatgpt.com/ja-JP/docs/build-skills">公式：スキル</a></p>
+<p>利用する方法は、作業する場所に応じて選びます。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>場面</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本版の改善を行う</td>
+<td><code>v1/</code> を作業対象にして、3つのスキルが選択できるか確認する</td>
+</tr>
+<tr>
+<td>別のプロジェクトで継続利用する</td>
+<td>同名定義がないことを確認し、必要な3つのフォルダをそのプロジェクトの <code>.agents/skills/</code> に配置する</td>
+</tr>
+<tr>
+<td>一回だけ内容を適用する</td>
+<td>該当する <code>SKILL.md</code> のパスを指定し、その内容を読んで作業するよう依頼する</td>
+</tr>
+</tbody></table></div>
+<p>今回はスキルの原本を本版に同梱しています。ユーザー全体のスキル設定、既存の <code>.agents/skills</code>、外部サービスの接続は変更していません。</p>
+<p>配置後は <code>$workspace-persona</code>、<code>$workspace-detour</code>、<code>$workspace-thriller</code> の名前と実際のパスを確認します。認識されない場合は配置場所とメタデータを点検し、必要ならセッションを開き直します。既存の同名定義を確認せず上書きしないでください。</p>
+<h2>文書とコードの情報を保つ</h2>
+<p>対象の仕様・決定は対象リポジトリに置きます。既存の保存先がある場合はそれを使います。ない場合でも、小さな依頼は本文や作業記録で十分です。複数工程にまたがる変更でだけ <code>docs/changes/〈変更名〉/</code> などの保管場所を検討します。この名前に自動処理の意味はありません。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>変化</th>
+<th>更新する情報</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>リポジトリ・フォルダ・公開先が変わる</td>
+<td>地図、プロジェクト把握、指示文の対象欄</td>
+</tr>
+<tr>
+<td>コマンド・実行環境が変わる</td>
+<td>実行場所付きコマンド、出典の基準コミット</td>
+</tr>
+<tr>
+<td>入出力の契約・主要な依存が変わる</td>
+<td>コードの読み順、設計・引継ぎの説明</td>
+</tr>
+<tr>
+<td>スキルの名前・配置・用途が変わる</td>
+<td>SKILL.md、導入説明、呼出例、HTML の章一覧</td>
+</tr>
+<tr>
+<td>フローが変わる</td>
+<td>Markdown と入力 JSON、図の HTML、検証記録</td>
+</tr>
+</tbody></table></div>
+<p>役割名は担当者を固定するものではありません。小さな案件で一人が複数の役割を兼ねても、どの判断と検証をしたかが分かれば運用できます。</p>
+<h2>HTML ガイドを再生成する</h2>
+<p>Markdown と SKILL.md が編集原本です。<code>scripts/build-guide.mjs</code> がそれらをまとめて <code>guide.html</code> を生成します。実行場所は <code>v1/</code>、Node.js と <code>marked</code> が使える環境が必要です。生成された HTML の閲覧にはこれらの依存は不要です。</p>
+<p>既存環境に <code>marked</code> があれば次を実行します。</p>
+<pre><code class="language-bash">node scripts/build-guide.mjs
+</code></pre>
+<p>別の場所にある <code>marked</code> を使う場合は、ESM の入口を引数に渡せます。</p>
+<pre><code class="language-text">node scripts/build-guide.mjs /path/to/marked/lib/marked.esm.js
+</code></pre>
+<p>依存が用意されていない場合の一例です。作業用ディレクトリを使い、リポジトリの依存ファイルを変更しません。<code>marked</code> はこの版の生成で使った 17.0.5 に固定しています。</p>
+<pre><code class="language-bash">build_tmp=$(mktemp -d)
+npm install --prefix &quot;$build_tmp&quot; --no-audit --no-fund marked@17.0.5
+node scripts/build-guide.mjs &quot;$build_tmp/node_modules/marked/lib/marked.esm.js&quot;
+</code></pre>
+<p>生成前に、Markdown を公開可能な内容としてレビューしてください。HTML を含む任意の未信頼入力を安全に変換するサニタイザーではありません。</p>
+<h2>改訂・共有する</h2>
+<p>軽微な改善は本版へ追加コミットし、前提が大きく変わる場合は次版を別フォルダに作ります。過去の版は、削除や移行が明示されるまで保持します。</p>
+<p>更新時は相対リンク、見出し・呼出例の整合、スキルの形式、画面表示を確認します。図を再生成した場合は、その図の検証と目視確認も行います。最後に変更パスを限定してコミットし、指定された保存先から取得できることを確認します。</p>
+</article>
+<article id="context-template" class="chapter" data-title="プロジェクト把握"><div class="chapter-meta"><span>10 / プロジェクト把握</span><a href="templates/project-context.md">Markdown 原本 ↗</a></div><h1>プロジェクト把握</h1>
+<p>調査日：〈日付〉 / 記入者：〈担当〉 / 確認基準：〈コミット・文書版〉</p>
+<h2>対象・基準</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>記入内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目的</td>
+<td>〈今回理解・変更したいこと〉</td>
+</tr>
+<tr>
+<td>ワークスペース内の対象</td>
+<td>〈親からの相対パス〉</td>
+</tr>
+<tr>
+<td>Git ルート / remote</td>
+<td>〈実際に確認した場所とリポジトリ〉</td>
+</tr>
+<tr>
+<td>ブランチ / 基準 SHA</td>
+<td>〈実際の値〉</td>
+</tr>
+<tr>
+<td>既存差分</td>
+<td>〈対象、今回との関係、保持するもの〉</td>
+</tr>
+<tr>
+<td>編集元 / 共有先</td>
+<td>〈それぞれのリポジトリとパス〉</td>
+</tr>
+<tr>
+<td>適用ルール</td>
+<td>〈AGENTS.md などの実際のパス〉</td>
+</tr>
+</tbody></table></div>
+<h2>入口と構造</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>対象</th>
+<th>根拠となるファイル・シンボル</th>
+<th>役割</th>
+<th>確認方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>入口</td>
+<td>〈パス・関数〉</td>
+<td>〈起動・入力〉</td>
+<td>〈静的確認 / 実行確認〉</td>
+</tr>
+<tr>
+<td>中核処理</td>
+<td>〈パス・関数〉</td>
+<td>〈責務・依存〉</td>
+<td>〈確認した範囲〉</td>
+</tr>
+<tr>
+<td>出力・公開契約</td>
+<td>〈パス・形式〉</td>
+<td>〈利用者・互換性〉</td>
+<td>〈確認した範囲〉</td>
+</tr>
+<tr>
+<td>テスト</td>
+<td>〈パス・名前〉</td>
+<td>〈何を保証するか〉</td>
+<td>〈定義のみ / 実行結果〉</td>
+</tr>
+</tbody></table></div>
+<h2>実行・確認</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>実行場所</th>
+<th>コマンド</th>
+<th>前提環境</th>
+<th>実行状況・結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>〈相対パス〉</td>
+<td>〈コマンド〉</td>
+<td>〈必要なランタイムなど〉</td>
+<td>〈未実行 / 実行済み・結果〉</td>
+</tr>
+</tbody></table></div>
+<h2>不明点と次の確認</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>事実 / 仮説</th>
+<th>確認方法</th>
+<th>担当・必要な時点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>〈不明点〉</td>
+<td>〈根拠や仮定〉</td>
+<td>〈読む・試す・質問する〉</td>
+<td>〈担当・期限〉</td>
+</tr>
+</tbody></table></div>
+<p>最初に出す指示：〈対象・目的・維持条件・完了条件を含む短い文〉</p>
+</article>
+<article id="brief-template" class="chapter" data-title="変更依頼"><div class="chapter-meta"><span>11 / 変更依頼</span><a href="templates/change-brief.md">Markdown 原本 ↗</a></div><h1>変更依頼</h1>
+<p>依頼名：〈名前〉 / 依頼者：〈役割〉 / 対象：〈リポジトリ・相対パス〉</p>
+<h2>目的と利用場面</h2>
+<p>〈誰が、何をするときに困っているか。変更後にできるようにしたいこと〉</p>
+<p>根拠：〈観測、コード、依頼、ヒアリング。仮定は明記する〉</p>
+<h2>範囲と条件</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>編集元 / Git / ブランチ</td>
+<td>〈対象と基準〉</td>
+</tr>
+<tr>
+<td>共有先</td>
+<td>〈リポジトリ・パス。外部共有の範囲〉</td>
+</tr>
+<tr>
+<td>変更対象</td>
+<td>〈ファイル・機能・成果物〉</td>
+</tr>
+<tr>
+<td>対象外</td>
+<td>〈今回扱わないこと〉</td>
+</tr>
+<tr>
+<td>維持条件</td>
+<td>〈既存機能、データ、既存版、互換性〉</td>
+</tr>
+<tr>
+<td>依存・制約</td>
+<td>〈期限、環境、既存の運用〉</td>
+</tr>
+</tbody></table></div>
+<h2>受入条件</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>条件</th>
+<th>確認する方法・期待結果</th>
+<th>主な判断担当</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R1</td>
+<td>〈観測できる条件〉</td>
+<td>〈入力・操作・結果〉</td>
+<td>〈担当〉</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>〈維持する条件〉</td>
+<td>〈差分・回帰など〉</td>
+<td>〈担当〉</td>
+</tr>
+</tbody></table></div>
+<h2>候補と未確定事項</h2>
+<p>必要な場合だけ Persona / Detour / Thriller の結果を添付します。</p>
+<p>採用案と理由：〈既存の解決策との比較を含める〉</p>
+<p>未確定事項：〈判断内容、必要な根拠、担当、期限〉</p>
+<p>完了報告：〈成果物リンク、コミット、検証、未確認事項〉</p>
+</article>
+<article id="decision-template" class="chapter" data-title="意思決定記録"><div class="chapter-meta"><span>12 / 意思決定記録</span><a href="templates/decision-record.md">Markdown 原本 ↗</a></div><h1>意思決定記録</h1>
+<p>判断名：〈名前〉 / 日付：〈日付〉 / 状態：〈提案・採用・置換済み〉</p>
+<p>対象：〈リポジトリ・パス・基準〉 / 関連要件：〈ID〉</p>
+<h2>判断が必要な理由</h2>
+<p>〈解決する問題、守る条件、決めない場合の影響〉</p>
+<p>確認した事実：〈ファイル、観測、出典〉</p>
+<p>仮定：〈まだ確認できていないこと〉</p>
+<h2>候補の比較</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>案</th>
+<th>満たす目的</th>
+<th>変更範囲</th>
+<th>作業量・運用負担</th>
+<th>戻しやすさ・制約</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>現状維持</td>
+<td>〈効果〉</td>
+<td>〈範囲〉</td>
+<td>〈負担〉</td>
+<td>〈条件〉</td>
+</tr>
+<tr>
+<td>既存資産の利用</td>
+<td>〈効果〉</td>
+<td>〈範囲〉</td>
+<td>〈負担〉</td>
+<td>〈条件〉</td>
+</tr>
+<tr>
+<td>最小の変更</td>
+<td>〈効果〉</td>
+<td>〈範囲〉</td>
+<td>〈負担〉</td>
+<td>〈条件〉</td>
+</tr>
+</tbody></table></div>
+<h2>決定</h2>
+<p>採用案：〈案〉 / 判断担当：〈役割〉</p>
+<p>理由：〈目的と制約から説明する〉</p>
+<p>採用しない案と理由：〈簡潔に〉</p>
+<h2>結果と見直す条件</h2>
+<p>必要な変更と検証：〈実施範囲、確認方法〉</p>
+<p>残る課題：〈担当、扱う時点〉</p>
+<p>見直す条件・回復方法：〈観測値、前提の変化、戻す単位〉</p>
+</article>
+<article id="handoff-template" class="chapter" data-title="検証と引継ぎ"><div class="chapter-meta"><span>13 / 検証と引継ぎ</span><a href="templates/verification-handoff.md">Markdown 原本 ↗</a></div><h1>検証・引継ぎ</h1>
+<p>対象：〈リポジトリ・パス〉 / 変更前：〈SHA〉 / 変更後：〈SHA・作業中〉</p>
+<h2>変更と受入条件</h2>
+<p>目的：〈何をできるようにしたか〉</p>
+<p>変更範囲：〈主要ファイルと役割〉</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要件ID</th>
+<th>結果</th>
+<th>根拠・成果物</th>
+<th>残る事項</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R1</td>
+<td>〈充足・未充足・未確認〉</td>
+<td>〈リンク・観測〉</td>
+<td>〈内容〉</td>
+</tr>
+</tbody></table></div>
+<h2>実行した確認</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>作業ディレクトリ</th>
+<th>コマンド・操作</th>
+<th>基準・環境</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>〈相対パス〉</td>
+<td>〈正確なコマンド / 画面操作〉</td>
+<td>〈版・条件〉</td>
+<td>〈成功・失敗と内容〉</td>
+</tr>
+</tbody></table></div>
+<p>未実行の確認と理由：〈必要なら次の担当・条件も書く〉</p>
+<p>既存差分・既存版の保持：〈比較した対象と結果〉</p>
+<h2>共有</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保存先</td>
+<td>〈リポジトリ / ブランチ / パス〉</td>
+</tr>
+<tr>
+<td>コミット</td>
+<td>〈SHA・URL〉</td>
+</tr>
+<tr>
+<td>成果物</td>
+<td>〈読む入口と必要なファイル〉</td>
+</tr>
+<tr>
+<td>公開後の確認</td>
+<td>〈実際に確認した結果〉</td>
+</tr>
+<tr>
+<td>次の作業</td>
+<td>〈必要な場合だけ〉</td>
+</tr>
+<tr>
+<td>回復方法</td>
+<td>〈変更を戻す単位、影響、担当〉</td>
+</tr>
+</tbody></table></div>
+</article>
+<article id="persona-source" class="chapter" data-title="workspace-persona"><div class="chapter-meta"><span>14 / workspace-persona</span><a href=".agents/skills/workspace-persona/SKILL.md">Markdown 原本 ↗</a></div><h1>Workspace Persona</h1>
+<p>このワークスペースの利用者の視点から、依頼を判断できる条件へ具体化する。紹介記事の着想を独自に再構成した指示であり、元記事の公式実装ではない。</p>
+<h2>進め方</h2>
+<ol>
+<li>対象フォルダ、Git リポジトリ、目的、既知の制約を確認する。既存の依頼と適用ルールを読む。</li>
+<li>実際の関係者に応じて2〜3役を選ぶ。指定がなければマネージャー、開発者、新任シニアを候補にする。</li>
+<li>各役割の利用場面、現在の迷い、成功条件、必要な情報を整理する。根拠のない人物像・調査結果は作らず、仮定と明示する。</li>
+<li>共通する要求と競合する要求を分け、目的と制約に照らして優先順位を提案する。</li>
+<li>受入条件へ反映し、判断が不足する点だけ確認事項として残す。依頼で決まっている内容を再承認させない。</li>
+</ol>
+<h2>出力</h2>
+<p>対象と目的を短く示した後、役割 / 利用場面 / 課題 / 成功条件 / 根拠・仮定の表を作る。最後に、共通要件、競合、推奨、未確認事項を必要な分だけ記す。</p>
+<p>対象の依頼を進めるために使う。利用者の視点から新たな公開・削除・外部送信の許可を推論しない。</p>
+<details><summary>スキルのメタデータ</summary><pre><code>name: workspace-persona
+description: ワークスペースの改善や変更依頼で、利用者ごとの課題と成功条件を整理する。マネージャー・開発者・新任シニアの視点、読み手別の要件、導入時の迷いを整理するときに使う。対象と振る舞いが確定した単純修正には追加しない。</code></pre></details></article>
+<article id="detour-source" class="chapter" data-title="workspace-detour"><div class="chapter-meta"><span>15 / workspace-detour</span><a href=".agents/skills/workspace-detour/SKILL.md">Markdown 原本 ↗</a></div><h1>Workspace Detour</h1>
+<p>目的を保ったまま解き方を比較し、必要な変更を小さくする。紹介記事の着想を独自に再構成した指示であり、元記事の公式実装ではない。</p>
+<h2>進め方</h2>
+<ol>
+<li>対象フォルダ・リポジトリ、目的、受入条件、維持条件を読む。決定済みの制約を変更候補に混ぜない。</li>
+<li>既存の実装、標準機能、導入済み依存、現在の運用を調べる。存在を確認できた再利用先はパスや資料を示す。</li>
+<li>2〜4案を比較する。必要に応じて現状維持、既存機能の活用、資料・手順改善、最小の実装を含める。</li>
+<li>各案の目的への適合、変更範囲、作業量、運用負担、戻しやすさを整理する。見積りは根拠と仮定を分ける。</li>
+<li>推奨案と採用しない案の理由を残す。採用済みの範囲は進め、選択に不可欠な不足情報だけを確認する。</li>
+</ol>
+<h2>出力</h2>
+<p>守る目的と制約、比較表、推奨案、最初の小さな実施単位、その検証方法を示す。案を増やすこと自体を成果にしない。</p>
+<p>候補の比較は、外部公開やデータ削除を許可するものではない。操作は既存の依頼範囲と実行環境の権限に従う。</p>
+<details><summary>スキルのメタデータ</summary><pre><code>name: workspace-detour
+description: ワークスペースの開発・運用改善で、決め打ちした解法を見直し、現状維持・既存資産・手順変更・小さな実装を比較する。実装を増やす前の代替案検討や、最小の変更を選ぶときに使う。原因と修正が明確な単純修正には発散を追加しない。</code></pre></details></article>
+<article id="thriller-source" class="chapter" data-title="workspace-thriller"><div class="chapter-meta"><span>16 / workspace-thriller</span><a href=".agents/skills/workspace-thriller/SKILL.md">Markdown 原本 ↗</a></div><h1>Workspace Thriller</h1>
+<p>利用者が最初の実務上の成果を得る場面を一つに絞る。この意味付けは紹介記事に着想を得た本ワークスペース向けの解釈であり、元記事の公式仕様ではない。</p>
+<h2>進め方</h2>
+<ol>
+<li>対象と利用者、目的、すでに決まった範囲を確認する。見栄えや意外性だけを成功としない。</li>
+<li>最初の価値が分かる場面を一つ選ぶ。例は「新任シニアが対象と検証方法を含む最初の指示を出せる」。</li>
+<li>開始時点の知識、必要な行動、迷い、提示する情報、得られる成果を短い順序で示す。</li>
+<li>成功を観測できる条件を付ける。測定していない時間短縮や満足度を実績として書かない。</li>
+<li>最小の資料・画面・手順に反映する。必須でない演出や機能を加えず、失敗したときに戻る説明も整える。</li>
+</ol>
+<h2>出力</h2>
+<p>誰が何を達成するかを一文で述べ、開始 / 行動 / 迷い / 提示する情報 / 成功の観測点を整理する。必要な変更、確認方法、仮定を付ける。</p>
+<p>体験の提案から操作権限を拡張しない。既存の依頼を進めるために使い、新たな外部送信や公開は元の指示に従って扱う。</p>
+<details><summary>スキルのメタデータ</summary><pre><code>name: workspace-thriller
+description: ワークスペースの導入資料や開発支援の体験で、利用者が最初に実務上の成果を得る場面を定義する。新任者の最初の指示、初回利用、説明から行動への接続を設計するときに使う。体験設計を伴わない内部の小さな修正には使わない。</code></pre></details></article>
+<article id="sources" class="chapter" data-title="出典・確認範囲"><div class="chapter-meta"><span>17 / 出典・確認範囲</span><a href="sources.md">Markdown 原本 ↗</a></div><h1>出典と確認範囲</h1>
+<p>確認日：2026-09-17。実ファイルの調査、公式資料の仕様、チーム運用の提案を分けて記載しています。</p>
+<h2>このワークスペースで確認した根拠</h2>
+<p>ローカルの親フォルダは Git リポジトリではなく、共有先のチェックアウト <code>nyonyonyo/</code> は <code>tamagobolo/nyonyonyo</code> を remote としています。公開資料では個人の絶対パスや、今回と無関係なプロジェクト一覧を載せていません。</p>
+<p>コードの調査基準はコミット <code>fc2ee7929bd4838272a292f58ded856b275da8b3</code> です。下のリンクは基準を固定しており、後続の変更が自動反映されるものではありません。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>確認内容</th>
+<th>根拠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最小の変更と検証の方針</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/AGENTS.md">AGENTS.md</a></td>
+</tr>
+<tr>
+<td>共通ツールと対象側の責任の分離</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/skills/codebase-atlas/references/common-workflow.md">common-workflow.md</a></td>
+</tr>
+<tr>
+<td>共有プロジェクト・配布スキルの構成</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/README.md">README.md</a></td>
+</tr>
+<tr>
+<td>実行環境と build / test の定義</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/package.json">package.json</a></td>
+</tr>
+<tr>
+<td>起動と CLI の分岐</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/obs">obs</a>、<a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/observatory.py">observatory.py</a></td>
+</tr>
+<tr>
+<td>解析・比較と出力</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/src/scanner.py">scanner.py</a>、<a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/src/reporting.py">reporting.py</a></td>
+</tr>
+<tr>
+<td>JS / TS 解析と画面資産の生成</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/scripts/js-analyze.mjs">js-analyze.mjs</a>、<a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/scripts/build.mjs">build.mjs</a></td>
+</tr>
+<tr>
+<td>テストの存在と対象</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/tests/test_observatory.py">test_observatory.py</a>、<a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/tests/test_integration.py">test_integration.py</a></td>
+</tr>
+<tr>
+<td>既存の構造説明</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/docs/architecture.md">architecture.md</a></td>
+</tr>
+<tr>
+<td>System Atlas の実行環境とコマンド</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/design/package.json">design/package.json</a></td>
+</tr>
+<tr>
+<td>外部取り込みの出典・権利表記</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/ponytail/LICENSE">ponytail/LICENSE</a> とルート README</td>
+</tr>
+<tr>
+<td>SAP GUI の対象環境</td>
+<td><a href="https://github.com/tamagobolo/nyonyonyo/blob/fc2ee7929bd4838272a292f58ded856b275da8b3/SAPGUI/README.md">SAPGUI/README.md</a></td>
+</tr>
+</tbody></table></div>
+<h2>Codex の仕様</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>公式資料</th>
+<th>本版で参照した内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://learn.chatgpt.com/ja-JP/docs/build-skills">スキルの作成</a></td>
+<td>SKILL.md の名前と説明、明示的な呼出、作業ディレクトリからリポジトリルートまでの <code>.agents/skills</code> の探索</td>
+</tr>
+<tr>
+<td><a href="https://learn.chatgpt.com/ja-JP/docs/agent-configuration/agents-md">AGENTS.md によるカスタム指示</a></td>
+<td>通常 Git ルートから作業ディレクトリまでの指示の階層と、対象を開く場所の意味</td>
+</tr>
+</tbody></table></div>
+<p>製品の仕様は変更される可能性があります。名前や配置の変更があった場合は、上記の公式資料と実際の環境を照合します。スキルやルールのファイルがあることだけで、認証や実行権限まで得られるとは扱いません。</p>
+<h2>3つの視点の着想元</h2>
+<p><a href="https://cocoda.design/varhirac/p/pe1f4d8e389b2">Cocoda の紹介記事</a> の Persona / Detour / Thriller を着想元としています。会話で提示された紹介投稿から参照した記事です。</p>
+<p>調査で、記事執筆者がこれら3つを公開したと確認できる GitHub のスキル原本は特定できませんでした。このため、本版は「発見した公式スキル」として配布せず、独自の SKILL.md として目的・手順・出力を定義しています。特に Thriller を最初の実務上の成功体験に結び付ける設計は、本ガイド独自の解釈です。</p>
+<h2>資料を作る際の道具と確認の限界</h2>
+<p>図は Archify の workflow 形式から生成しました。ガイドの HTML は既存の生成器を本版の章構成へ適用し、<code>marked</code> で Markdown を変換しています。スキルの形式は skill-creator の検証スクリプトで確認します。これらのツールを対象リポジトリ全体に新規インストールしたという意味ではありません。</p>
+<p>役割別フロー、判断地点 G0〜G4、90分の読み順は、このワークスペースに合わせた運用提案です。開発ツールに組み込まれた自動承認機構ではありません。</p>
+<p>今回確認するのは本版の資料・スキル・生成物です。既存アプリの本番稼働、全テストの実行、スキルの自動選択精度、実利用者への効果測定は実施範囲に含めません。</p>
+</article>
+<article id="validation" class="chapter" data-title="確認記録"><div class="chapter-meta"><span>18 / 確認記録</span><a href="validation.md">Markdown 原本 ↗</a></div><h1>確認記録</h1>
+<p>対象：ワークスペース開発ガイド v1 / 確認日：2026-09-17</p>
+<p>調査基準：<code>fc2ee7929bd4838272a292f58ded856b275da8b3</code></p>
+<p>この記録は、コミット前に本版へ実施した確認です。コマンドの存在確認と、実行して成功したことを区別します。公開したコミットと GitHub での反映結果は、アップロード時の完了報告を参照してください。</p>
+<h2>検証結果</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>確認対象</th>
+<th>実施内容</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>旧版の保持</td>
+<td>基準コミットの既存資料27ファイルと、作業ツリーの Git blob ハッシュを比較</td>
+<td>全27ファイル一致</td>
+</tr>
+<tr>
+<td>新版の表記</td>
+<td>隠しフォルダを含む全ファイルの名前・本文を検索</td>
+<td>旧製品名の残存0件。個人の絶対パスの混入0件</td>
+</tr>
+<tr>
+<td>文書の参照</td>
+<td>Markdown の相対リンク、HTML のローカルリンクと章アンカー、固定コミットの根拠パスを照合</td>
+<td>参照切れ0件</td>
+</tr>
+<tr>
+<td>スキル形式</td>
+<td>skill-creator の <code>quick_validate.py</code> を3件のスキルフォルダに実行</td>
+<td>3件とも合格</td>
+</tr>
+<tr>
+<td>スキルの適用</td>
+<td>本版の資料設計に3つの観点を適用し、役割・代替案・初回の成功条件を整理</td>
+<td><a href="#example">記入例</a> に判断を記録。自動選択の評価は対象外</td>
+</tr>
+<tr>
+<td>HTML 生成</td>
+<td>Node.js と既存環境の <code>marked</code> 17.0.5 で生成。生成器と埋込み JavaScript の構文を確認</td>
+<td>18章を生成、構文エラーなし</td>
+</tr>
+<tr>
+<td>オフライン表示の構成</td>
+<td>HTML の外部スクリプト・画像・スタイルシート参照を確認</td>
+<td>表示のための外部資産参照なし</td>
+</tr>
+<tr>
+<td>HTML の操作</td>
+<td>ブラウザで章検索、目次移動、フィルター解除、指示文コピーを操作</td>
+<td>検索で該当章を表示、コピー成功の表示を確認</td>
+</tr>
+<tr>
+<td>HTML の画面幅</td>
+<td>1440×900 と 390×844 で表示・寸法を確認</td>
+<td>横方向のはみ出しなし</td>
+</tr>
+<tr>
+<td>フロー図の生成</td>
+<td>Archify の <code>validate</code> と <code>deliver</code> を両図へ実行</td>
+<td>いずれも showcase 9/9、構成エラー0・警告0</td>
+</tr>
+<tr>
+<td>図の内容同一性</td>
+<td>入力 JSON と HTML の SHA-256・バイト数を delivery 記録と照合</td>
+<td>両図とも一致</td>
+</tr>
+<tr>
+<td>図の表示・操作</td>
+<td>4サイズの収まり、明暗テーマ、検索・フォーカス・詳細を閉じる操作</td>
+<td>目視確認合格、修正ラウンド0</td>
+</tr>
+<tr>
+<td>変更範囲</td>
+<td>Git の差分一覧・空白エラーを確認</td>
+<td>本版の追加と、ルート README の案内1行。既存実装への変更なし</td>
+</tr>
+</tbody></table></div>
+<h2>図の記録</h2>
+<p>図の種類は <code>workflow</code> です。検証時の入力と生成物のハッシュ・バイト数は <a href="diagrams/manager-delivery.json">マネージャーの delivery 記録</a>、<a href="diagrams/developer-delivery.json">開発者の delivery 記録</a> に保存しています。公開用の記録からローカルの絶対パスだけを取り除き、ハッシュと検証結果は保持しています。</p>
+<p>収まりを確認した画面サイズは、両図とも 1440×900、1600×1000、1920×1080、2048×1320 です。各サイズで文書の幅・高さが画面内に収まりました。最小・最大サイズで明暗両テーマの画面を確認しています。</p>
+<p><a href="diagrams/visual-review.json">目視確認の記録</a> は、ブラウザで実測した寸法と操作結果を記したものです。自動 <code>visual-check</code> の出力ではありません。画面は作業セッション中に確認し、画像ファイルは同梱していません。全エクスポート形式、プレゼンテーション、すべての Viewer 機能を検証したという意味ではありません。</p>
+<h2>今回の対象外</h2>
+<ul>
+<li>Observatory・System Atlas のアプリ起動、機能改修、全テストの実行。</li>
+<li>SAP GUI の実環境での業務操作。</li>
+<li>スキルの全プロジェクトへのインストール、自動選択精度の評価。</li>
+<li>実利用者の理解時間・開発速度・満足度の計測。</li>
+<li>Git タグ、GitHub Release、Web サイトの新規作成。</li>
+</ul>
+<p>図の検証は構成の正しさを確認するもので、チーム運用の効果測定ではありません。形式が通ったスキルも、実案件の条件に合わせて見直します。</p>
+</article><footer>編集原本は同梱の Markdown。文書はオフラインで閲覧できます。出典リンクはインターネット上のページを開きます。</footer></main></div>
+<script>
+const chapters=[...document.querySelectorAll('.chapter')];
+const input=document.querySelector('#search');
+const status=document.querySelector('#search-status');
+input.addEventListener('input',()=>{const q=input.value.trim().toLocaleLowerCase();let count=0;for(const c of chapters){c.hidden=!!q&&!c.textContent.toLocaleLowerCase().includes(q);if(!c.hidden)count++;}status.textContent=q?count+'章が一致（章単位で表示）':'';document.querySelector('#no-result').style.display=count?'none':'block';});
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{const target=document.getElementById(a.hash.slice(1));if(target?.hidden){input.value='';input.dispatchEvent(new Event('input'));}}));
+document.querySelectorAll('pre').forEach(pre=>{if(!pre.querySelector('code'))return;const button=document.createElement('button');button.className='copy';button.textContent='コピー';button.setAttribute('aria-label','指示文・コードをコピー');button.onclick=async()=>{try{await navigator.clipboard.writeText(pre.querySelector('code').textContent);button.textContent='コピー済み';setTimeout(()=>button.textContent='コピー',1800);}catch{button.textContent='範囲選択してコピー';const r=document.createRange();r.selectNodeContents(pre.querySelector('code'));const s=window.getSelection();s.removeAllRanges();s.addRange(r);}};pre.append(button);});
+const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id));}},{rootMargin:'-5% 0px -70% 0px'});chapters.forEach(c=>observer.observe(c));
+</script></body></html>

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "diagrams/developer-workflow.json",
+  "output": "diagrams/developer-workflow.html",
+  "specification": {
+    "sha256": "7ba629b16599541d43844aaecb25b362f20b169f5557075b15799262c45171e8",
+    "bytes": 4121
+  },
+  "artifact": {
+    "sha256": "f9a140cf65fdf6e0dd33f5c907727e08bfe8de30e335a62e773768120cc6d5d9",
+    "bytes": 709746
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "path_note": "Absolute workspace prefixes were removed from this public receipt; content hashes are unchanged."
+}

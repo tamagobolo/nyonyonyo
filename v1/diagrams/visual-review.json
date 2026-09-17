@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-17",
+  "method": "Manual browser review through the connected computer-use browser tool",
+  "browser": "Brave (Chromium)",
+  "visual_review": "passed",
+  "correction_rounds": 0,
+  "screenshots_observed_in_session": true,
+  "screenshot_files_in_repository": false,
+  "measurements": [
+    {
+      "diagram": "manager",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "contained": true
+    },
+    {
+      "diagram": "manager",
+      "theme": "light",
+      "width": 1600,
+      "height": 1000,
+      "scrollWidth": 1600,
+      "scrollHeight": 1000,
+      "contained": true
+    },
+    {
+      "diagram": "manager",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "contained": true
+    },
+    {
+      "diagram": "manager",
+      "theme": "light",
+      "width": 2048,
+      "height": 1320,
+      "scrollWidth": 2048,
+      "scrollHeight": 1320,
+      "contained": true
+    },
+    {
+      "diagram": "developer",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "contained": true
+    },
+    {
+      "diagram": "developer",
+      "theme": "light",
+      "width": 1600,
+      "height": 1000,
+      "scrollWidth": 1600,
+      "scrollHeight": 1000,
+      "contained": true
+    },
+    {
+      "diagram": "developer",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "contained": true
+    },
+    {
+      "diagram": "developer",
+      "theme": "light",
+      "width": 2048,
+      "height": 1320,
+      "scrollWidth": 2048,
+      "scrollHeight": 1320,
+      "contained": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "manager-workflow.html",
+      "sha256": "d221172217428c436034955e1dbff3132e98afeb523ed7ff48103d9fe4746264",
+      "themes_visually_reviewed": [
+        "light",
+        "dark"
+      ],
+      "theme_review_viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          2048,
+          1320
+        ]
+      ],
+      "interactions": [
+        "Japanese node search",
+        "focus node",
+        "close semantic passport"
+      ]
+    },
+    {
+      "path": "developer-workflow.html",
+      "sha256": "f9a140cf65fdf6e0dd33f5c907727e08bfe8de30e335a62e773768120cc6d5d9",
+      "themes_visually_reviewed": [
+        "light",
+        "dark"
+      ],
+      "theme_review_viewports": [
+        [
+          1440,
+          900
+        ],
+        [
+          2048,
+          1320
+        ]
+      ],
+      "interactions": [
+        "Japanese node search",
+        "focus node",
+        "close semantic passport"
+      ]
+    }
+  ],
+  "guide": {
+    "path": "guide.html",
+    "chapters": 18,
+    "desktop": [
+      1440,
+      900
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "checked": [
+      "chapter anchor targets",
+      "chapter search returns one matching chapter",
+      "navigation clears a filter for a hidden target",
+      "copy button reports success",
+      "desktop and mobile text layout"
+    ]
+  },
+  "not_checked": [
+    "all export formats",
+    "presentation mode",
+    "every viewer feature",
+    "native mobile browser behavior"
+  ]
+}

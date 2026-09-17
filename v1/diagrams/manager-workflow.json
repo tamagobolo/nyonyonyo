@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "マネージャー：依頼から成果の共有まで",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "manager",
+      "label": "マネージャー"
+    },
+    {
+      "id": "senior",
+      "label": "技術責任者"
+    },
+    {
+      "id": "team",
+      "label": "開発チーム"
+    }
+  ],
+  "mainPath": [
+    "need",
+    "options",
+    "scope",
+    "design",
+    "build",
+    "accept",
+    "learn"
+  ],
+  "nodes": [
+    {
+      "id": "need",
+      "lane": "manager",
+      "col": 0,
+      "type": "frontend",
+      "label": "目的と対象",
+      "sublabel": "リポジトリ・成果・範囲",
+      "width": 112
+    },
+    {
+      "id": "options",
+      "lane": "manager",
+      "col": 1,
+      "type": "frontend",
+      "label": "候補を比較",
+      "sublabel": "3つの再構成スキル",
+      "width": 112
+    },
+    {
+      "id": "scope",
+      "lane": "manager",
+      "col": 2,
+      "type": "security",
+      "label": "範囲を決定",
+      "sublabel": "受入条件・優先順位",
+      "width": 112
+    },
+    {
+      "id": "design",
+      "lane": "senior",
+      "col": 2,
+      "type": "backend",
+      "label": "設計を確認",
+      "sublabel": "影響・互換性・タスク",
+      "width": 112
+    },
+    {
+      "id": "build",
+      "lane": "team",
+      "col": 3,
+      "type": "backend",
+      "label": "実装と検証",
+      "sublabel": "変更差分・検証の証拠",
+      "width": 112
+    },
+    {
+      "id": "accept",
+      "lane": "manager",
+      "col": 4,
+      "type": "security",
+      "label": "受入を判断",
+      "sublabel": "要件と結果の対応",
+      "width": 112
+    },
+    {
+      "id": "learn",
+      "lane": "manager",
+      "col": 5,
+      "type": "external",
+      "label": "成果を共有",
+      "sublabel": "公開先・次の改善",
+      "width": 112
+    }
+  ],
+  "edges": [
+    {
+      "from": "need",
+      "to": "options",
+      "role": "main"
+    },
+    {
+      "from": "options",
+      "to": "scope",
+      "role": "main"
+    },
+    {
+      "from": "scope",
+      "to": "design",
+      "label": "要件引継ぎ",
+      "role": "main"
+    },
+    {
+      "from": "design",
+      "to": "build",
+      "label": "実装可能",
+      "role": "main"
+    },
+    {
+      "from": "build",
+      "to": "accept",
+      "label": "検証結果",
+      "role": "main"
+    },
+    {
+      "from": "accept",
+      "to": "learn",
+      "label": "条件充足",
+      "role": "main"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "案を広げる",
+      "items": [
+        "Persona：利用者ごとの成功条件",
+        "Detour：実装以外の解決も比較",
+        "Thriller：最重要体験を磨く"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "判断を記録する",
+      "items": [
+        "要件・設計・受入は別の判断",
+        "不明点には担当者と期限を付ける",
+        "不合格は該当工程へ差し戻す"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "この図の位置付け",
+      "items": [
+        "このワークスペースの運用提案",
+        "判断と操作権限を区別する",
+        "詳しい戻り先は本文に記載"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "diagrams/manager-workflow.json",
+  "output": "diagrams/manager-workflow.html",
+  "specification": {
+    "sha256": "61b77e2904407c4e5faadae02fd2c134a71872a7a207464ce34c3eba72681e8c",
+    "bytes": 3392
+  },
+  "artifact": {
+    "sha256": "d221172217428c436034955e1dbff3132e98afeb523ed7ff48103d9fe4746264",
+    "bytes": 706791
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "path_note": "Absolute workspace prefixes were removed from this public receipt; content hashes are unchanged."
+}
