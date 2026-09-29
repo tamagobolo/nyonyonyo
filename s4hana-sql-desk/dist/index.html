@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="S/4HANAのDB障害調査に使う読み取りSQL。症状から探し、実行条件と結果の読み方を確認できるオフライン対応のリファレンス。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file:; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>S/4HANA SQL Desk — 障害調査リファレンス</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%2311283f'/%3E%3Cpath d='m16 12-8 8 8 8m8-16 8 8-8 8' fill='none' stroke='%235de1cb' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="catalog.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">SQL一覧へ移動</a>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">&lt;/&gt;</span><span>SQL <strong>Desk</strong><small>S/4HANA TROUBLESHOOTING</small></span></a>
+    <div class="top-actions"><a id="download-all-small" class="button quiet mobile-export" href="all-queries.sql" download="s4hana-troubleshooting.sql" aria-label="SQL全件を保存">SQL集 ↓</a><span class="local-label">オフライン対応</span><button id="guide-open" class="button quiet">利用ガイド <span aria-hidden="true">↗</span></button></div>
+  </header>
+  <div class="workspace">
+    <aside class="sidebar" aria-label="カテゴリ">
+      <div class="side-heading">SQL LIBRARY</div>
+      <nav id="categories" aria-label="症状別カテゴリ"></nav>
+      <div class="sidebar-note"><span class="mini-label">対象環境</span><strong>HANA 2.0</strong><p>S/4HANA オンプレミス<br>Private Cloud</p><p>DBの参照権限を持つ<br>運用・Basis担当者向け</p></div>
+      <a class="side-download" id="download-all" href="all-queries.sql" download="s4hana-troubleshooting.sql"><span aria-hidden="true">↓</span> SQL集を保存 <small>.sql / 全件</small></a>
+    </aside>
+    <main id="main">
+      <section class="intro" aria-labelledby="page-title">
+        <div><p class="eyebrow">DATABASE OPERATIONS / REFERENCE</p><h1 id="page-title">障害の手がかりを、SQLから。</h1><p class="intro-copy">症状に合うクエリを選び、実行条件と結果の読み方を確認。</p></div>
+        <div class="catalog-count"><strong id="total-count">—</strong><span>READ-ONLY QUERIES</span></div>
+      </section>
+      <div class="scope-note"><span class="scope-tag">SELECT ONLY</span><p>HANA 2.0の監視ビューを参照するSQL集です。DBへの接続・実行は、お使いのSQLコンソールで行います。</p></div>
+      <section class="search-area" aria-label="SQLを探す">
+        <div class="search-wrap"><span aria-hidden="true" class="search-symbol">⌕</span><input id="search" type="search" autocomplete="off" aria-label="症状・ビュー名・SQLを検索" placeholder="症状・ビュー名・キーワードで検索" aria-keyshortcuts="/"><kbd>/</kbd></div>
+        <label class="load-label" for="load-filter">想定負荷<select id="load-filter"><option value="all">すべて</option><option value="低">低</option><option value="中">中</option><option value="高">高</option></select></label>
+      </section>
+      <div class="results-heading"><div><h2 id="category-title">すべてのSQL</h2><span id="result-count" role="status" aria-live="polite"></span></div><span class="reference-date">公式資料照合 <time datetime="2026-09-28">2026.09.28</time></span></div>
+      <div class="catalog-layout"><section id="query-list" class="query-list" aria-label="SQL一覧"></section><article id="detail" class="detail" aria-label="選択したSQLの詳細"></article></div>
+      <footer>SQL Desk <span>ローカルで閲覧・検索できます。公式資料のリンクを開く際はインターネット接続が必要です。</span></footer>
+    </main>
+  </div>
+  <dialog id="guide" aria-labelledby="guide-title"><div class="dialog-head"><span class="eyebrow">BEFORE YOU RUN</span><button id="guide-close" class="button quiet" aria-label="利用ガイドを閉じる">閉じる ×</button></div><h2 id="guide-title">社内環境で使う前に</h2>
+    <p>このアプリはSQLのリファレンスです。接続情報や認証情報を入力する必要はありません。</p>
+    <ol class="guide-steps"><li><strong>対象DBとリビジョンを確認</strong><p>S/4HANAオンプレミス／Private CloudのHANA 2.0が対象です。S/4HANA Cloud Public EditionやABAP SQL用ではありません。原則、対象S/4HANAのテナントDBへ接続します。SYSTEMDB指定のSQLは接続先を切り替えてください。ビュー・列はリビジョンにより異なります。</p></li><li><strong>参照権限を確認</strong><p>監視ビューの結果は権限により制限されます。0件でも「問題なし」とは限りません。全体を確認する権限は社内のDB管理者に確認してください。CATALOG READ等の権限は管理者が必要範囲を判断します。</p></li><li><strong>必要なSQLを1つずつ実行</strong><p>SQLをコピーし、社内で許可されたHANA SQLコンソールに貼り付けます。SELECTでも負荷は発生します。取得件数制限は処理量全体を制限しません。ピーク時の繰り返し実行を避け、件数や時間範囲を調整してください。</p></li><li><strong>結果を照合して判断</strong><p>履歴・累積値・瞬間値を区別し、DBの時刻と採取時刻を記録します。単一の値から原因を断定せず、ABAP側のログや平常時の値と突き合わせます。SQL本文・ユーザー名・ホスト名などの結果は社内の情報管理ルールに従って扱ってください。</p></li></ol>
+    <div class="guide-note"><strong>DBとアプリケーションの調査をつなぐ</strong><p>ダンプはST22、システムログはSM21、ワークプロセスはSM50/SM66、ジョブはSM37、ABAPのエンキューロックはSM12で確認します。HANAのDBロックとABAPロックは別の仕組みです。利用できるトランザクションと権限は環境によって異なります。</p></div>
+    <a class="source-link" target="_blank" rel="noopener noreferrer" href="https://help.sap.com/docs/SAP_HANA_PLATFORM/bed8c14f9f024763b0777aa72b5436f6/04861b1e6bc64909be67909e429dcd27.html">SAP公式：トラブルシューティングガイド ↗</a><p class="muted">SQLはSAP公式資料の列定義と照合しています。お客様のHANA実機での実行検証は行っていません。</p>
+    <a class="source-link" target="_blank" rel="noopener noreferrer" href="https://help.sap.com/docs/SAP_HANA_PLATFORM/52715f71adba4aaeb480d946c742d1f6/2a942546f16846d597177b3bfbd1df04.html">SAP公式：System Privileges ↗</a>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="noscript">SQLの検索・表示にはJavaScriptを有効にしてください。全件は同梱の <a href="all-queries.sql">all-queries.sql</a> でも参照できます。</p></noscript>
+</body>
+</html>
